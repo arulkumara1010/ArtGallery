@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .dropdown {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            height: 700px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            margin-left: -1rem;
+            background-color: #184E77;
+        }
+
+        .head {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            margin-left: -1rem;
+            margin-right: -1rem;
+            margin-top: -1rem;
+            background-color: #184E77;
+            color: #ffffff;
+            box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: relative;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content button,.material-icons {
+            margin-right: 7px; /* Adjust the spacing between the icon and text */
+            vertical-align: middle;/* Align the icon vertically with the text */
+            
+        }
+
+        .dropdown-content button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid #ffffff;
+            background-color: #184E77;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .prof {
+            width: 50px;
+            height: 50px;
+            background-color: inherit;
+            margin-top: 15px;
+            padding-left: 75%;
+        }
+
+        .title {
+            padding-left: 1rem;
+        }
+
+        .button {
+            width: 100%;
+            height: 65px;
+            background-color: #184E77;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+
+        .main {
+            overflow: hidden;
+            background-color:white; 
+        }
+        .content{
+            display: flex;
+            flex-direction: row;
+        }
+        .path{
+            display: flex;
+            flex-direction: row;
+            gap:10px;
+            min-width: 1000px;
+            font-size: larger;
+            box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
+            margin-top: 3rem;
+            border-radius: 10px;
+            background-color: transparent;
+            margin-left: 2rem;
+
+        }
+        .container_dash{
+            display: grid;
+            grid-template-rows: repeat(7,75px);
+            grid-template-columns: repeat(7,100px);
+            grid-gap: 50px;
+            margin-top: 3rem;
+            margin-left: 2rem;
+
+
+       }
+        .item-1{
+            grid-row: 1/3;
+            grid-column: 1/4;
+            background-color: #1A759F;
+            border-radius: 10px;
+        }
+        .item-2{
+            grid-row: span 2;
+            grid-column: span 3;
+            background-color: #D9ED92;
+            border-radius: 10px;
+        }
+        .item-3{
+            grid-row: 3/5;
+            grid-column: 1/4;
+            background-color: #76C893;
+            border-radius: 10px;
+        }
+        .item-4{
+            grid-row: 3/5;
+            grid-column: 4/7;
+            background-color: #34A0A4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="main">
+<header class="head">
+    <h1 class="title">Art Gallery | Admin</h1>
+    <img src="img/prof.png" alt="" class="prof">
+</header>
+<div class="content">
+<div class="dropdown">
+    <button class="button">
+        <i class="material-icons">dashboard</i> <span>Dash Board ></span>
+    </button>
+    <button class="button">
+        <i class="material-icons">art_track</i> <span>Exhibition</span>
+    </button>
+    <button onclick="toggleDropdown('artist')" class="button">
+        <i class="material-icons">person</i> <span>Artist</span>
+    </button>
+    <div id="artist" class="dropdown-content">
+        <button><i class="material-icons">person_add</i> <span>Add Artist</span></button>
+        <button><i class="material-icons">people</i> <span>Manage Artist</span></button>
+    </div>
+    <button onclick="toggleDropdown('art')" class="button">
+        <i class="material-icons">palette</i> <span>Art</span>
+    </button>
+    <div id="art" class="dropdown-content">
+        <button><i class="material-icons">add_to_photos</i> <span>Add Art Type</span></button>
+        <button><i class="material-icons">view_list</i> <span>Manage Type</span></button>
+    </div>
+    <button class="button">
+        <i class="material-icons">brush</i> <span>Painting</span>
+    </button>
+    <button class="button">
+        <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+    </button>
+</div>
+
+<div class = "dash">
+
+    <div class="path">
+        <i class="material-icons">home</i><span>home/</span><i class="material-icons">dashboard</i><span>Dash Board</span>
+    </div>
+    
+    <div class="container_dash">
+        <div class="item-1">1</div>
+        <div class="item-2">2</div>
+        <div class="item-3">3</div>
+        <div class="item-4">4</div>
+    </div>
+
+
+</div>
+</div>
+
+<script>
+    function toggleDropdown(argument) {
+        document.getElementById(argument).classList.toggle("show");
+    }
+</script>
+
+</body>
+</html>
