@@ -116,7 +116,9 @@
             .dash,
             .Painting ,
             .Exhibition,
-            .add_person{
+            .add_person,
+            .Purchases{
+
                 display: none;
             }
 
@@ -209,7 +211,7 @@
         flex-direction: column;
         margin-top: 3rem;
         margin-left: 2rem;
-        height: 400px;
+        height: 450px;
         width: 400px;   
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     }
@@ -250,9 +252,18 @@
                 <button class="button" onclick="showp()">
                     <i class="material-icons">brush</i> <span>Painting</span>
                 </button>
-                <button class="button">
+                <button class="button" onclick="showpur()">
                     <i class="material-icons">shopping_cart</i> <span>Purchases</span>
                 </button>
+                <button class="button" onclick="toggleDropdown('Employee')">
+                    <i class="material-icons">supervisor_account</i> <span>Employee</span>
+                </button>
+                <div id="Employee" class="dropdown-content">
+                    <button  class="button">
+                        <i class="material-icons">person_add</i> <span>Add Employee</span>
+                    </button>
+                    <button class="button"><i class="material-icons">people</i> <span>Manage Employee</span></button>
+                </div>
             </div>
 
             <div class="dash" id="d">
@@ -287,24 +298,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Art Expo</td>
-                            <td>2024-06-15</td>
-                            <td>2024-06-20</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Fashion Show</td>
-                            <td>2024-07-10</td>
-                            <td>2024-07-15</td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Tech Conference</td>
-                            <td>2024-08-05</td>
-                            <td>2024-08-07</td>
-                        </tr>
+              
+           
                     </tbody>
                 </table>
 
@@ -327,34 +322,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>The Starry Night</td>
-                            <td>$100,000</td>
-                            <td>Post-Impressionism</td>
-                            <td>Available</td>
-                            <td>1889</td>
-                            <td>1929</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Mona Lisa</td>
-                            <td>$780 million</td>
-                            <td>Portrait</td>
-                            <td>Unavailable</td>
-                            <td>1503</td>
-                            <td>1519</td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>The Persistence of Memory</td>
-                            <td>$300 million</td>
-                            <td>Surrealism</td>
-                            <td>Available</td>
-                            <td>1931</td>
-                            <td>1934</td>
-                        </tr>
-                    
+                  
                     </tbody>
                 </table>
             
@@ -375,6 +343,11 @@
                 <div>
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name">
+                </div>
+
+                <div>
+                    <label for="name">Style:</label>
+                    <input type="text" id="style" name="style">
                 </div>
             
                 <div>
@@ -398,7 +371,7 @@
                     <input type="submit" value="Submit">
                 </div>
 
-            </form>
+            </form> 
 
         </div>
         <div class="add_paintings">
@@ -434,6 +407,38 @@
 
         </div>
 
+        <div class = "Purchases" id="pur">
+            <div class="path">
+                <i class="material-icons">home</i><span>home/</span>
+                <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+            </div>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Painting ID</th>
+                        <th>Painting Name</th>
+                        <th>Price</th>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Transaction ID</th>
+                        <th>Purchased Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+
+
+            </table>
+
+
+        </div>
+
+
+
         </div>
 
         <script>
@@ -446,6 +451,7 @@
                 document.getElementById('e').style.display = 'none';
                 document.getElementById('p').style.display = 'none';
                 document.getElementById('ap').style.display = 'none';
+                document.getElementById('pur').style.display = 'none';
 
             }
             function showexhi(){
@@ -453,6 +459,7 @@
                 document.getElementById('e').style.display = 'block';
                 document.getElementById('p').style.display = 'none';
                 document.getElementById('ap').style.display = 'none';
+                document.getElementById('pur').style.display = 'none';
             }
 
             function showp(){
@@ -460,6 +467,7 @@
                 document.getElementById('p').style.display = 'block';
                 document.getElementById('e').style.display = 'none';
                 document.getElementById('ap').style.display = 'none';
+                document.getElementById('pur').style.display = 'none';
 
             }
             function showap(){
@@ -467,7 +475,19 @@
                 document.getElementById('ap').style.display = 'block';
                 document.getElementById('e').style.display = 'none';
                 document.getElementById('p').style.display = 'none';
+                document.getElementById('pur').style.display = 'none';
     }
+
+            function showpur(){
+                document.getElementById('d').style.display = 'none';
+                document.getElementById('ap').style.display = 'none';
+                document.getElementById('e').style.display = 'none';
+                document.getElementById('p').style.display = 'none';
+                document.getElementById('pur').style.display = 'block';
+            }
+
+
+
         </script>
 
     </body>
