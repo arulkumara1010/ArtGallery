@@ -1,475 +1,457 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADMIN</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .dropdown {
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+        height: 700px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        margin-left: -1rem;
+        background-color: #184e77;
+      }
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ADMIN</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <style>
-            .dropdown {
-                display: flex;
-                flex-direction: column;
-                min-width: 200px;
-                height: 700px;
-                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-                margin-left: -1rem;
-                background-color: #184E77;
-            }
+      .head {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        margin-top: -1rem;
+        background-color: #184e77;
+        color: #ffffff;
+        box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
+      }
 
-            .head {
-                display: flex;
-                flex-direction: row;
-                position: relative;
-                margin-left: -1rem;
-                margin-right: -1rem;
-                margin-top: -1rem;
-                background-color: #184E77;
-                color: #ffffff;
-                box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
-            }
+      .dropdown-content {
+        display: none;
+        position: relative;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-            .dropdown-content {
-                display: none;
-                position: relative;
-                background-color: #f1f1f1;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                z-index: 1;
-            }
+      .dropdown-content button,
+      .material-icons {
+        margin-right: 7px;
+        /* Adjust the spacing between the icon and text */
+        vertical-align: middle;
+        /* Align the icon vertically with the text */
+      }
 
-            .dropdown-content button,
-            .material-icons {
-                margin-right: 7px;
-                /* Adjust the spacing between the icon and text */
-                vertical-align: middle;
-                /* Align the icon vertically with the text */
+      .dropdown-content button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        text-align: left;
+        padding: 12px 16px;
+        border: 1px solid #ffffff;
+        background-color: #184e77;
+        color: white;
+        cursor: pointer;
+      }
 
-            }
+      .show {
+        display: block;
+      }
 
-            .dropdown-content button {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                width: 100%;
-                text-align: left;
-                padding: 12px 16px;
-                border: 1px solid #ffffff;
-                background-color: #184E77;
-                color: white;
-                cursor: pointer;
-            }
+      .prof {
+        width: 50px;
+        height: 50px;
+        background-color: inherit;
+        margin-top: 15px;
+        padding-left: 75%;
+      }
 
-           
+      .title {
+        padding-left: 1rem;
+      }
 
-            .show {
-                display: block;
-            }
+      .button {
+        width: 100%;
+        height: 65px;
+        background-color: #184e77;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 20px;
+      }
 
-            .prof {
-                width: 50px;
-                height: 50px;
-                background-color: inherit;
-                margin-top: 15px;
-                padding-left: 75%;
-            }
+      .main {
+        overflow: hidden;
+        background-color: white;
+      }
 
-            .title {
-                padding-left: 1rem;
-            }
+      .content {
+        display: flex;
+        flex-direction: row;
+      }
 
-            .button {
-                width: 100%;
-                height: 65px;
-                background-color: #184E77;
-                color: #ffffff;
-                border: 1px solid #ffffff;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                padding-left: 20px;
-            }
+      .path {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        min-width: 1000px;
+        font-size: larger;
+        box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
+        margin-top: 3rem;
+        border-radius: 10px;
+        background-color: transparent;
+        margin-left: 2rem;
+      }
+      .dash,
+      .Painting,
+      .Exhibition,
+      .add_person {
+        display: none;
+      }
 
-            .main {
-                overflow: hidden;
-                background-color: white;
-            }
+      .container_dash {
+        display: grid;
+        grid-template-rows: repeat(7, 75px);
+        grid-template-columns: repeat(7, 100px);
+        grid-gap: 50px;
+        margin-top: 3rem;
+        margin-left: 2rem;
+      }
 
-            .content {
-                display: flex;
-                flex-direction: row;
-            }
+      .item-1 {
+        grid-row: 1/3;
+        grid-column: 1/4;
+        background-color: #1a759f;
+        border-radius: 10px;
+      }
 
-            .path {
-                display: flex;
-                flex-direction: row;
-                gap: 10px;
-                min-width: 1000px;
-                font-size: larger;
-                box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
-                margin-top: 3rem;
-                border-radius: 10px;
-                background-color: transparent;
-                margin-left: 2rem;
+      .item-2 {
+        grid-row: span 2;
+        grid-column: span 3;
+        background-color: #d9ed92;
+        border-radius: 10px;
+      }
 
-            }
-            .dash,
-            .Painting ,
-            .Exhibition,
-            .add_person{
-                display: none;
-            }
+      .item-3 {
+        grid-row: 3/5;
+        grid-column: 1/4;
+        background-color: #76c893;
+        border-radius: 10px;
+      }
 
-            .container_dash {
-                display: grid;
-                grid-template-rows: repeat(7, 75px);
-                grid-template-columns: repeat(7, 100px);
-                grid-gap: 50px;
-                margin-top: 3rem;
-                margin-left: 2rem;
+      .item-4 {
+        grid-row: 3/5;
+        grid-column: 4/7;
+        background-color: #34a0a4;
+        border-radius: 10px;
+      }
 
+      table {
+        width: 100%;
 
-            }
+        margin-top: 3rem;
+        margin-left: 2rem;
+      }
 
-            .item-1 {
-                grid-row: 1/3;
-                grid-column: 1/4;
-                background-color: #1A759F;
-                border-radius: 10px;
-            }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
 
-            .item-2 {
-                grid-row: span 2;
-                grid-column: span 3;
-                background-color: #D9ED92;
-                border-radius: 10px;
-            }
+        border: 1px solid #000000;
+      }
 
-            .item-3 {
-                grid-row: 3/5;
-                grid-column: 1/4;
-                background-color: #76C893;
-                border-radius: 10px;
-            }
+      tr:hover {
+        background-color: #f2f2f2;
+      }
 
-            .item-4 {
-                grid-row: 3/5;
-                grid-column: 4/7;
-                background-color: #34A0A4;
-                border-radius: 10px;
-            }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
 
-            table {
-                width: 100%;
-        
-                margin-top: 3rem;
-                margin-left: 2rem;
-                
-            }
-
-            th,
-            td {
-                padding: 8px;
-                text-align: left;
-        
-                border:  1px solid #000000;;
-            }
-
-            tr:hover {
-                background-color: #f2f2f2;
-            }
-
-            th {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-    .form1,
-    .form2{
+      .form1,
+      .form2 {
         padding-left: 25px;
         padding-top: 1px;
         display: grid;
         grid-template-columns: 350px;
         grid-gap: 10px;
-    }
+      }
 
-    label {
+      label {
         text-align: right;
         padding-right: 10px;
-    }
+      }
 
-    input, textarea {
+      input,
+      textarea {
         width: 100%;
         box-sizing: border-box;
-    }
+      }
 
-    .artist_details,
-    .add_paintings{
+      .artist_details,
+      .add_paintings {
         display: flex;
         flex-direction: column;
         margin-top: 3rem;
         margin-left: 2rem;
         height: 400px;
-        width: 400px;   
+        width: 400px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    }
-    .whole_details{
+      }
+      .whole_details {
         display: flex;
         flex-direction: row;
-    }
-    .sub{
+      }
+      .sub {
         padding-top: 20px;
-    }
+      }
+    </style>
+  </head>
 
-        </style>
-    </head>
+  <body class="main">
+    <header class="head">
+      <h1 class="title">Art Gallery | Admin</h1>
+      <img src="img/prof.png" alt="" class="prof" />
+    </header>
+    <div class="content">
+      <div class="dropdown">
+        <button class="button" onclick="showdash()">
+          <i class="material-icons">dashboard</i> <span>Dash Board ></span>
+        </button>
+        <button class="button" onclick="showexhi()">
+          <i class="material-icons">art_track</i> <span>Exhibition</span>
+        </button>
+        <button onclick="toggleDropdown('artist')" class="button">
+          <i class="material-icons">person</i> <span>Artist</span>
+        </button>
+        <div id="artist" class="dropdown-content">
+          <button class="button" onclick="showap()">
+            <i class="material-icons">person_add</i> <span>Add Artist</span>
+          </button>
+          <button>
+            <i class="material-icons">people</i> <span>Manage Artist</span>
+          </button>
+        </div>
 
-    <body class="main">
-        <header class="head">
-            <h1 class="title">Art Gallery | Admin</h1>
-            <img src="img/prof.png" alt="" class="prof">
-        </header>
-        <div class="content">
-            <div class="dropdown">
-                <button class="button" onclick="showdash()">
-                    <i class="material-icons">dashboard</i> <span>Dash Board ></span>
-                </button>
-                <button class="button" onclick="showexhi()">
-                    <i class="material-icons">art_track</i> <span>Exhibition</span>
-                </button>
-                <button onclick="toggleDropdown('artist')" class="button">
-                    <i class="material-icons">person</i> <span>Artist</span>
-                </button>
-                <div id="artist" class="dropdown-content">
-                    <button  class="button" onclick="showap()">
-                        <i class="material-icons">person_add</i> <span>Add Artist</span>
-                    </button>
-                    <button><i class="material-icons">people</i> <span>Manage Artist</span></button>
-                </div>
+        <button class="button" onclick="showp()">
+          <i class="material-icons">brush</i> <span>Painting</span>
+        </button>
+        <button class="button">
+          <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+        </button>
+      </div>
 
-                <button class="button" onclick="showp()">
-                    <i class="material-icons">brush</i> <span>Painting</span>
-                </button>
-                <button class="button">
-                    <i class="material-icons">shopping_cart</i> <span>Purchases</span>
-                </button>
-            </div>
+      <div class="dash" id="d">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">dashboard</i><span>Dash Board</span>
+        </div>
 
-            <div class="dash" id="d">
+        <div class="container_dash">
+          <div class="item-1">1</div>
+          <div class="item-2">2</div>
+          <div class="item-3">3</div>
+          <div class="item-4">4</div>
+        </div>
+      </div>
 
-                <div class="path">
-                    <i class="material-icons">home</i><span>home/</span><i class="material-icons">dashboard</i><span>Dash
-                        Board</span>
-                </div>
-
-                <div class="container_dash">
-                    <div class="item-1">1</div>
-                    <div class="item-2">2</div>
-                    <div class="item-3">3</div>
-                    <div class="item-4">4</div>
-                </div>
-
-
-            </div>
-
-            <div class="Exhibition" id="e">
-                <div class="path">
-                    <i class="material-icons">home</i><span>home/</span><i
-                        class="material-icons">art_track</i><span>Exhibition</span>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Exhibition ID</th>
-                            <th>Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Art Expo</td>
-                            <td>2024-06-15</td>
-                            <td>2024-06-20</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Fashion Show</td>
-                            <td>2024-07-10</td>
-                            <td>2024-07-15</td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Tech Conference</td>
-                            <td>2024-08-05</td>
-                            <td>2024-08-07</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="Painting" id = "p">
-                <div class="path">
-                    <i class="material-icons">home</i><span>home/</span><i
-                        class="material-icons">brush</i><span>Painting</span>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Painting ID</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Genre</th>
-                            <th>Availability</th>
-                            <th>Year of Creation</th>
-                            <th>Received Year</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>The Starry Night</td>
-                            <td>$100,000</td>
-                            <td>Post-Impressionism</td>
-                            <td>Available</td>
-                            <td>1889</td>
-                            <td>1929</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Mona Lisa</td>
-                            <td>$780 million</td>
-                            <td>Portrait</td>
-                            <td>Unavailable</td>
-                            <td>1503</td>
-                            <td>1519</td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>The Persistence of Memory</td>
-                            <td>$300 million</td>
-                            <td>Surrealism</td>
-                            <td>Available</td>
-                            <td>1931</td>
-                            <td>1934</td>
-                        </tr>
-                    
-                    </tbody>
-                </table>
-            
-
-            </div>
-        <div class="add_person" id ="ap">
-            <div class="path">
-                <i class="material-icons">home</i><span>home/</span><i
-                    class="material-icons">person</i><span>Artist/</span>
-                    <i class="material-icons">person_add</i><span>Add Artist</span>
-
-            </div>
+      <div class="Exhibition" id="e">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">art_track</i><span>Exhibition</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Exhibition ID</th>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>Art Expo</td>
+              <td>2024-06-15</td>
+              <td>2024-06-20</td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>Fashion Show</td>
+              <td>2024-07-10</td>
+              <td>2024-07-15</td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>Tech Conference</td>
+              <td>2024-08-05</td>
+              <td>2024-08-07</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="Painting" id="p">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">brush</i><span>Painting</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Painting ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Genre</th>
+              <th>Availability</th>
+              <th>Year of Creation</th>
+              <th>Received Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>The Starry Night</td>
+              <td>$100,000</td>
+              <td>Post-Impressionism</td>
+              <td>Available</td>
+              <td>1889</td>
+              <td>1929</td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>Mona Lisa</td>
+              <td>$780 million</td>
+              <td>Portrait</td>
+              <td>Unavailable</td>
+              <td>1503</td>
+              <td>1519</td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>The Persistence of Memory</td>
+              <td>$300 million</td>
+              <td>Surrealism</td>
+              <td>Available</td>
+              <td>1931</td>
+              <td>1934</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="add_person" id="ap">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">person</i><span>Artist/</span>
+          <i class="material-icons">person_add</i><span>Add Artist</span>
+        </div>
         <div class="whole_details">
-        <div class="artist_details">
-            
-            <form class="form1">
-                <h3>Artist Details</h3>
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name">
-                </div>
-            
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-                <div>
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
-                <div>
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="dob">
-                </div>
-                
-                <div>
-                    <label for="address">Address:</label>
-                    <textarea id="address" name="address"></textarea>
-                </div>
-                <div>
-                    <input type="submit" value="Submit">
-                </div>
+          <div class="artist_details">
+            <form class="form1" action="/form" method="POST">
+              <h3>Artist Details</h3>
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" />
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" />
+              </div>
+              <div>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" />
+              </div>
+              <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" />
+              </div>
 
+              <div>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address"></textarea>
+              </div>
+              <div>
+                <input type="submit" value="Submit" />
+              </div>
             </form>
-
-        </div>
-        <div class="add_paintings">
-        
+          </div>
+          <div class="add_paintings">
             <form class="form2">
-                <h3>Painting Details</h3>
-                <div>
+              <h3>Painting Details</h3>
+              <div>
                 <label for="painting_name">Painting Name:</label>
-                <input type="text" id="painting_name" name="painting_name">
-                </div>
-                <div>
+                <input type="text" id="painting_name" name="painting_name" />
+              </div>
+              <div>
                 <label for="price">Price:</label>
-                <input type="number" id="price" name="price" step="0.01">
-                </div>
-                <div>
+                <input type="number" id="price" name="price" step="0.01" />
+              </div>
+              <div>
                 <label for="year_of_creation">Year of Creation:</label>
-                <input type="number" id="year_of_creation" name="year_of_creation">
-                </div>
-                <div>
+                <input
+                  type="number"
+                  id="year_of_creation"
+                  name="year_of_creation"
+                />
+              </div>
+              <div>
                 <label for="received_year">Received Year:</label>
-                <input type="number" id="received_year" name="received_year">
-                </div>
-                <div>
+                <input type="number" id="received_year" name="received_year" />
+              </div>
+              <div>
                 <label for="genre">Genre:</label>
-                <input type="text" id="genre" name="genre">
-                </div>
-                <div class="sub">
-                <input type="submit" value="Submit">
-                </div>
+                <input type="text" id="genre" name="genre" />
+              </div>
+              <div class="sub">
+                <input type="submit" value="Submit" />
+              </div>
             </form>
+          </div>
         </div>
-        </div>
+      </div>
+    </div>
 
-        </div>
+    <script>
+      function toggleDropdown(argument) {
+        document.getElementById(argument).classList.toggle("show");
+      }
 
-        </div>
+      function showdash() {
+        document.getElementById("d").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+      }
+      function showexhi() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("e").style.display = "block";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+      }
 
-        <script>
-            function toggleDropdown(argument) {
-                document.getElementById(argument).classList.toggle("show");
-            }
-
-            function showdash(){
-                document.getElementById('d').style.display = 'block';
-                document.getElementById('e').style.display = 'none';
-                document.getElementById('p').style.display = 'none';
-                document.getElementById('ap').style.display = 'none';
-
-            }
-            function showexhi(){
-                document.getElementById('d').style.display = 'none';
-                document.getElementById('e').style.display = 'block';
-                document.getElementById('p').style.display = 'none';
-                document.getElementById('ap').style.display = 'none';
-            }
-
-            function showp(){
-                document.getElementById('d').style.display = 'none';
-                document.getElementById('p').style.display = 'block';
-                document.getElementById('e').style.display = 'none';
-                document.getElementById('ap').style.display = 'none';
-
-            }
-            function showap(){
-                document.getElementById('d').style.display = 'none';
-                document.getElementById('ap').style.display = 'block';
-                document.getElementById('e').style.display = 'none';
-                document.getElementById('p').style.display = 'none';
-    }
-        </script>
-
-    </body>
-
-    </html>
+      function showp() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("p").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+      }
+      function showap() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
