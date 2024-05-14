@@ -71,6 +71,27 @@ app.get('/data', async (req, res) => {
     }
 });
 
+app.delete('/artist/:id', async (req, res) => {
+    const artistId = req.params.id;
+
+    try {
+        const [existingRows] = await pool.query('SELECT * FROM art.person WHERE id = ?', [artistId]);
+        
+        if (existingRows.length === 0) {
+            return res.status(404).send('Artist not found');
+        }
+        await pool.query('DELETE FROM art.phonenumber WHERE id = ?', [artistId]);
+        await pool.query('DELETE FROM art.artist WHERE artistId = ?', [artistId]);
+        await pool.query('DELETE FROM art.person WHERE id = ?', [artistId]);
+
+        res.status(200).send('Artist deleted successfully');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('An error occurred while processing your request.');
+    }
+});
+
+
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
