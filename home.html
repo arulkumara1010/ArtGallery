@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,100&family=Poppins:ital,wght@1,100&family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet">
+        <title>Home</title>
+        <link rel="icon" href="img/Home_icon.png">
+        <style>
+            body{
+             background-color: #184e77;   
+             background-size: cover;
+             overflow-y: hidden;
+             overflow-x: hidden;
+             width:100%;
+
+        
+            }
+            .head{
+                
+                display: flex;
+                flex-direction: row;
+                background-color: white;
+                backdrop-filter: blur(20px);
+                box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                margin-left: -1rem;
+                margin-top:-1rem;
+                margin-bottom: 0px;
+                padding-top:25px;
+                padding-bottom:15px ;
+                padding-left: 20px;
+                width:100%;
+                gap : 10px;                         
+            }
+
+            
+            
+            a{
+                text-decoration:none;
+                color:#184e77;
+            }
+            a:hover{
+                color:white;
+            }
+           
+            
+            button:hover{
+                cursor:pointer;
+                background-color: grey;
+                color:white;
+            }
+           .home,.abt,.cont,.log{
+            border-radius: 30px;
+            background-color: rgb(255, 245, 245);
+            box-shadow: 0 0 10px rgba(0,0,0,1.5);
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            padding-left: 35px;
+            padding-right: 35px;
+            padding-top:15px;
+            padding-bottom: 15px;
+            font-size: 16px;
+            border: none;
+           }
+           
+        
+            
+            .text{
+                text-align: center;
+                margin-top: 175px;
+                width:1100px;
+                margin-left: 160px;
+                line-height: 80px;
+             
+            }
+            .extra{
+                color:white;
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bolder;
+                font-size: 55px;  
+            }
+            .tourist{
+                color:white;
+                font-family: fantasy;
+                font-size: 38px;  
+            }
+            .gstart{
+                border-radius: 30px;
+                cursor: pointer;
+                color:black;
+                background-color: white;
+                border:none;
+                padding-left: 60px;
+                padding-right: 60px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                font-weight: bold;
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 20px;
+                margin-top: 80px;
+                margin-left: 570px;
+            }
+            .gstart:hover{
+                background-color: rgb(78, 72, 72);
+                color:black;
+            }
+            .gst:hover{
+                color:black;
+            }
+
+            .buttons{
+                margin-top: 0%;
+                display: flex;
+                flex-flow: row;
+
+                margin-left: 800px;
+                gap: 50px;
+                
+            }
+            .nav__logo{
+                display: flex;
+                width: 50px;
+                height: 50px;
+                
+            }
+            
+            
+            .m{
+                margin-left: 70px;
+            }
+
+            .h1{
+                display: flex;
+                flex-direction: row;
+                
+            }
+            .ti{
+                display: flex;
+                color: #184e77;
+                margin-left: 15px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                font-size: large;
+            }
+         
+        </style>
+    </head>
+    <body>
+       
+      
+        <div class="head">
+            <div class="h1">
+            <img class="nav__logo" src="img/logo-removebg-preview.png" alt="" srcset="">
+            <p class="ti">ART GALLERY</p>
+            </div>
+            <div class="buttons">
+                <button class="home"><a hre="front_page.html">HOME</a></button>
+                <button class="abt"> <a href="about.html">ABOUT</a></button>
+                <button class="cont"><a href="contact.html">CONTACT</a></button>
+            </div>
+        </div>
+     
+        <div class="m">
+        <p class="text">
+            <span class="extra">" ART is not what you see, but what you make others see... "</span> <span class="tourist">  </span>
+        </p>
+        <button class="gstart">
+            <a class="gst" href="login.html">
+                GET STARTED
+            </a>
+        </button>
+    </div>
+    </body>
+</html>
