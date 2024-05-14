@@ -88,6 +88,8 @@
         align-items: center;
         justify-content: flex-start;
         padding-left: 20px;
+        cursor: pointer;
+        position: relative;
       }
 
       .main {
@@ -112,11 +114,15 @@
         background-color: transparent;
         margin-left: 2rem;
       }
-      .dash,
+
       .Painting,
       .Exhibition,
       .add_person,
-      .Purchases {
+      .Purchases,
+      .Manage_artist,
+      .add_emp,
+      .manage_emp,
+      .add_ex_p {
         display: none;
       }
 
@@ -186,7 +192,15 @@
         padding-left: 25px;
         padding-top: 1px;
         display: grid;
-        grid-template-columns: 350px;
+        grid-template-columns: 550px;
+        grid-gap: 10px;
+      }
+
+      .form3 {
+        padding-left: 25px;
+        padding-top: 1px;
+        display: grid;
+        grid-template-columns: 700px;
         grid-gap: 10px;
       }
 
@@ -196,7 +210,8 @@
       }
 
       input,
-      textarea {
+      textarea,
+      select {
         width: 100%;
         box-sizing: border-box;
       }
@@ -208,15 +223,36 @@
         margin-top: 3rem;
         margin-left: 2rem;
         height: 450px;
-        width: 400px;
+        width: 600px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
+
       .whole_details {
         display: flex;
         flex-direction: row;
       }
+
       .sub {
         padding-top: 20px;
+      }
+
+      .emp_details,
+      .get_p {
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 475px;
+        width: 750px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      #artistSymbol,
+      #artistSymbol1,
+      #artistSymbol2,
+      #artistSymbol3 {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+        margin: 10px;
       }
     </style>
   </head>
@@ -229,41 +265,68 @@
     <div class="content">
       <div class="dropdown">
         <button class="button" onclick="showdash()">
-          <i class="material-icons">dashboard</i> <span>Dash Board ></span>
+          <i class="material-icons">dashboard</i> <span>Dash Board </span>
+          <span id="artistSymbol">></span>
         </button>
         <button class="button" onclick="showexhi()">
           <i class="material-icons">art_track</i> <span>Exhibition</span>
+          <span id="artistSymbol">></span>
         </button>
-        <button onclick="toggleDropdown('artist')" class="button">
+        <button
+          onclick="toggleDropdown('artist','artistSymbol1')"
+          class="button"
+        >
           <i class="material-icons">person</i> <span>Artist</span>
+          <span id="artistSymbol1">></span>
         </button>
         <div id="artist" class="dropdown-content">
           <button class="button" onclick="showap()">
             <i class="material-icons">person_add</i> <span>Add Artist</span>
           </button>
-          <button>
+          <button class="button" onclick="showma()">
             <i class="material-icons">people</i> <span>Manage Artist</span>
           </button>
         </div>
 
-        <button class="button" onclick="showp()">
-          <i class="material-icons">brush</i> <span>Painting</span>
+        <button
+          class="button"
+          onclick="toggleDropdown('Painting','artistSymbol3')"
+        >
+          <i class="material-icons">brush</i> <span>Painting</span
+          ><span id="artistSymbol3">></span>
         </button>
+        <div id="Painting" class="dropdown-content">
+          <button class="button" onclick="showapt()">
+            <i class="material-icons">add_photo_alternate</i>
+            <span>Add Painting</span>
+          </button>
+          <button class="button" onclick="showp()">
+            <i class="material-icons">art_track</i> <span>Manage Painting</span>
+          </button>
+        </div>
         <button class="button" onclick="showpur()">
-          <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+          <i class="material-icons">shopping_cart</i> <span>Purchases</span
+          ><span id="artistSymbol">></span>
         </button>
-        <button class="button" onclick="toggleDropdown('Employee')">
-          <i class="material-icons">supervisor_account</i> <span>Employee</span>
+        <button
+          class="button"
+          onclick="toggleDropdown('Employee','artistSymbol2')"
+        >
+          <i class="material-icons">supervisor_account</i> <span>Employee</span
+          ><span id="artistSymbol2">></span>
         </button>
         <div id="Employee" class="dropdown-content">
-          <button class="button">
+          <button class="button" onclick="showae()">
             <i class="material-icons">person_add</i> <span>Add Employee</span>
           </button>
-          <button class="button">
+          <button class="button" onclick="showme()">
             <i class="material-icons">people</i> <span>Manage Employee</span>
           </button>
         </div>
       </div>
+
+      <!-- DASh -->
+
       <div class="dash" id="d">
         <div class="path">
           <i class="material-icons">home</i><span>home/</span
@@ -295,11 +358,16 @@
           <tbody></tbody>
         </table>
       </div>
+
+      <!-- PAINTING -->
+
       <div class="Painting" id="p">
         <div class="path">
           <i class="material-icons">home</i><span>home/</span
-          ><i class="material-icons">brush</i><span>Painting</span>
+          ><i class="material-icons">brush</i><span>Painting/</span>
+          <i class="material-icons">art_track</i><span> Manage Painting</span>
         </div>
+
         <table>
           <thead>
             <tr>
@@ -310,11 +378,15 @@
               <th>Availability</th>
               <th>Year of Creation</th>
               <th>Received Year</th>
+              <th>Manage</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
+
+      <!-- ADD ARTIST -->
+
       <div class="add_person" id="ap">
         <div class="path">
           <i class="material-icons">home</i><span>home/</span
@@ -357,6 +429,9 @@
               </div>
             </form>
           </div>
+
+          <!-- ADD PAINTINGS -->
+
           <div class="add_paintings">
             <form class="form2">
               <h3>Painting Details</h3>
@@ -392,6 +467,8 @@
         </div>
       </div>
 
+      <!-- PURCHASES -->
+
       <div class="Purchases" id="pur">
         <div class="path">
           <i class="material-icons">home</i><span>home/</span>
@@ -413,11 +490,163 @@
           <tbody></tbody>
         </table>
       </div>
+
+      <!-- MANAGE ARTIST -->
+
+      <div class="Manage_artist" id="ma">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">person</i><span>Artist/</span>
+          <i class="material-icons">people</i><span>Manage Artist</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Artist ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Manage</th>
+            </tr>
+          </thead>
+          <tbody id="artistTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- ADD EMPLOYEE -->
+
+      <div class="add_emp" id="ae">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">supervisor_account</i
+          ><span>Employee/</span> <i class="material-icons">person_add</i
+          ><span>Add Employee</span>
+        </div>
+        <div class="emp_details">
+          <form class="form3">
+            <h3>Employee Details</h3>
+            <div>
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" />
+            </div>
+            <div>
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" />
+            </div>
+            <div>
+              <label for="phone">Phone:</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+            <div>
+              <label for="position">Position:</label><br />
+              <select id="position">
+                <option value="employee">Normal Employee</option>
+                <option value="manager">Manager</option>
+              </select>
+            </div>
+            <div>
+              <label for="dob">Date of Birth:</label>
+              <input type="date" id="dob" name="dob" />
+            </div>
+
+            <div>
+              <label for="address">Address:</label>
+              <textarea id="address" name="address"></textarea>
+            </div>
+
+            <div>
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- MANAGE EMPLOYEE -->
+
+      <div class="manage_emp" id="me">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">supervisor_account</i
+          ><span>Employee/</span> <i class="material-icons">people</i
+          ><span>Manage Employee</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Manage</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- ADD PAINTING FOR EXSISTING ARTIST -->
+
+      <div class="add_ex_p" id="apt">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">brush</i><span>Painting/</span>
+          <i class="material-icons">add_photo_alternate</i
+          ><span> Add Painting</span>
+        </div>
+
+        <div class="get_p">
+          <form class="form3">
+            <h3>Painting Details</h3>
+            <div>
+              <label for="artist_id">Artist ID:</label>
+              <input type="text" id="artist_id" name="artist-id" />
+            </div>
+            <div>
+              <label for="painting_name">Painting Name:</label>
+              <input type="text" id="painting_name" name="painting_name" />
+            </div>
+            <div>
+              <label for="price">Price:</label>
+              <input type="number" id="price" name="price" step="0.01" />
+            </div>
+            <div>
+              <label for="year_of_creation">Year of Creation:</label>
+              <input
+                type="number"
+                id="year_of_creation"
+                name="year_of_creation"
+              />
+            </div>
+            <div>
+              <label for="received_year">Received Year:</label>
+              <input type="number" id="received_year" name="received_year" />
+            </div>
+            <div>
+              <label for="genre">Genre:</label>
+              <input type="text" id="genre" name="genre" />
+            </div>
+            <div class="sub">
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script>
-      function toggleDropdown(argument) {
-        document.getElementById(argument).classList.toggle("show");
+      function toggleDropdown(dropdownId, symbolId) {
+        var dropdown = document.getElementById(dropdownId);
+        var symbol = document.getElementById(symbolId);
+
+        if (dropdown.style.display === "block") {
+          dropdown.style.display = "none";
+          symbol.textContent = ">";
+        } else {
+          dropdown.style.display = "block";
+          symbol.textContent = "∨";
+        }
       }
 
       function showdash() {
@@ -426,6 +655,10 @@
         document.getElementById("p").style.display = "none";
         document.getElementById("ap").style.display = "none";
         document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("apt").style.display = "none";
       }
       function showexhi() {
         document.getElementById("d").style.display = "none";
@@ -433,6 +666,10 @@
         document.getElementById("p").style.display = "none";
         document.getElementById("ap").style.display = "none";
         document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
       }
 
       function showp() {
@@ -441,6 +678,10 @@
         document.getElementById("e").style.display = "none";
         document.getElementById("ap").style.display = "none";
         document.getElementById("pur").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("apt").style.display = "none";
       }
       function showap() {
         document.getElementById("d").style.display = "none";
@@ -448,6 +689,10 @@
         document.getElementById("e").style.display = "none";
         document.getElementById("p").style.display = "none";
         document.getElementById("pur").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
       }
 
       function showpur() {
@@ -456,6 +701,104 @@
         document.getElementById("e").style.display = "none";
         document.getElementById("p").style.display = "none";
         document.getElementById("pur").style.display = "block";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showae() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "block";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showme() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "block";
+        document.getElementById("apt").style.display = "none";
+      }
+
+      function showapt() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "block";
+      }
+      function showma() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "block";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+        fetch("/data") // Replace '/api/artists' with your actual backend endpoint
+          .then((response) => response.json())
+          .then((data) => {
+            // Populate the table with artist details
+            const artistTableBody = document.getElementById("artistTableBody");
+            artistTableBody.innerHTML = ""; // Clear existing data
+            data.forEach((artist) => {
+              const row = `<tr>
+                      <td>${artist.id}</td>
+                      <td>${artist.name}</td>
+                      <td>${artist.email}</td>
+                      <td>${artist.phone}</td>
+                      <td>${artist.address}</td>
+                      <td>
+                        <button onclick="editArtist('${artist.artistId}')">Edit</button>
+                        <button onclick="deleteArtist('${artist.artistId}')" >Delete</button>
+                      </td>
+                    </tr>`;
+              artistTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
+      }
+      function editArtist(artistId) {
+        // Implement edit functionality here
+        console.log("Editing artist with ID:", artistId);
+      }
+
+      function deleteArtist(artistId) {
+        fetch(`/artist/${artistId}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              // If deletion is successful, remove the artist row from the UI
+              const row = document.getElementById(`artist-${artistId}`);
+              if (row) {
+                row.remove();
+              }
+              console.log(`Artist with ID ${artistId} deleted successfully.`);
+              showma();
+              
+            } else {
+              console.error(`Failed to delete artist with ID ${artistId}`);
+            }
+          })
+          .catch((error) => console.error("Error deleting artist:", error));
       }
     </script>
   </body>
