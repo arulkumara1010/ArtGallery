@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 async function generateId(name, email, phone, dob, address, style) {
     try {
-        const [rows, fields] = await pool.query('SELECT id FROM art.person WHERE name = ? AND email = ? AND dob = ? AND address = ?', [name, email, dob, address]);
+        const [rows, fields] = await pool.query('SELECT art.person.id FROM art.artist INNER JOIN art.person ON art.artist.artistId = art.person.id INNER JOIN art.phonenumber ON art.phonenumber.id = art.person.id WHERE name = ? AND email = ? AND dob = ? AND address = ?', [name, email, dob, address]);
         
         if (rows.length > 0) {
             return -1;
