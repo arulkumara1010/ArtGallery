@@ -377,9 +377,10 @@
               <th>Name</th>
               <th>Start Date</th>
               <th>End Date</th>
+              <th>View Paintings</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id="exhibit"></tbody>
         </table>
       </div>
 
@@ -443,29 +444,29 @@
                 <textarea id="address" name="address"></textarea>
               </div>
 
-            <div>
-              <label for="name">Style:</label>
-              <select id="name">
-                <option value="realism">Realism</option>
-                <option value="impressionism">Impressionism</option>
-                <option value="expressionism">Expressionism</option>
-                <option value="abstract">Abstract</option>
-                <option value="pop-art">Pop Art</option>
-                <option value="minimalism">Minimalism</option>
-                <option value="photorealism">Photorealism</option>
-                <option value="baroque">Baroque</option>
-                <option value="renaissance">Renaissance</option>
-                <option value="gothic">Gothic</option>
-                <option value="neoclassicism">Neoclassicism</option>
-                <option value="romanticism">Romanticism</option>
-                <option value="indian-miniature">Indian Miniature Painting</option>
-                <option value="pointillism">Pointillism</option>
-                <option value="naive-art">Naive Art</option>
-                <option value="futurism">Futurism</option>
-            </select>
-              
-            </div>
-
+              <div>
+                <label for="style">Style:</label>
+                <select name = "style" id="style">
+                  <option value="realism">Realism</option>
+                  <option value="impressionism">Impressionism</option>
+                  <option value="expressionism">Expressionism</option>
+                  <option value="abstract">Abstract</option>
+                  <option value="pop-art">Pop Art</option>
+                  <option value="minimalism">Minimalism</option>
+                  <option value="photorealism">Photorealism</option>
+                  <option value="baroque">Baroque</option>
+                  <option value="renaissance">Renaissance</option>
+                  <option value="gothic">Gothic</option>
+                  <option value="neoclassicism">Neoclassicism</option>
+                  <option value="romanticism">Romanticism</option>
+                  <option value="indian-miniature">
+                    Indian Miniature Painting
+                  </option>
+                  <option value="pointillism">Pointillism</option>
+                  <option value="naive-art">Naive Art</option>
+                  <option value="futurism">Futurism</option>
+                </select>
+              </div>
               <div>
                 <input type="submit" value="Submit" />
               </div>
@@ -636,7 +637,18 @@
             </div>
             <div>
               <label for="genre">Genre:</label>
-              <input type="text" id="genre" name="genre" />
+              <select name= "genre" id="genre">
+                <option value="landscape">Landscape</option>
+                <option value="portrait">Portrait</option>
+                <option value="still-life">Still Life</option>
+                <option value="historical">Historical</option>
+                <option value="religious">Religious</option>
+                <option value="abstract">Abstract</option>
+                <option value="cityscape">Cityscape</option>
+                <option value="seascape">Seascape</option>
+                <option value="mythological">Mythological</option>
+                <option value="animal">Animal</option>
+              </select>
             </div>
             <div class="sub">
               <input type="submit" value="Submit" />
@@ -706,6 +718,33 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        fetch("/exhi")
+          .then((response) => response.json())
+          .then((data) => {
+            const exhibitionTableBody = document.getElementById("exhibit");
+            exhibitionTableBody.innerHTML = "";
+
+            data.forEach((exhibition) => {
+              const formattedStartDate = new Date(
+                exhibition.startDate
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+              const formattedEndDate = new Date(
+                exhibition.endDate
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+
+              const row = `<tr>
+                      <td>${exhibition.exhibitionID}</td>
+                      <td>${exhibition.name}</td>
+                      <td>${formattedStartDate}</td>
+                      <td>${formattedEndDate}</td>
+                      <td><button onclick="viewPaintings('${exhibition.exhibitionID}')" >View Paintings</button></td>
+                    </tr>`;
+              exhibitionTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching exhibition details:", error)
+          );
       }
 
       function showp() {
@@ -789,6 +828,20 @@
           .catch((error) =>
             console.error("Error fetching artist details:", error)
           );
+        fetch("/exhibit")
+          .then((response) => response.json())
+          .then((data) => {
+            const selectElement = document.getElementById("exhibition_id");
+            data.forEach((exhibition) => {
+              const option = document.createElement("option");
+              option.value = exhibition.exhibitionID;
+              option.textContent = exhibition.exhibitionID;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
       }
       function showma() {
         document.getElementById("d").style.display = "none";
@@ -828,6 +881,7 @@
         // Implement edit functionality here
         console.log("Editing artist with ID:", artistId);
       }
+      function viewPaintings(exhibitionID) {}
       function deleteArtist(artistId) {
         fetch(`/artist/${artistId}`, {
           method: "DELETE",
