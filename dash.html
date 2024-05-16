@@ -405,7 +405,7 @@
               <th>Received Year</th>
             </tr>
           </thead>
-          <tbody id = "paint"></tbody>
+          <tbody id="paint"></tbody>
         </table>
       </div>
 
@@ -546,7 +546,7 @@
               <label for="phone">Phone:</label>
               <input type="tel" id="phone" name="phone" />
             </div>
-            
+
             <div>
               <label for="dob">Date of Birth:</label>
               <input type="date" id="dob" name="dob" />
@@ -558,7 +558,7 @@
             </div>
             <div>
               <label for="position">Position:</label><br />
-              <select name = "position" id="position">
+              <select name="position" id="position">
                 <option value="Employee">Employee</option>
                 <option value="Manager">Manager</option>
                 <option value="Art Handler">Art Handler</option>
@@ -594,10 +594,13 @@
               <th>Email</th>
               <th>Phone</th>
               <th>Address</th>
+              <th>Position</th>
+              <th>Joining Date</th>
+              <th>Manager ID</th>
               <th>Manage</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id = "empdata"></tbody>
         </table>
       </div>
 
@@ -832,6 +835,30 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "block";
         document.getElementById("apt").style.display = "none";
+        fetch("/empdata")
+          .then((response) => response.json())
+          .then((data) => {
+            const artistTableBody = document.getElementById("empdata");
+            artistTableBody.innerHTML = "";
+            data.forEach((employee) => {
+              const row = `<tr>
+                      <td>${employee.employeeID}</td>
+                      <td>${employee.name}</td>
+                      <td>${employee.email}</td>
+                      <td>${employee.phone}</td>
+                      <td>${employee.address}</td>
+                      <td>${employee.position}</td>
+                      <td>${employee.joinDate}</td>
+                      <td>${employee.managerID}</td>
+                      <td>
+                        <button onclick="deleteEmployee('${employee.employeeID}')" >Delete</button>
+                    </tr>`;
+              artistTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
       }
 
       function showapt() {
@@ -928,6 +955,25 @@
               showma();
             } else {
               console.error(`Failed to delete artist with ID ${artistId}`);
+            }
+          })
+          .catch((error) => console.error("Error deleting artist:", error));
+      }
+      function deleteEmployee(id) {
+        fetch(`/employee/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              // If deletion is successful, remove the artist row from the UI
+              const row = document.getElementById(`employee-${id}`);
+              if (row) {
+                row.remove();
+              }
+              console.log(`Employee with ID ${id} deleted successfully.`);
+              showme();
+            } else {
+              console.error(`Failed to delete employee with ID ${id}`);
             }
           })
           .catch((error) => console.error("Error deleting artist:", error));
