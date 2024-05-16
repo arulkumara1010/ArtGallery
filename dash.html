@@ -458,35 +458,6 @@
         </div>
 
         <!-- ADD PAINTINGS -->
-
-        <div class="add_paintings">
-          <form class="form2">
-            <h3>Painting Details</h3>
-            <div>
-              <label for="painting_name">Painting Name:</label>
-              <input type="text" id="painting_name" name="painting_name" />
-            </div>
-            <div>
-              <label for="price">Price:</label>
-              <input type="number" id="price" name="price" step="0.01" />
-            </div>
-            <div>
-              <label for="year_of_creation">Year of Creation:</label>
-              <input type="number" id="year_of_creation" name="year_of_creation" />
-            </div>
-            <div>
-              <label for="received_year">Received Year:</label>
-              <input type="number" id="received_year" name="received_year" />
-            </div>
-            <div>
-              <label for="genre">Genre:</label>
-              <input type="text" id="genre" name="genre" />
-            </div>
-            <div class="sub">
-              <input type="submit" value="Submit" />
-            </div>
-          </form>
-        </div>
       </div>
     </div>
 
@@ -640,7 +611,18 @@
           </div>
           <div>
             <label for="genre">Genre:</label>
-            <input type="text" id="genre" name="genre" />
+            <select id="painting-genres">
+              <option value="landscape">Landscape</option>
+              <option value="portrait">Portrait</option>
+              <option value="still-life">Still Life</option>
+              <option value="historical">Historical</option>
+              <option value="religious">Religious</option>
+              <option value="abstract">Abstract</option>
+              <option value="cityscape">Cityscape</option>
+              <option value="seascape">Seascape</option>
+              <option value="mythological">Mythological</option>
+              <option value="animal">Animal</option>
+          </select>
           </div>
           <div class="sub">
             <input type="submit" value="Submit" />
