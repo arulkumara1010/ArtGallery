@@ -1,435 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADMIN</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .dropdown {
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+        height: 700px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        margin-left: -1rem;
+        background-color: #184e77;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ADMIN</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <style>
-    .dropdown {
-      display: flex;
-      flex-direction: column;
-      min-width: 200px;
-      height: 665px;
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-      margin-left: -1rem;
-      background-color: #184e77;
-      
-      
-    }
+      .head {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        margin-top: -1rem;
+        background-color: #184e77;
+        color: #ffffff;
+        box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
+      }
 
-    .head {
-      display: flex;
-      flex-direction: row;
-      position: relative;
-      margin-left: -1rem;
-      margin-right: -1rem;
-      margin-top: -1rem;
-      background-color: #184e77;
-      color: #ffffff;
-      box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
-    }
+      .dropdown-content {
+        display: none;
+        position: relative;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-    .dropdown-content {
-      display: none;
-      position: relative;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 2;
-     
-    }
+      .dropdown-content button,
+      .material-icons {
+        margin-right: 7px;
+        /* Adjust the spacing between the icon and text */
+        vertical-align: middle;
+        /* Align the icon vertically with the text */
+      }
 
-    .dropdown-content button,
-    .material-icons {
-      margin-right: 7px;
-      /* Adjust the spacing between the icon and text */
-      vertical-align: middle;
-      /* Align the icon vertically with the text */
-    }
+      .dropdown-content button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        text-align: left;
+        padding: 12px 16px;
+        border: 1px solid #ffffff;
+        background-color: #184e77;
+        color: white;
+        cursor: pointer;
+      }
 
-    .dropdown-content button {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      width: 100%;
-      text-align: left;
-      padding: 12px 16px;
-      border: 1px solid #ffffff;
-      background-color: #184e77;
-      color: white;
-      cursor: pointer;
-      position: relative;
-    }
+      .show {
+        display: block;
+      }
 
-    .show {
-      display: block;
-    }
+      .prof {
+        width: 50px;
+        height: 50px;
+        background-color: inherit;
+        margin-top: 15px;
+        padding-left: 75%;
+      }
 
-    .prof {
-      width: 50px;
-      height: 50px;
-      background-color: inherit;
-      margin-top: 15px;
-      padding-left: 75%;
-    }
+      .title {
+        padding-left: 1rem;
+      }
 
-    .title {
-      padding-left: 1rem;
-    }
+      .button {
+        width: 100%;
+        height: 65px;
+        background-color: #184e77;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 20px;
+        cursor: pointer;
+        position: relative;
+      }
 
-    .button {
-      width: 100%;
-      height: 60px;
-      background-color: #184e77;
-      color: #ffffff;
-      border: 1px solid #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: 20px;
-      cursor: pointer;
-      position: relative;
-    }
+      .main {
+        overflow: hidden;
+        background-color: white;
+      }
 
-    .main {
-      overflow: hidden;
+      .content {
+        display: flex;
+        flex-direction: row;
+      }
 
-    }
+      .path {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        min-width: 1000px;
+        font-size: larger;
+        box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
+        margin-top: 3rem;
+        border-radius: 10px;
+        background-color: transparent;
+        margin-left: 2rem;
+      }
 
-    .content {
-      display: flex;
-      flex-direction: row;
-    }
+      .Painting,
+      .Exhibition,
+      .add_person,
+      .Purchases,
+      .Manage_artist,
+      .add_emp,
+      .manage_emp,
+      .add_ex_p {
+        display: none;
+      }
 
-    .path {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-      min-width: 1000px;
-      font-size: larger;
-      box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
-      margin-top: 3rem;
-      border-radius: 10px;
-      background-color: transparent;
-      margin-left: 2rem;
-    }
+      .container_dash {
+        display: grid;
+        grid-template-rows: repeat(7, 75px);
+        grid-template-columns: repeat(7, 100px);
+        grid-gap: 50px;
+        margin-top: 3rem;
+        margin-left: 2rem;
+      }
 
-    .Painting,
-    .Exhibition,
-    .add_person,
-    .Purchases,
-    .Manage_artist,
-    .add_emp,
-    .manage_emp,
-    .add_ex_p ,
-    .cust{
-      display: none;
-    }
+      .item-1 {
+        grid-row: 1/3;
+        grid-column: 1/4;
+        background-color: #1a759f;
+        border-radius: 10px;
+      }
 
-    .container_dash {
-      display: grid;
-      grid-template-rows: repeat(7, 75px);
-      grid-template-columns: repeat(7, 100px);
-      grid-gap: 50px;
-      margin-top: 3rem;
-      margin-left: 2rem;
-    }
+      .item-2 {
+        grid-row: span 2;
+        grid-column: span 3;
+        background-color: #d9ed92;
+        border-radius: 10px;
+      }
 
-    .item-1 {
-      grid-row: 1/3;
-      grid-column: 1/4;
-      background-color: #1a759f;
-      border-radius: 10px;
-      
-    }
+      .item-3 {
+        grid-row: 3/5;
+        grid-column: 1/4;
+        background-color: #76c893;
+        border-radius: 10px;
+      }
 
-    .item-2 {
-      grid-row: span 2;
-      grid-column: span 3;
-      background-color: #d9ed92;
-      border-radius: 10px;
-    }
+      .item-4 {
+        grid-row: 3/5;
+        grid-column: 4/7;
+        background-color: #34a0a4;
+        border-radius: 10px;
+      }
 
-    .item-3 {
-      grid-row: 3/5;
-      grid-column: 1/4;
-      background-color: #76c893;
-      border-radius: 10px;
-    }
+      table {
+        width: 100%;
 
-    .item-4 {
-      grid-row: 3/5;
-      grid-column: 4/7;
-      background-color: #34a0a4;
-      border-radius: 10px;
-    }
+        margin-top: 3rem;
+        margin-left: 2rem;
+      }
 
-    table {
-      width: 100%;
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
 
-      margin-top: 3rem;
-      margin-left: 2rem;
-    }
+        border: 1px solid #000000;
+      }
 
-    th,
-    td {
-      padding: 8px;
-      text-align: left;
+      tr:hover {
+        background-color: #f2f2f2;
+      }
 
-      border: 1px solid #000000;
-    }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
 
-    tr:hover {
-      background-color: #f2f2f2;
-    }
+      .form1,
+      .form2 {
+        padding-left: 25px;
+        padding-top: 1px;
+        display: grid;
+        grid-template-columns: 550px;
+        grid-gap: 10px;
+      }
 
-    th {
-      background-color: #4caf50;
-      color: white;
-    }
+      .form3 {
+        padding-left: 25px;
+        padding-top: 1px;
+        display: grid;
+        grid-template-columns: 700px;
+        grid-gap: 10px;
+      }
 
-    .form1,
-    .form2 {
-      padding-left: 25px;
-      padding-top: 1px;
-      display: grid;
-      grid-template-columns: 550px;
-      grid-gap: 10px;
-    }
+      label {
+        text-align: right;
+        padding-right: 10px;
+      }
 
-    .form3 {
-      padding-left: 25px;
-      padding-top: 1px;
-      display: grid;
-      grid-template-columns: 700px;
-      grid-gap: 10px;
-    }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-    label {
-      text-align: right;
-      padding-right: 10px;
-    }
+      .artist_details,
+      .add_paintings {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 450px;
+        width: 600px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      box-sizing: border-box;
-    }
+      .whole_details {
+        display: flex;
+        flex-direction: row;
+      }
 
-    .artist_details,
-    .add_paintings {
-      display: flex;
-      flex-direction: column;
-      margin-top: 3rem;
-      margin-left: 2rem;
-      height: 450px;
-      width: 600px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    }
+      .sub {
+        padding-top: 20px;
+      }
 
-    .whole_details {
-      display: flex;
-      flex-direction: row;
-    }
+      .emp_details,
+      .get_p {
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 475px;
+        width: 750px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
 
-    .sub {
-      padding-top: 20px;
-    }
+      #artistSymbol,
+      #artistSymbol1,
+      #artistSymbol2,
+      #artistSymbol3 {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+        margin: 10px;
+      }
 
-    .emp_details,
-    .get_p {
-      margin-top: 3rem;
-      margin-left: 2rem;
-      height: 475px;
-      width: 750px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    }
+      .logout-option {
+        display: none;
+        position: absolute;
+        top: 90px;
+        /* Adjust position as needed */
+        right: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 5px;
+        box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+      }
 
-    #artistSymbol,
-    #artistSymbol1,
-    #artistSymbol2,
-    #artistSymbol3 {
-      position: absolute;
-      top: 1rem;
-      right: 0;
-      margin: 10px;
-    }
+      .logout-option a {
+        text-decoration: none;
+        color: #333;
+      }
 
+      .logout-option a:hover {
+        color: #f00;
+        /* Change color on hover as needed */
+      }
+    </style>
+  </head>
 
-
-
-    .logout-option {
-      display: none;
-      position: absolute;
-      top: 90px;
-      /* Adjust position as needed */
-      right: 20px;
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 5px;
-      box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    .logout-option a {
-      text-decoration: none;
-      color: #333;
-    }
-
-    .logout-option a:hover {
-      color: #f00;
-      /* Change color on hover as needed */
-    }
-
-    #s1,
-    #s2 {
-      position: absolute;
-      top: 1rem;
-      right: 0;
-      margin: 10px;
-    }
-  </style>
-</head>
-
-<body class="main">
-  <header class="head">
-    <h1 class="title">Art Gallery | Admin</h1>
-    <img src="img/prof.png" alt="" class="prof" id="profileImage" />
-    <div class="logout-option" id="logoutOption">
-      <a href="home.html" id="logoutLink">Logout</a>
-    </div>
-  </header>
-  <div class="content">
-    <div class="dropdown">
-      <div class="item">
-      <button class="button" onclick="showdash(),changeSymbol(s1)">
-        <i class="material-icons">dashboard</i> <span>Dash Board </span>
-        <span id="s1">></span>
-      </button>
-    </div>
-    <div class="item">
-      <button class="button" onclick="showexhi(),changeSymbol(s2)">
-        <i class="material-icons">art_track</i> <span>Exhibition</span> <span id="s2">></span>
-
-      </button>
-    </div>
-      <button onclick="toggleDropdown('artist','artistSymbol1')" class="button">
-        <i class="material-icons">person</i> <span>Artist</span>
-        <span id="artistSymbol1">></span>
-      </button>
-      <div id="artist" class="dropdown-content">
-        <button class="button1" onclick="showap()">
-          <i class="material-icons">person_add</i> <span>Add Artist</span>
+  <body class="main">
+    <header class="head">
+      <h1 class="title">Art Gallery | Admin</h1>
+      <img src="img/prof.png" alt="" class="prof" id="profileImage" />
+      <div class="logout-option" id="logoutOption">
+        <a href="home.html" id="logoutLink">Logout</a>
+      </div>
+    </header>
+    <div class="content">
+      <div class="dropdown">
+        <button class="button" onclick="showdash(),toggleleft('s')">
+          <i class="material-icons">dashboard</i> <span>Dash Board </span>
+          <span id="s1">></span>
         </button>
-        <button class="button1" onclick="showma()">
-          <i class="material-icons">people</i> <span>Manage Artist</span>
+        <button class="button" onclick="showexhi()">
+          <i class="material-icons">art_track</i> <span>Exhibition</span>
+          <span id="s2">></span>
         </button>
-      </div>
-
-      <button class="button" onclick="toggleDropdown('Painting','artistSymbol3')">
-        <i class="material-icons">brush</i> <span>Painting</span><span id="artistSymbol3">></span>
-      </button>
-      <div id="Painting" class="dropdown-content">
-        <button class="button1" onclick="showapt()">
-          <i class="material-icons">add_photo_alternate</i>
-          <span>Add Painting</span>
+        <button
+          onclick="toggleDropdown('artist','artistSymbol1')"
+          class="button"
+        >
+          <i class="material-icons">person</i> <span>Artist</span>
+          <span id="artistSymbol1">></span>
         </button>
-        <button class="button1" onclick="showp()">
-          <i class="material-icons">art_track</i> <span>Manage Painting</span>
+        <div id="artist" class="dropdown-content">
+          <button class="button" onclick="showap()">
+            <i class="material-icons">person_add</i> <span>Add Artist</span>
+          </button>
+          <button class="button" onclick="showma()">
+            <i class="material-icons">people</i> <span>Manage Artist</span>
+          </button>
+        </div>
+
+        <button
+          class="button"
+          onclick="toggleDropdown('Painting','artistSymbol3')"
+        >
+          <i class="material-icons">brush</i> <span>Painting</span
+          ><span id="artistSymbol3">></span>
         </button>
-      </div>
-      <button class="button" onclick="showpur()">
-        <i class="material-icons">shopping_cart</i> <span>Purchases</span><span id="artistSymbol">></span>
-      </button>
-      <button class="button" onclick="toggleDropdown('Employee','artistSymbol2')">
-        <i class="material-icons">supervisor_account</i> <span>Employee</span><span id="artistSymbol2">></span>
-      </button>
-      <div id="Employee" class="dropdown-content">
-        <button class="button1" onclick="showae()">
-          <i class="material-icons">person_add</i> <span>Add Employee</span>
+        <div id="Painting" class="dropdown-content">
+          <button class="button" onclick="showapt()">
+            <i class="material-icons">add_photo_alternate</i>
+            <span>Add Painting</span>
+          </button>
+          <button class="button" onclick="showp()">
+            <i class="material-icons">art_track</i> <span>Manage Painting</span>
+          </button>
+        </div>
+        <button class="button" onclick="showpur()">
+          <i class="material-icons">shopping_cart</i> <span>Purchases</span
+          ><span id="artistSymbol">></span>
         </button>
-        <button class="button1" onclick="showme()">
-          <i class="material-icons">people</i> <span>Manage Employee</span>
+        <button
+          class="button"
+          onclick="toggleDropdown('Employee','artistSymbol2')"
+        >
+          <i class="material-icons">supervisor_account</i> <span>Employee</span
+          ><span id="artistSymbol2">></span>
         </button>
-
-      </div>
-      <button class="button" onclick="showcst()">
-        <i class="material-icons">account_circle</i> <span>Customer</span><span id="artistSymbol">></span>
-      </button>
-    </div>
-
-    <!-- DASh -->
-
-    <div class="dash" id="d">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i class="material-icons">dashboard</i><span>Dash
-          Board</span>
+        <div id="Employee" class="dropdown-content">
+          <button class="button" onclick="showae()">
+            <i class="material-icons">person_add</i> <span>Add Employee</span>
+          </button>
+          <button class="button" onclick="showme()">
+            <i class="material-icons">people</i> <span>Manage Employee</span>
+          </button>
+        </div>
       </div>
 
-      <div class="container_dash">
-        <div class="item-1">1</div>
-        <div class="item-2">2</div>
-        <div class="item-3">3</div>
-        <div class="item-4">4</div>
-      </div>
-    </div>
+      <!-- DASh -->
 
-    <div class="Exhibition" id="e">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i
-          class="material-icons">art_track</i><span>Exhibition</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Exhibition ID</th>
-            <th>Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+      <div class="dash" id="d">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">dashboard</i><span>Dash Board</span>
+        </div>
 
-    <!-- PAINTING -->
-
-    <div class="Painting" id="p">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i class="material-icons">brush</i><span>Painting/</span>
-        <i class="material-icons">art_track</i><span> Manage Painting</span>
+        <div class="container_dash">
+          <div class="item-1">1</div>
+          <div class="item-2">2</div>
+          <div class="item-3">3</div>
+          <div class="item-4">4</div>
+        </div>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Painting ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Genre</th>
-            <th>Availability</th>
-            <th>Year of Creation</th>
-            <th>Received Year</th>
-            <th>Manage</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- ADD ARTIST -->
-
-    <div class="add_person" id="ap">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i class="material-icons">person</i><span>Artist/</span>
-        <i class="material-icons">person_add</i><span>Add Artist</span>
+      <div class="Exhibition" id="e">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">art_track</i><span>Exhibition</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Exhibition ID</th>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>View Paintings</th>
+            </tr>
+          </thead>
+          <tbody id="exhibit"></tbody>
+        </table>
       </div>
-      <div class="whole_details">
-        <div class="artist_details">
-          <form class="form1" method="POST" action="/form">
-            <h3>Artist Details</h3>
+
+      <!-- PAINTING -->
+
+      <div class="Painting" id="p">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">brush</i><span>Painting/</span>
+          <i class="material-icons">art_track</i><span> Manage Painting</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Painting ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Genre</th>
+              <th>Availability</th>
+              <th>Year of Creation</th>
+              <th>Received Year</th>
+            </tr>
+          </thead>
+          <tbody id = "paint"></tbody>
+        </table>
+      </div>
+
+      <!-- ADD ARTIST -->
+
+      <div class="add_person" id="ap">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">person</i><span>Artist/</span>
+          <i class="material-icons">person_add</i><span>Add Artist</span>
+        </div>
+        <div class="whole_details">
+          <div class="artist_details">
+            <form class="form1" method="POST" action="/form1">
+              <h3>Artist Details</h3>
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" />
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" />
+              </div>
+              <div>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" />
+              </div>
+              <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" />
+              </div>
+
+              <div>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address"></textarea>
+              </div>
+
+              <div>
+                <label for="style">Style:</label>
+                <select name="style" id="style">
+                  <option value="Realism">Realism</option>
+                  <option value="Impressionism">Impressionism</option>
+                  <option value="Expressionism">Expressionism</option>
+                  <option value="Abstract">Abstract</option>
+                  <option value="Pop-art">Pop Art</option>
+                  <option value="Minimalism">Minimalism</option>
+                  <option value="Photorealism">Photorealism</option>
+                  <option value="Baroque">Baroque</option>
+                  <option value="Renaissance">Renaissance</option>
+                  <option value="Gothic">Gothic</option>
+                  <option value="Neoclassicism">Neoclassicism</option>
+                  <option value="Romanticism">Romanticism</option>
+                  <option value="Indian-miniature">
+                    Indian Miniature Painting
+                  </option>
+                  <option value="Pointillism">Pointillism</option>
+                  <option value="Naive-art">Naive Art</option>
+                  <option value="Futurism">Futurism</option>
+                </select>
+              </div>
+              <div>
+                <input type="submit" value="Submit" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- PURCHASES -->
+
+      <div class="Purchases" id="pur">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span>
+          <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Painting ID</th>
+              <th>Painting Name</th>
+              <th>Price</th>
+              <th>Customer ID</th>
+              <th>Customer Name</th>
+              <th>Transaction ID</th>
+              <th>Purchased Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- MANAGE ARTIST -->
+
+      <div class="Manage_artist" id="ma">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">person</i><span>Artist/</span>
+          <i class="material-icons">people</i><span>Manage Artist</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Artist ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Style</th>
+              <th>Manage</th>
+            </tr>
+          </thead>
+          <tbody id="artistTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- ADD EMPLOYEE -->
+
+      <div class="add_emp" id="ae">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">supervisor_account</i
+          ><span>Employee/</span> <i class="material-icons">person_add</i
+          ><span>Add Employee</span>
+        </div>
+        <div class="emp_details">
+          <form class="form3">
+            <h3>Employee Details</h3>
             <div>
               <label for="name">Name:</label>
               <input type="text" id="name" name="name" />
@@ -443,6 +547,13 @@
               <input type="tel" id="phone" name="phone" />
             </div>
             <div>
+              <label for="position">Position:</label><br />
+              <select id="position">
+                <option value="employee">Normal Employee</option>
+                <option value="manager">Manager</option>
+              </select>
+            </div>
+            <div>
               <label for="dob">Date of Birth:</label>
               <input type="date" id="dob" name="dob" />
             </div>
@@ -453,479 +564,367 @@
             </div>
 
             <div>
-              <label for="name">Style:</label>
-              <select id="name">
-                <option value="realism">Realism</option>
-                <option value="impressionism">Impressionism</option>
-                <option value="expressionism">Expressionism</option>
-                <option value="abstract">Abstract</option>
-                <option value="pop-art">Pop Art</option>
-                <option value="minimalism">Minimalism</option>
-                <option value="photorealism">Photorealism</option>
-                <option value="baroque">Baroque</option>
-                <option value="renaissance">Renaissance</option>
-                <option value="gothic">Gothic</option>
-                <option value="neoclassicism">Neoclassicism</option>
-                <option value="romanticism">Romanticism</option>
-                <option value="indian-miniature">Indian Miniature Painting</option>
-                <option value="pointillism">Pointillism</option>
-                <option value="naive-art">Naive Art</option>
-                <option value="futurism">Futurism</option>
-            </select>
-              
-            </div>
-
-            <div>
               <input type="submit" value="Submit" />
             </div>
           </form>
         </div>
+      </div>
 
+      <!-- MANAGE EMPLOYEE -->
 
+      <div class="manage_emp" id="me">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">supervisor_account</i
+          ><span>Employee/</span> <i class="material-icons">people</i
+          ><span>Manage Employee</span>
         </div>
-    </div>
-
-    <!-- PURCHASES -->
-
-    <div class="Purchases" id="pur">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span>
-        <i class="material-icons">shopping_cart</i> <span>Purchases</span>
+        <table>
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Manage</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Painting ID</th>
-            <th>Painting Name</th>
-            <th>Price</th>
-            <th>Customer ID</th>
-            <th>Customer Name</th>
-            <th>Transaction ID</th>
-            <th>Purchased Date</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+      <!-- ADD PAINTING FOR EXISTING ARTIST -->
 
-    <!-- MANAGE ARTIST -->
+      <div class="add_ex_p" id="apt">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">brush</i><span>Painting/</span>
+          <i class="material-icons">add_photo_alternate</i
+          ><span> Add Painting</span>
+        </div>
 
-    <div class="Manage_artist" id="ma">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i class="material-icons">person</i><span>Artist/</span>
-        <i class="material-icons">people</i><span>Manage Artist</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Artist ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Manage</th>
-          </tr>
-        </thead>
-        <tbody id="artistTableBody"></tbody>
-      </table>
-    </div>
-
-    <!-- ADD EMPLOYEE -->
-
-
-    <div class="add_emp" id="ae">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i
-          class="material-icons">supervisor_account</i><span>Employee/</span> <i
-          class="material-icons">person_add</i><span>Add Employee</span>
-      </div>
-      <div class="emp_details">
-        <form class="form3">
-          <h3>Employee Details</h3>
-          <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" />
-          </div>
-          <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" />
-          </div>
-          <div>
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" />
-          </div>
-          <div>
-            <label for="position">Position:</label><br />
-            <select id="position">
-              <option value="employee">Normal Employee</option>
-              <option value="manager">Manager</option>
-            </select>
-          </div>
-          <div>
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" />
-          </div>
-
-          <div>
-            <label for="address">Address:</label>
-            <textarea id="address" name="address"></textarea>
-          </div>
-
-          <div>
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
+        <div class="get_p">
+          <form class="form3" method="post" action="/form2">
+            <h3>Painting Details</h3>
+            <div>
+              <label for="exhibition_id">Exhibition ID:</label>
+              <select id="exhibition_id" name="exhibition_id"></select>
+            </div>
+            <div>
+              <label for="artist_id">Artist ID:</label>
+              <select id="artist_id" name="artist_id"></select>
+            </div>
+            <div>
+              <label for="painting_name">Painting Name:</label>
+              <input type="text" id="painting_name" name="painting_name" />
+            </div>
+            <div>
+              <label for="price">Price:</label>
+              <input type="number" id="price" name="price" step="0.01" />
+            </div>
+            <div>
+              <label for="year_of_creation">Year of Creation:</label>
+              <input
+                type="number"
+                id="year_of_creation"
+                name="year_of_creation"
+              />
+            </div>
+            <div>
+              <label for="received_year">Received Year:</label>
+              <input type="number" id="received_year" name="received_year" />
+            </div>
+            <div>
+              <label for="genre">Genre:</label>
+              <select name="genre" id="genre">
+                <option value="Landscape">Landscape</option>
+                <option value="Portrait">Portrait</option>
+                <option value="Still-life">Still Life</option>
+                <option value="Historical">Historical</option>
+                <option value="Religious">Religious</option>
+                <option value="Abstract">Abstract</option>
+                <option value="Cityscape">Cityscape</option>
+                <option value="Seascape">Seascape</option>
+                <option value="Mythological">Mythological</option>
+                <option value="Animal">Animal</option>
+              </select>
+            </div>
+            <div class="sub">
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
-    <!-- MANAGE EMPLOYEE -->
+    <script>
+      function toggleDropdown(dropdownId, symbolId) {
+        var dropdown = document.getElementById(dropdownId);
+        var symbol = document.getElementById(symbolId);
 
-    <div class="manage_emp" id="me">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i
-          class="material-icons">supervisor_account</i><span>Employee/</span> <i
-          class="material-icons">people</i><span>Manage Employee</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Employee ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Manage</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- ADD PAINTING FOR EXSISTING ARTIST -->
-
-    <div class="add_ex_p" id="apt">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i class="material-icons">brush</i><span>Painting/</span>
-        <i class="material-icons">add_photo_alternate</i><span> Add Painting</span>
-      </div>
-
-      <div class="get_p">
-        <form class="form3">
-          <h3>Painting Details</h3>
-          <div>
-            <label for="artist_id">Artist ID:</label>
-            <input type="text" id="artist_id" name="artist-id" />
-          </div>
-          <div>
-            <label for="painting_name">Painting Name:</label>
-            <input type="text" id="painting_name" name="painting_name" />
-          </div>
-          <div>
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" step="0.01" />
-          </div>
-          <div>
-            <label for="year_of_creation">Year of Creation:</label>
-            <input type="number" id="year_of_creation" name="year_of_creation" />
-          </div>
-          <div>
-            <label for="received_year">Received Year:</label>
-            <input type="number" id="received_year" name="received_year" />
-          </div>
-          <div>
-            <label for="genre">Genre:</label>
-            <input type="text" id="genre" name="genre" />
-          </div>
-          <div class="sub">
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Customer -->
-    <div class="cust" id = "cst">
-      <div class="path">
-        <i class="material-icons">home</i><span>home/</span><i
-          class="material-icons">account_circle</i><span>Customer</span> 
-     
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Customer ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Date Of Birth</th>
-            <th>Address</th>           
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Get the form element
-      const form = document.getElementById('artistForm');
-
-      // Add submit event listener to the form
-      form.addEventListener('submit', function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
-
-        // Get all input elements within the form
-        const inputs = form.getElementsByTagName('input');
-
-        // Clear input values
-        for (let i = 0; i < inputs.length; i++) {
-          inputs[i].value = '';
+        if (dropdown.style.display === "block") {
+          dropdown.style.display = "none";
+          symbol.textContent = ">";
+        } else {
+          dropdown.style.display = "block";
+          symbol.textContent = "∨";
         }
-
-        // Get the textarea element within the form
-        const textarea = form.querySelector('textarea');
-
-        // Clear textarea value
-        textarea.value = '';
-
-        // Display a pop-up message
-        alert('Form submitted successfully!'); // You can replace this with your custom pop-up/modal
-      });
-    });
-
-    function toggleDropdown(dropdownId, symbolId) {
-      var dropdown = document.getElementById(dropdownId);
-      var symbol = document.getElementById(symbolId);
-
-      if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-        symbol.textContent = ">";
-      } else {
-        dropdown.style.display = "block";
-        symbol.textContent = "∨";
       }
-    }
 
+      function toggleleft(dropdownId, symbolId) {
+        var dropdown = document.getElementById(dropdownId);
+        var symbol = document.getElementById(symbolId);
 
-    function toggleleft(dropdownId, symbolId) {
-      var dropdown = document.getElementById(dropdownId);
-      var symbol = document.getElementById(symbolId);
-
-      if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-        symbol.textContent = ">";
-      } else {
-        dropdown.style.display = "block";
-        symbol.textContent = "<";
+        if (dropdown.style.display === "block") {
+          dropdown.style.display = "none";
+          symbol.textContent = ">";
+        } else {
+          dropdown.style.display = "block";
+          symbol.textContent = "<";
+        }
       }
-    }
 
+      document.addEventListener("DOMContentLoaded", function () {
+        var profileImage = document.getElementById("profileImage");
+        var logoutOption = document.getElementById("logoutOption");
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var profileImage = document.getElementById('profileImage');
-      var logoutOption = document.getElementById('logoutOption');
+        profileImage.addEventListener("click", function () {
+          logoutOption.style.display =
+            logoutOption.style.display === "block" ? "none" : "block";
+        });
 
-      profileImage.addEventListener('click', function () {
-        logoutOption.style.display = (logoutOption.style.display === 'block') ? 'none' : 'block';
+        var logoutLink = document.getElementById("logoutLink");
+        logoutLink.addEventListener("click", function (event) {});
       });
+      function showdash() {
+        document.getElementById("d").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showexhi() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("e").style.display = "block";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+        fetch("/exhi")
+          .then((response) => response.json())
+          .then((data) => {
+            const exhibitionTableBody = document.getElementById("exhibit");
+            exhibitionTableBody.innerHTML = "";
 
-      var logoutLink = document.getElementById('logoutLink');
-      logoutLink.addEventListener('click', function (event) {
+            data.forEach((exhibition) => {
+              const formattedStartDate = new Date(
+                exhibition.startDate
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+              const formattedEndDate = new Date(
+                exhibition.endDate
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
 
-      });
-    });
-    function showdash() {
-      document.getElementById("d").style.display = "block";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-    }
-    function showexhi() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("e").style.display = "block";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-    }
+              const row = `<tr>
+                      <td>${exhibition.exhibitionID}</td>
+                      <td>${exhibition.name}</td>
+                      <td>${formattedStartDate}</td>
+                      <td>${formattedEndDate}</td>
+                      <td><button onclick="viewPaintings('${exhibition.exhibitionID}')" >View Paintings</button></td>
+                    </tr>`;
+              exhibitionTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching exhibition details:", error)
+          );
+      }
 
-    function showp() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("p").style.display = "block";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-    }
-    function showap() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "block";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-    }
+      function showp() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("p").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+        fetch("/paint")
+          .then((response) => response.json())
+          .then((data) => {
+            const exhibitionTableBody = document.getElementById("paint");
+            exhibitionTableBody.innerHTML = "";
 
-    function showpur() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "block";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-    }
-    function showae() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "block";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-    }
-    function showme() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "block";
-      document.getElementById("cst").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-    }
+            data.forEach((painting) => {
+              const row = `<tr>
+                      <td>${painting.paintingID}</td>
+                      <td>${painting.name}</td>
+                      <td>${painting.price}</td>
+                      <td>${painting.genre}</td>
+                      <td>${painting.availability}</td>
+                      <td>${painting.creationYear}</td>
+                      <td>${painting.receivedYear}</td>
+                      
+                    </tr>`;
+              exhibitionTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching exhibition details:", error)
+          );
+      }
+      function showap() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
 
-    function showapt() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "block";
-      document.getElementById("cst").style.display = "none";
-    }
-    function showcst(){
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "block";
-    }
-    function showma() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "block";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-      document.getElementById("cst").style.display = "none";
-      fetch("/data") // Replace '/api/artists' with your actual backend endpoint
-        .then((response) => response.json())
-        .then((data) => {
-          // Populate the table with artist details
-          const artistTableBody = document.getElementById("artistTableBody");
-          artistTableBody.innerHTML = ""; // Clear existing data
-          data.forEach((artist) => {
-            const row = `<tr>
+      function showpur() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "block";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showae() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "block";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showme() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "block";
+        document.getElementById("apt").style.display = "none";
+      }
+
+      function showapt() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "block";
+        fetch("/data")
+          .then((response) => response.json())
+          .then((data) => {
+            const selectElement = document.getElementById("artist_id");
+            data.forEach((artist) => {
+              const option = document.createElement("option");
+              option.value = artist.artistId;
+              option.textContent = artist.artistId;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
+        fetch("/exhibit")
+          .then((response) => response.json())
+          .then((data) => {
+            const selectElement = document.getElementById("exhibition_id");
+            data.forEach((exhibition) => {
+              const option = document.createElement("option");
+              option.value = exhibition.exhibitionID;
+              option.textContent = exhibition.exhibitionID;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
+      }
+      function showma() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "block";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+
+        fetch("/data")
+          .then((response) => response.json())
+          .then((data) => {
+            const artistTableBody = document.getElementById("artistTableBody");
+            artistTableBody.innerHTML = "";
+            data.forEach((artist) => {
+              const row = `<tr>
                       <td>${artist.id}</td>
                       <td>${artist.name}</td>
                       <td>${artist.email}</td>
                       <td>${artist.phone}</td>
                       <td>${artist.address}</td>
+                      <td>${artist.style}</td>
                       <td>
-                        <button onclick="editArtist('${artist.artistId}')">Edit</button>
                         <button onclick="deleteArtist('${artist.artistId}')" >Delete</button>
                       </td>
                     </tr>`;
-            artistTableBody.innerHTML += row;
-          });
-        })
-        .catch((error) =>
-          console.error("Error fetching artist details:", error)
-        );
-    }
-    function editArtist(artistId) {
-      // Implement edit functionality here
-      console.log("Editing artist with ID:", artistId);
-    }
-
-    function deleteArtist(artistId) {
-      fetch(`/artist/${artistId}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (response.ok) {
-            // If deletion is successful, remove the artist row from the UI
-            const row = document.getElementById(`artist-${artistId}`);
-            if (row) {
-              row.remove();
-            }
-            console.log(`Artist with ID ${artistId} deleted successfully.`);
-            showma();
-
-          } else {
-            console.error(`Failed to delete artist with ID ${artistId}`);
-          }
-        })
-        .catch((error) => console.error("Error deleting artist:", error));
-    }
-
-    function changeSymbol(argument) {
-      var symbolDiv = document.getElementById(argument);
-
-      // Toggle between classes to change the symbol
-      if (symbolDiv.classList.contains('symbol-greater-than')) {
-        symbolDiv.classList.remove('symbol-greater-than');
-        symbolDiv.classList.add('symbol-less-than');
-      } else {
-        symbolDiv.classList.remove('symbol-less-than');
-        symbolDiv.classList.add('symbol-greater-than');
+              artistTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
       }
-    }
-
-
-  </script>
-</body>
-
+      function editArtist(artistId) {
+        // Implement edit functionality here
+        console.log("Editing artist with ID:", artistId);
+      }
+      function viewPaintings(exhibitionID) {}
+      function deleteArtist(artistId) {
+        fetch(`/artist/${artistId}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              // If deletion is successful, remove the artist row from the UI
+              const row = document.getElementById(`artist-${artistId}`);
+              if (row) {
+                row.remove();
+              }
+              console.log(`Artist with ID ${artistId} deleted successfully.`);
+              showma();
+            } else {
+              console.error(`Failed to delete artist with ID ${artistId}`);
+            }
+          })
+          .catch((error) => console.error("Error deleting artist:", error));
+      }
+    </script>
+  </body>
 </html>
