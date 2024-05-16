@@ -244,48 +244,71 @@
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
 
-      #artistSymbol,
-      #artistSymbol1,
-      #artistSymbol2,
-      #artistSymbol3 {
-        position: absolute;
-        top: 1rem;
-        right: 0;
-        margin: 10px;
-      }
-    </style>
-  </head>
+    #artistSymbol,
+    #artistSymbol1,
+    #artistSymbol2,
+    #artistSymbol3 {
+      position: absolute;
+      top: 1rem;
+      right: 0;
+      margin: 10px;
+    }
 
-  <body class="main">
-    <header class="head">
-      <h1 class="title">Art Gallery | Admin</h1>
-      <img src="img/prof.png" alt="" class="prof" />
-    </header>
-    <div class="content">
-      <div class="dropdown">
-        <button class="button" onclick="showdash()">
-          <i class="material-icons">dashboard</i> <span>Dash Board </span>
-          <span id="artistSymbol">></span>
+
+    .logout-option {
+      display: none;
+      position: absolute;
+      top: 90px;
+      /* Adjust position as needed */
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 5px;
+      box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .logout-option a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .logout-option a:hover {
+      color: #f00;
+      /* Change color on hover as needed */
+    }
+  </style>
+</head>
+
+<body class="main">
+  <header class="head">
+    <h1 class="title">Art Gallery | Admin</h1>
+    <img src="img/prof.png" alt="" class="prof" id="profileImage"/>
+    <div class="logout-option" id="logoutOption">
+      <a href="home.html" id="logoutLink">Logout</a>
+    </div>
+  </header>
+  <div class="content">
+    <div class="dropdown">
+      <button class="button" onclick="showdash(),toggleleft('s')">
+        <i class="material-icons">dashboard</i> <span>Dash Board </span>
+        <span id="s1">></span>
+      </button>
+      <button class="button" onclick="showexhi()">
+        <i class="material-icons">art_track</i> <span>Exhibition</span>
+        <span id="s2">></span>
+      </button>
+      <button onclick="toggleDropdown('artist','artistSymbol1')" class="button">
+        <i class="material-icons">person</i> <span>Artist</span>
+        <span id="artistSymbol1">></span>
+      </button>
+      <div id="artist" class="dropdown-content">
+        <button class="button" onclick="showap()">
+          <i class="material-icons">person_add</i> <span>Add Artist</span>
         </button>
-        <button class="button" onclick="showexhi()">
-          <i class="material-icons">art_track</i> <span>Exhibition</span>
-          <span id="artistSymbol">></span>
+        <button class="button" onclick="showma()">
+          <i class="material-icons">people</i> <span>Manage Artist</span>
         </button>
-        <button
-          onclick="toggleDropdown('artist','artistSymbol1')"
-          class="button"
-        >
-          <i class="material-icons">person</i> <span>Artist</span>
-          <span id="artistSymbol1">></span>
-        </button>
-        <div id="artist" class="dropdown-content">
-          <button class="button" onclick="showap()">
-            <i class="material-icons">person_add</i> <span>Add Artist</span>
-          </button>
-          <button class="button" onclick="showma()">
-            <i class="material-icons">people</i> <span>Manage Artist</span>
-          </button>
-        </div>
+      </div>
 
         <button
           class="button"
@@ -513,7 +536,8 @@
         </table>
       </div>
 
-      <!-- ADD EMPLOYEE -->
+    <!-- ADD EMPLOYEE -->
+
 
       <div class="add_emp" id="ae">
         <div class="path">
@@ -648,28 +672,56 @@
         }
       }
 
-      function showdash() {
-        document.getElementById("d").style.display = "block";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-        document.getElementById("ma").style.display = "none";
-        document.getElementById("me").style.display = "none";
-        document.getElementById("ae").style.display = "none";
-        document.getElementById("apt").style.display = "none";
+
+    function toggleleft(dropdownId, symbolId) {
+      var dropdown = document.getElementById(dropdownId);
+      var symbol = document.getElementById(symbolId);
+
+      if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+        symbol.textContent = ">";
+      } else {
+        dropdown.style.display = "block";
+        symbol.textContent = "<";
       }
-      function showexhi() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("e").style.display = "block";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-        document.getElementById("ma").style.display = "none";
-        document.getElementById("ae").style.display = "none";
-        document.getElementById("me").style.display = "none";
-        document.getElementById("apt").style.display = "none";
-      }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var profileImage = document.getElementById('profileImage');
+      var logoutOption = document.getElementById('logoutOption');
+
+      profileImage.addEventListener('click', function () {
+        logoutOption.style.display = (logoutOption.style.display === 'block') ? 'none' : 'block';
+      });
+
+      var logoutLink = document.getElementById('logoutLink');
+      logoutLink.addEventListener('click', function (event) {
+
+      });
+    });
+    function showdash() {
+      document.getElementById("d").style.display = "block";
+      document.getElementById("e").style.display = "none";
+      document.getElementById("p").style.display = "none";
+      document.getElementById("ap").style.display = "none";
+      document.getElementById("pur").style.display = "none";
+      document.getElementById("ma").style.display = "none";
+      document.getElementById("me").style.display = "none";
+      document.getElementById("ae").style.display = "none";
+      document.getElementById("apt").style.display = "none";
+    }
+    function showexhi() {
+      document.getElementById("d").style.display = "none";
+      document.getElementById("e").style.display = "block";
+      document.getElementById("p").style.display = "none";
+      document.getElementById("ap").style.display = "none";
+      document.getElementById("pur").style.display = "none";
+      document.getElementById("ma").style.display = "none";
+      document.getElementById("ae").style.display = "none";
+      document.getElementById("me").style.display = "none";
+      document.getElementById("apt").style.display = "none";
+    }
 
       function showp() {
         document.getElementById("d").style.display = "none";
