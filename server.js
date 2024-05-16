@@ -34,6 +34,7 @@ async function generateId(name, email, phone, dob, address, style) {
         throw error; 
     }
 }
+
 app.get('/data', async (req, res) => {
     try {
         const [rows, fields] = await pool.query('SELECT * FROM art.artist INNER JOIN art.person ON art.artist.artistId = art.person.id INNER JOIN art.phonenumber ON art.phonenumber.id = art.person.id');
@@ -54,28 +55,21 @@ app.post('/form', async (req, res) => {
             await pool.query('INSERT into art.person (id, name, dob, address, email) VALUES (?, ?, ?, ?, ?)', [id, name, dob, address, email]);
             await pool.query('INSERT into art.artist (artistId, style) VALUES (?, ?)', [id, style]);
             await pool.query('INSERT into art.phonenumber (id, phone) VALUES (?, ?)', [id, phone]);
+            res.status(201).send('Artist added successfully');
+        }
+        if (id === -1) {
+            return res.status(400).send('Artist already exists');
         }
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('An error occurred while processing your request.');
     }
 });
-
-app.get('/data', async (req, res) => {
-    try {
-        const [rows, fields] = await pool.query('SELECT * FROM art.artist INNER JOIN art.person ON art.artist.artistId = art.person.id inner join art.phonenumber on art.person.id = art.phonenumber.id');
-        res.render('data', { artists: rows });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('An error occurred while processing your request.');
-    }
-});
-
 app.delete('/artist/:id', async (req, res) => {
     const artistId = req.params.id;
 
     try {
-        const [existingRows] = await pool.query('SELECT * FROM art.person WHERE id = ?', [artistId]);
+        const [existingRows] = await pool.query('SELECT * FROM art.artist INNER JOIN art.person ON art.artist.artistId = art.person.id inner join art.phonenumber on art.person.id = art.phonenumber.id WHERE art.artist.artistId = ?', [artistId]);
         
         if (existingRows.length === 0) {
             return res.status(404).send('Artist not found');

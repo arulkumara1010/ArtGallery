@@ -244,71 +244,73 @@
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
 
-    #artistSymbol,
-    #artistSymbol1,
-    #artistSymbol2,
-    #artistSymbol3 {
-      position: absolute;
-      top: 1rem;
-      right: 0;
-      margin: 10px;
-    }
+      #artistSymbol,
+      #artistSymbol1,
+      #artistSymbol2,
+      #artistSymbol3 {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+        margin: 10px;
+      }
 
+      .logout-option {
+        display: none;
+        position: absolute;
+        top: 90px;
+        /* Adjust position as needed */
+        right: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 5px;
+        box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+      }
 
-    .logout-option {
-      display: none;
-      position: absolute;
-      top: 90px;
-      /* Adjust position as needed */
-      right: 20px;
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 5px;
-      box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
-    }
+      .logout-option a {
+        text-decoration: none;
+        color: #333;
+      }
 
-    .logout-option a {
-      text-decoration: none;
-      color: #333;
-    }
+      .logout-option a:hover {
+        color: #f00;
+        /* Change color on hover as needed */
+      }
+    </style>
+  </head>
 
-    .logout-option a:hover {
-      color: #f00;
-      /* Change color on hover as needed */
-    }
-  </style>
-</head>
-
-<body class="main">
-  <header class="head">
-    <h1 class="title">Art Gallery | Admin</h1>
-    <img src="img/prof.png" alt="" class="prof" id="profileImage"/>
-    <div class="logout-option" id="logoutOption">
-      <a href="home.html" id="logoutLink">Logout</a>
-    </div>
-  </header>
-  <div class="content">
-    <div class="dropdown">
-      <button class="button" onclick="showdash(),toggleleft('s')">
-        <i class="material-icons">dashboard</i> <span>Dash Board </span>
-        <span id="s1">></span>
-      </button>
-      <button class="button" onclick="showexhi()">
-        <i class="material-icons">art_track</i> <span>Exhibition</span>
-        <span id="s2">></span>
-      </button>
-      <button onclick="toggleDropdown('artist','artistSymbol1')" class="button">
-        <i class="material-icons">person</i> <span>Artist</span>
-        <span id="artistSymbol1">></span>
-      </button>
-      <div id="artist" class="dropdown-content">
-        <button class="button" onclick="showap()">
-          <i class="material-icons">person_add</i> <span>Add Artist</span>
-        </button>
-        <button class="button" onclick="showma()">
-          <i class="material-icons">people</i> <span>Manage Artist</span>
-        </button>
+  <body class="main">
+    <header class="head">
+      <h1 class="title">Art Gallery | Admin</h1>
+      <img src="img/prof.png" alt="" class="prof" id="profileImage" />
+      <div class="logout-option" id="logoutOption">
+        <a href="home.html" id="logoutLink">Logout</a>
       </div>
+    </header>
+    <div class="content">
+      <div class="dropdown">
+        <button class="button" onclick="showdash(),toggleleft('s')">
+          <i class="material-icons">dashboard</i> <span>Dash Board </span>
+          <span id="s1">></span>
+        </button>
+        <button class="button" onclick="showexhi()">
+          <i class="material-icons">art_track</i> <span>Exhibition</span>
+          <span id="s2">></span>
+        </button>
+        <button
+          onclick="toggleDropdown('artist','artistSymbol1')"
+          class="button"
+        >
+          <i class="material-icons">person</i> <span>Artist</span>
+          <span id="artistSymbol1">></span>
+        </button>
+        <div id="artist" class="dropdown-content">
+          <button class="button" onclick="showap()">
+            <i class="material-icons">person_add</i> <span>Add Artist</span>
+          </button>
+          <button class="button" onclick="showma()">
+            <i class="material-icons">people</i> <span>Manage Artist</span>
+          </button>
+        </div>
 
         <button
           class="button"
@@ -454,38 +456,7 @@
 
           <!-- ADD PAINTINGS -->
 
-          <div class="add_paintings">
-            <form class="form2">
-              <h3>Painting Details</h3>
-              <div>
-                <label for="painting_name">Painting Name:</label>
-                <input type="text" id="painting_name" name="painting_name" />
-              </div>
-              <div>
-                <label for="price">Price:</label>
-                <input type="number" id="price" name="price" step="0.01" />
-              </div>
-              <div>
-                <label for="year_of_creation">Year of Creation:</label>
-                <input
-                  type="number"
-                  id="year_of_creation"
-                  name="year_of_creation"
-                />
-              </div>
-              <div>
-                <label for="received_year">Received Year:</label>
-                <input type="number" id="received_year" name="received_year" />
-              </div>
-              <div>
-                <label for="genre">Genre:</label>
-                <input type="text" id="genre" name="genre" />
-              </div>
-              <div class="sub">
-                <input type="submit" value="Submit" />
-              </div>
-            </form>
-          </div>
+          
         </div>
       </div>
 
@@ -536,8 +507,7 @@
         </table>
       </div>
 
-    <!-- ADD EMPLOYEE -->
-
+      <!-- ADD EMPLOYEE -->
 
       <div class="add_emp" id="ae">
         <div class="path">
@@ -609,7 +579,7 @@
         </table>
       </div>
 
-      <!-- ADD PAINTING FOR EXSISTING ARTIST -->
+      <!-- ADD PAINTING FOR EXISTING ARTIST -->
 
       <div class="add_ex_p" id="apt">
         <div class="path">
@@ -624,7 +594,7 @@
             <h3>Painting Details</h3>
             <div>
               <label for="artist_id">Artist ID:</label>
-              <input type="text" id="artist_id" name="artist-id" />
+              <select id="artist_id" name="artist_id"></select>
             </div>
             <div>
               <label for="painting_name">Painting Name:</label>
@@ -672,56 +642,53 @@
         }
       }
 
+      function toggleleft(dropdownId, symbolId) {
+        var dropdown = document.getElementById(dropdownId);
+        var symbol = document.getElementById(symbolId);
 
-    function toggleleft(dropdownId, symbolId) {
-      var dropdown = document.getElementById(dropdownId);
-      var symbol = document.getElementById(symbolId);
-
-      if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-        symbol.textContent = ">";
-      } else {
-        dropdown.style.display = "block";
-        symbol.textContent = "<";
+        if (dropdown.style.display === "block") {
+          dropdown.style.display = "none";
+          symbol.textContent = ">";
+        } else {
+          dropdown.style.display = "block";
+          symbol.textContent = "<";
+        }
       }
-    }
 
+      document.addEventListener("DOMContentLoaded", function () {
+        var profileImage = document.getElementById("profileImage");
+        var logoutOption = document.getElementById("logoutOption");
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var profileImage = document.getElementById('profileImage');
-      var logoutOption = document.getElementById('logoutOption');
+        profileImage.addEventListener("click", function () {
+          logoutOption.style.display =
+            logoutOption.style.display === "block" ? "none" : "block";
+        });
 
-      profileImage.addEventListener('click', function () {
-        logoutOption.style.display = (logoutOption.style.display === 'block') ? 'none' : 'block';
+        var logoutLink = document.getElementById("logoutLink");
+        logoutLink.addEventListener("click", function (event) {});
       });
-
-      var logoutLink = document.getElementById('logoutLink');
-      logoutLink.addEventListener('click', function (event) {
-
-      });
-    });
-    function showdash() {
-      document.getElementById("d").style.display = "block";
-      document.getElementById("e").style.display = "none";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-    }
-    function showexhi() {
-      document.getElementById("d").style.display = "none";
-      document.getElementById("e").style.display = "block";
-      document.getElementById("p").style.display = "none";
-      document.getElementById("ap").style.display = "none";
-      document.getElementById("pur").style.display = "none";
-      document.getElementById("ma").style.display = "none";
-      document.getElementById("ae").style.display = "none";
-      document.getElementById("me").style.display = "none";
-      document.getElementById("apt").style.display = "none";
-    }
+      function showdash() {
+        document.getElementById("d").style.display = "block";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
+      function showexhi() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("e").style.display = "block";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+      }
 
       function showp() {
         document.getElementById("d").style.display = "none";
@@ -790,6 +757,20 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "block";
+        fetch("/data")
+          .then((response) => response.json())
+          .then((data) => {
+            const selectElement = document.getElementById("artist_id");
+            data.forEach((artist) => {
+              const option = document.createElement("option");
+              option.value = artist.artistId;
+              option.textContent = artist.artistId;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching artist details:", error)
+          );
       }
       function showma() {
         document.getElementById("d").style.display = "none";
@@ -801,12 +782,12 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        
         fetch("/data")
           .then((response) => response.json())
           .then((data) => {
-            // Populate the table with artist details
             const artistTableBody = document.getElementById("artistTableBody");
-            artistTableBody.innerHTML = ""; // Clear existing data
+            artistTableBody.innerHTML = "";
             data.forEach((artist) => {
               const row = `<tr>
                       <td>${artist.id}</td>
@@ -815,7 +796,6 @@
                       <td>${artist.phone}</td>
                       <td>${artist.address}</td>
                       <td>
-                        <button onclick="editArtist('${artist.artistId}')">Edit</button>
                         <button onclick="deleteArtist('${artist.artistId}')" >Delete</button>
                       </td>
                     </tr>`;
@@ -830,7 +810,6 @@
         // Implement edit functionality here
         console.log("Editing artist with ID:", artistId);
       }
-
       function deleteArtist(artistId) {
         fetch(`/artist/${artistId}`, {
           method: "DELETE",
