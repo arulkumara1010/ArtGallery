@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer details</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
+
+    .header {
+      font-size: larger;
+      font-weight: bolder;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 38px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    table {
+      width: 400px;
+      background-color: #ffffff;
+      border-collapse: collapse;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      margin-top: 50px; /* Adjust this value as needed */
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    th {
+      background-color: #184e77;
+      color: #ffffff;
+    }
+
+    input[type="tel"],
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    textarea,
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #184e77;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0d3559;
+    }
+
+    textarea {
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="header">
+    CUSTOMER DETAILS
+  </h1>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Enroll Customer Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><label for="Customer_Id">Customer Id:</label></td>
+        <td><input type="tel" id="Customer_Id" name="Customer_Id" /></td>
+      </tr>
+      <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" id="name" name="name" /></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="email" id="email" name="email" /></td>
+      </tr>
+      <tr>
+        <td><label for="phone">Phone:</label></td>
+        <td><input type="tel" id="phone" name="phone" /></td>
+      </tr>
+      <tr>
+        <td><label for="dob">Date of Birth:</label></td>
+        <td><input type="date" id="dob" name="dob" /></td>
+      </tr>
+      <tr>
+        <td><label for="address">Address:</label></td>
+        <td><textarea id="address" name="address"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="submit" value="Submit" /></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
