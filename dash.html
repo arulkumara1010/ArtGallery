@@ -466,7 +466,7 @@
                   <option value="Futurism">Futurism</option>
                 </select>
               </div>
-              <div>
+              <div class="sub">
                 <input type="submit" value="Submit" />
               </div>
             </form>
@@ -532,7 +532,7 @@
           ><span>Add Employee</span>
         </div>
         <div class="emp_details">
-          <form class="form3">
+          <form class="form3" method="post" action="/emp">
             <h3>Employee Details</h3>
             <div>
               <label for="name">Name:</label>
@@ -546,13 +546,7 @@
               <label for="phone">Phone:</label>
               <input type="tel" id="phone" name="phone" />
             </div>
-            <div>
-              <label for="position">Position:</label><br />
-              <select id="position">
-                <option value="employee">Normal Employee</option>
-                <option value="manager">Manager</option>
-              </select>
-            </div>
+            
             <div>
               <label for="dob">Date of Birth:</label>
               <input type="date" id="dob" name="dob" />
@@ -562,8 +556,21 @@
               <label for="address">Address:</label>
               <textarea id="address" name="address"></textarea>
             </div>
-
             <div>
+              <label for="position">Position:</label><br />
+              <select name = "position" id="position">
+                <option value="Employee">Employee</option>
+                <option value="Manager">Manager</option>
+                <option value="Art Handler">Art Handler</option>
+                <option value="Guide">Guide</option>
+              </select>
+            </div>
+            <div>
+              <label for="join">Date of Joining:</label>
+              <input type="date" id="join" name="join" />
+            </div>
+
+            <div class="sub">
               <input type="submit" value="Submit" />
             </div>
           </form>
