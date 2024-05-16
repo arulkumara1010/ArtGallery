@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -425,7 +424,7 @@
               </div>
 
               <div>
-                <input type="submit" value="Submit"  onclick="resetForm(event)"/>
+                <input type="submit" value="Submit" />
               </div>
             </form>
           </div>
@@ -636,11 +635,6 @@
     </div>
 
     <script>
-       function resetForm(event) {
-            event.preventDefault();
-            
-            document.getElementById("form1").reset();
-        }
       function toggleDropdown(dropdownId, symbolId) {
         var dropdown = document.getElementById(dropdownId);
         var symbol = document.getElementById(symbolId);
@@ -758,8 +752,9 @@
         fetch("/data")
           .then((response) => response.json())
           .then((data) => {
+            // Populate the table with artist details
             const artistTableBody = document.getElementById("artistTableBody");
-            artistTableBody.innerHTML = ""; 
+            artistTableBody.innerHTML = ""; // Clear existing data
             data.forEach((artist) => {
               const row = `<tr>
                       <td>${artist.id}</td>
@@ -780,6 +775,7 @@
           );
       }
       function editArtist(artistId) {
+        // Implement edit functionality here
         console.log("Editing artist with ID:", artistId);
       }
 
@@ -789,6 +785,7 @@
         })
           .then((response) => {
             if (response.ok) {
+              // If deletion is successful, remove the artist row from the UI
               const row = document.getElementById(`artist-${artistId}`);
               if (row) {
                 row.remove();
