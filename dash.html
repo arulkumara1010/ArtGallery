@@ -419,7 +419,7 @@
         </div>
         <div class="whole_details">
           <div class="artist_details">
-            <form class="form1" method="POST" action="/form">
+            <form class="form1" method="POST" action="/form1">
               <h3>Artist Details</h3>
               <div>
                 <label for="name">Name:</label>
@@ -453,10 +453,6 @@
               </div>
             </form>
           </div>
-
-          <!-- ADD PAINTINGS -->
-
-          
         </div>
       </div>
 
@@ -590,8 +586,12 @@
         </div>
 
         <div class="get_p">
-          <form class="form3">
+          <form class="form3" method="post" action="/form2">
             <h3>Painting Details</h3>
+            <div>
+              <label for="exhibition_id">Exhibition ID:</label>
+              <select id="exhibition_id" name="exhibition_id"></select>
+            </div>
             <div>
               <label for="artist_id">Artist ID:</label>
               <select id="artist_id" name="artist_id"></select>
@@ -782,7 +782,7 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
-        
+
         fetch("/data")
           .then((response) => response.json())
           .then((data) => {
