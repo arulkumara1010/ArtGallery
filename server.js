@@ -110,7 +110,6 @@ app.post("/form2", async (req, res) => {
     received_year,
     genre,
   } = req.body;
-  console.log(req.body);
 
   try {
     const id = await gen_pid(
@@ -178,6 +177,17 @@ app.get("/exhi", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+
+app.get("/paint", async (req, res) => {
+    try {
+      const [rows, fields] = await pool.query("SELECT * FROM art.painting");
+      res.send(rows);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("An error occurred while processing your request.");
+    }
+  });
+  
 
 app.delete("/artist/:id", async (req, res) => {
   const artistId = req.params.id;

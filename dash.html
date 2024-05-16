@@ -403,10 +403,9 @@
               <th>Availability</th>
               <th>Year of Creation</th>
               <th>Received Year</th>
-              <th>Manage</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id = "paint"></tbody>
         </table>
       </div>
 
@@ -446,25 +445,25 @@
 
               <div>
                 <label for="style">Style:</label>
-                <select name = "style" id="style">
-                  <option value="realism">Realism</option>
-                  <option value="impressionism">Impressionism</option>
-                  <option value="expressionism">Expressionism</option>
-                  <option value="abstract">Abstract</option>
-                  <option value="pop-art">Pop Art</option>
-                  <option value="minimalism">Minimalism</option>
-                  <option value="photorealism">Photorealism</option>
-                  <option value="baroque">Baroque</option>
-                  <option value="renaissance">Renaissance</option>
-                  <option value="gothic">Gothic</option>
-                  <option value="neoclassicism">Neoclassicism</option>
-                  <option value="romanticism">Romanticism</option>
-                  <option value="indian-miniature">
+                <select name="style" id="style">
+                  <option value="Realism">Realism</option>
+                  <option value="Impressionism">Impressionism</option>
+                  <option value="Expressionism">Expressionism</option>
+                  <option value="Abstract">Abstract</option>
+                  <option value="Pop-art">Pop Art</option>
+                  <option value="Minimalism">Minimalism</option>
+                  <option value="Photorealism">Photorealism</option>
+                  <option value="Baroque">Baroque</option>
+                  <option value="Renaissance">Renaissance</option>
+                  <option value="Gothic">Gothic</option>
+                  <option value="Neoclassicism">Neoclassicism</option>
+                  <option value="Romanticism">Romanticism</option>
+                  <option value="Indian-miniature">
                     Indian Miniature Painting
                   </option>
-                  <option value="pointillism">Pointillism</option>
-                  <option value="naive-art">Naive Art</option>
-                  <option value="futurism">Futurism</option>
+                  <option value="Pointillism">Pointillism</option>
+                  <option value="Naive-art">Naive Art</option>
+                  <option value="Futurism">Futurism</option>
                 </select>
               </div>
               <div>
@@ -515,6 +514,7 @@
               <th>Email</th>
               <th>Phone</th>
               <th>Address</th>
+              <th>Style</th>
               <th>Manage</th>
             </tr>
           </thead>
@@ -637,17 +637,17 @@
             </div>
             <div>
               <label for="genre">Genre:</label>
-              <select name= "genre" id="genre">
-                <option value="landscape">Landscape</option>
-                <option value="portrait">Portrait</option>
-                <option value="still-life">Still Life</option>
-                <option value="historical">Historical</option>
-                <option value="religious">Religious</option>
-                <option value="abstract">Abstract</option>
-                <option value="cityscape">Cityscape</option>
-                <option value="seascape">Seascape</option>
-                <option value="mythological">Mythological</option>
-                <option value="animal">Animal</option>
+              <select name="genre" id="genre">
+                <option value="Landscape">Landscape</option>
+                <option value="Portrait">Portrait</option>
+                <option value="Still-life">Still Life</option>
+                <option value="Historical">Historical</option>
+                <option value="Religious">Religious</option>
+                <option value="Abstract">Abstract</option>
+                <option value="Cityscape">Cityscape</option>
+                <option value="Seascape">Seascape</option>
+                <option value="Mythological">Mythological</option>
+                <option value="Animal">Animal</option>
               </select>
             </div>
             <div class="sub">
@@ -757,6 +757,29 @@
         document.getElementById("ma").style.display = "none";
         document.getElementById("ma").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        fetch("/paint")
+          .then((response) => response.json())
+          .then((data) => {
+            const exhibitionTableBody = document.getElementById("paint");
+            exhibitionTableBody.innerHTML = "";
+
+            data.forEach((painting) => {
+              const row = `<tr>
+                      <td>${painting.paintingID}</td>
+                      <td>${painting.name}</td>
+                      <td>${painting.price}</td>
+                      <td>${painting.genre}</td>
+                      <td>${painting.availability}</td>
+                      <td>${painting.creationYear}</td>
+                      <td>${painting.receivedYear}</td>
+                      
+                    </tr>`;
+              exhibitionTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching exhibition details:", error)
+          );
       }
       function showap() {
         document.getElementById("d").style.display = "none";
@@ -866,6 +889,7 @@
                       <td>${artist.email}</td>
                       <td>${artist.phone}</td>
                       <td>${artist.address}</td>
+                      <td>${artist.style}</td>
                       <td>
                         <button onclick="deleteArtist('${artist.artistId}')" >Delete</button>
                       </td>
