@@ -9,10 +9,36 @@ const pool = mysql.createPool({
   database: "art",
 });
 
+app.use(express.static("ArtGallery"));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/login.html");
+});
+
+
+app.get("/dash", (req, res) => {
   res.sendFile(__dirname + "/dash.html");
+});
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  console.log(req.body);
+  try {
+    const [results] = await pool.query(
+      "SELECT * FROM art.gallery WHERE username = ? AND password = ?",
+      [username, password]
+    );
+
+    if (results.length > 0) {
+      res.redirect("/dash");
+    } else {
+      res.send("Incorrect Username or Password!");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred during login");
+  }
 });
 
 app.use(express.json());
@@ -234,20 +260,19 @@ app.get("/paint", async (req, res) => {
 });
 
 app.post("/emp", async (req, res) => {
-  const { name, email, phone, dob, address, position , join} = req.body;
-  
+  const { name, email, phone, dob, address, position, join } = req.body;
+
   try {
     const id = await gen_eid(name, email, phone, dob, address, position, join);
 
     if (id != -1) {
       let managerID = null; // Initialize managerID to null
-      if (position !== 'Manager') {
+      if (position !== "Manager") {
         // Fetch managerID based on your criteria
         const [rows, fields] = await pool.query(
           "SELECT employeeID FROM art.employee WHERE position = 'Manager' LIMIT 1"
         );
         managerID = rows[0].employeeID;
-    
       }
 
       await pool.query(
@@ -275,7 +300,9 @@ app.post("/emp", async (req, res) => {
 
 app.get("/empdata", async (req, res) => {
   try {
-    const [rows, fields] = await pool.query("SELECT * FROM art.employee INNER JOIN art.person ON art.employee.employeeID = art.person.id INNER JOIN art.phonenumber ON art.phonenumber.id = art.person.id");
+    const [rows, fields] = await pool.query(
+      "SELECT * FROM art.employee INNER JOIN art.person ON art.employee.employeeID = art.person.id INNER JOIN art.phonenumber ON art.phonenumber.id = art.person.id"
+    );
     res.send(rows);
   } catch (error) {
     console.error("Error:", error);
@@ -305,7 +332,6 @@ app.delete("/employee/:id", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
-
 
 app.listen(7777, () => {
   console.log("Server is running on port 7777");
