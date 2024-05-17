@@ -140,18 +140,14 @@
 <body>
    <div class="tot_pg">
     <div class="log_f">
-        <form>
+        <form class ="cust" method="post" action="/cust">
             <h3>Sign Up Here</h3>
     
             <label for="username">Username</label>
-            <input type="text" placeholder="Email or Phone" id="username">
+            <input type="text" placeholder="Username" id="username" name="username">
     
             <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password">
-
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" placeholder="Confirm Password" id="confirm-password">
-    
+            <input type="password" placeholder="Password" id="password" name="password">
             <button>Sign Up</button>
             <div class="social">
               <div class="go"><i class="fab fa-google"></i> Google</div>
