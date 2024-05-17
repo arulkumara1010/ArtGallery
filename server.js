@@ -9,12 +9,16 @@ const pool = mysql.createPool({
   database: "art",
 });
 
-app.use(express.static("ArtGallery"));
+app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/login1.html");
+});
+
 app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/login.html");
+  res.sendFile(__dirname + "/login1.html");
 });
 
 
@@ -34,6 +38,7 @@ app.post("/login", async (req, res) => {
       res.redirect("/dash");
     } else {
       res.send("Incorrect Username or Password!");
+
     }
   } catch (error) {
     console.error("Error:", error);
