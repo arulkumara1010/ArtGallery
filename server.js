@@ -10,7 +10,8 @@ const pool = mysql.createPool({
 });
 
 app.use(express.static(__dirname));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
@@ -20,7 +21,6 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/login1.html");
 });
-
 
 app.get("/dash", (req, res) => {
   res.sendFile(__dirname + "/dashcopy.html");
@@ -38,16 +38,12 @@ app.post("/login", async (req, res) => {
       res.redirect("/dash");
     } else {
       res.send("Incorrect Username or Password!");
-
     }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("An error occurred during login");
   }
 });
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 async function generateId(name, email, phone, dob, address, style) {
   try {
@@ -117,6 +113,28 @@ async function gen_pid(
     );
     const count = countRows[0].count;
     const id = "P" + ("000" + (count + 1)).slice(-3);
+    return id;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function gen_exid(name, startDate, endDate) {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT exhibitionID FROM art.exhibition WHERE name = ? AND startDate = ? AND endDate = ?",
+      [name, startDate, endDate]
+    );
+
+    if (rows.length > 0) {
+      return -1; // Exhibition with the same details already exists
+    }
+
+    const [countRows] = await pool.query(
+      "SELECT COUNT(*) as count FROM art.exhibition"
+    );
+    const count = countRows[0].count;
+    const id = "X" + ("000" + (count + 1)).slice(-3);
     return id;
   } catch (error) {
     throw error;
@@ -332,6 +350,21 @@ app.delete("/employee/:id", async (req, res) => {
     await pool.query("DELETE FROM art.person WHERE id = ?", [id]);
 
     res.status(200).send("Artist deleted successfully");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+app.post("/exhibit1", async (req, res) => {
+  const { name, sd, ed } = req.body;
+  const id = await gen_exid(name, sd, ed);
+  try {
+    await pool.query(
+      "INSERT into art.exhibition (exhibitionID, name, startDate, endDate, galleryID) VALUES (?, ?, ?, ?, 'G001')",
+      [id, name, sd, ed]
+    );
+    res.status(201).send("Exhibition added successfully");
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("An error occurred while processing your request.");

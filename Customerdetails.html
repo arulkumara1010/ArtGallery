@@ -73,44 +73,40 @@
   </style>
 </head>
 <body>
-  <h1 class="header">
-    CUSTOMER DETAILS
-  </h1>
-  <table>
-    <thead>
-      <tr>
-        <th colspan="2">Enroll Customer Details</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><label for="Customer_Id">Customer Id:</label></td>
-        <td><input type="tel" id="Customer_Id" name="Customer_Id" /></td>
-      </tr>
-      <tr>
-        <td><label for="name">Name:</label></td>
-        <td><input type="text" id="name" name="name" /></td>
-      </tr>
-      <tr>
-        <td><label for="email">Email:</label></td>
-        <td><input type="email" id="email" name="email" /></td>
-      </tr>
-      <tr>
-        <td><label for="phone">Phone:</label></td>
-        <td><input type="tel" id="phone" name="phone" /></td>
-      </tr>
-      <tr>
-        <td><label for="dob">Date of Birth:</label></td>
-        <td><input type="date" id="dob" name="dob" /></td>
-      </tr>
-      <tr>
-        <td><label for="address">Address:</label></td>
-        <td><textarea id="address" name="address"></textarea></td>
-      </tr>
-      <tr>
-        <td colspan="2"><input type="submit" value="Submit" /></td>
-      </tr>
-    </tbody>
-  </table>
+  <form action="/cus" method="post">
+    <h1 class="header">Customer Details</h1>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Enroll Customer Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label for="name">Name:</label></td>
+          <td><input type="text" id="name" name="name" required /></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email:</label></td>
+          <td><input type="email" id="email" name="email" required /></td>
+        </tr>
+        <tr>
+          <td><label for="phone">Phone:</label></td>
+          <td><input type="tel" id="phone" name="phone" required /></td>
+        </tr>
+        <tr>
+          <td><label for="dob">Date of Birth:</label></td>
+          <td><input type="date" id="dob" name="dob" required /></td>
+        </tr>
+        <tr>
+          <td><label for="address">Address:</label></td>
+          <td><textarea id="address" name="address" required></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="submit" value="Submit" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 </body>
 </html>
