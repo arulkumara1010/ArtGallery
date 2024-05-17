@@ -1,393 +1,238 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Customer</title>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery Customer Page</title>
     <style>
-      .dropdown {
-        display: flex;
-        flex-direction: column;
-        min-width: 200px;
-        height: 700px;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-        margin-left: -1rem;
-        background-color: #184e77;
-      }
-
-      .head {
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        margin-left: -1rem;
-        margin-right: -1rem;
-        margin-top: -1rem;
-        background-color: #184e77;
-        color: #ffffff;
-        box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
-      }
-
-      .dropdown-content {
-        display: none;
-        position: relative;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-
-      .dropdown-content button,
-      .material-icons {
-        margin-right: 7px;
-        /* Adjust the spacing between the icon and text */
-        vertical-align: middle;
-        /* Align the icon vertically with the text */
-      }
-
-      .dropdown-content button {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
-        text-align: left;
-        padding: 12px 16px;
-        border: 1px solid #ffffff;
-        background-color: #184e77;
-        color: white;
-        cursor: pointer;
-      }
-
-      .show {
-        display: block;
-      }
-
-      .prof {
-        width: 50px;
-        height: 50px;
-        background-color: inherit;
-        margin-top: 15px;
-        padding-left: 70%;
-        padding-right: 10px;
-      }
-
-      .title {
-        padding-left: 1rem;
-      }
-
-      .button {
-        width: 100%;
-        height: 65px;
-        background-color: #184e77;
-        color: #ffffff;
-        border: 1px solid #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 20px;
-      }
-
-      .main {
-        overflow: hidden;
-        background-color: white;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: row;
-      }
-
-      .path {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        min-width: 1000px;
-        font-size: larger;
-        box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
-        margin-top: 3rem;
-        border-radius: 10px;
-        background-color: transparent;
-        margin-left: 2rem;
-      }
-      .dash,
-      .Painting,
-      .Exhibition,
-      .add_person,
-      .Purchases {
-        display: none;
-      }
-
-      .container_dash {
-        display: grid;
-        grid-template-rows: repeat(7, 75px);
-        grid-template-columns: repeat(7, 100px);
-        grid-gap: 50px;
-        margin-top: 3rem;
-        margin-left: 2rem;
-      }
-
-      .item-1 {
-        grid-row: 1/3;
-        grid-column: 1/4;
-        background-color: #1a759f;
-        border-radius: 10px;
-      }
-
-      .item-2 {
-        grid-row: span 2;
-        grid-column: span 3;
-        background-color: #d9ed92;
-        border-radius: 10px;
-      }
-
-      .item-3 {
-        grid-row: 3/5;
-        grid-column: 1/4;
-        background-color: #76c893;
-        border-radius: 10px;
-      }
-
-      .item-4 {
-        grid-row: 3/5;
-        grid-column: 4/7;
-        background-color: #34a0a4;
-        border-radius: 10px;
-      }
-
-      table {
-        width: 100%;
-
-        margin-top: 3rem;
-        margin-left: 2rem;
-      }
-
-      th,
-      td {
-        padding: 8px;
-        text-align: left;
-
-        border: 1px solid #000000;
-      }
-
-      tr:hover {
-        background-color: #f2f2f2;
-      }
-
-      th {
-        background-color: #4caf50;
-        color: white;
-      }
-
-      .form1,
-      .form2 {
-        padding-left: 25px;
-        padding-top: 1px;
-        display: grid;
-        grid-template-columns: 350px;
-        grid-gap: 10px;
-      }
-
-      label {
-        text-align: right;
-        padding-right: 10px;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .artist_details,
-      .add_paintings {
-        display: flex;
-        align-content:center;
-        flex-direction: column;
-        margin-top: 3rem;
-        margin-left: 22rem;
-        height: 450px;
-        width: 400px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      }
-      .whole_details {
-        display: flex;
-        flex-direction: row;
-      }
-      .sub {
-        padding-top: 20px;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            height: 100vh;
+        }
+        .topbar {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .sidebar h2 {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 10px;
+            flex: 1;
+            justify-content: center;
+            text-align: center;
+        }
+        .sidebar img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            transition: margin-bottom 0.3s;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            display: none;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .breadcrumb {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .breadcrumb li {
+            margin-right: 10px;
+        }
+        .breadcrumb li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .breadcrumb li::after {
+            content: ">";
+            margin-left: 10px;
+        }
+        .breadcrumb li:last-child::after {
+            content: "";
+        }
     </style>
-  </head>
-
-  <body class="main">
-    <header class="head">
-      <h1 class="title">Art Gallery | Customer</h1>
-      <img src="img/prof.png" alt="" class="prof" />
-    </header>
-    <div class="content">
-      <div class="dropdown">
-        <button class="button" onclick="showdash()">
-          <i class="material-icons">dashboard</i> <span>Dash Board ></span>
-        </button>
-        <button class="button" onclick="showexhi()">
-          <i class="material-icons">art_track</i> <span>Exhibition</span>
-        </button>
-        <button onclick="toggleDropdown('artist')" class="button">
-          <i class="material-icons">person</i> <span>Customer</span>
-        </button>
-        <div id="artist" class="dropdown-content">
-          
-        </div>
-
-        <button class="button" onclick="showp()">
-          <i class="material-icons">brush</i> <span>Painting</span>
-        </button>
-        <button class="button" onclick="shopur()">
-          <i class="material-icons">shopping_cart</i> <span>Purchases</span>
-        </button>
-      </div>
-      <div class="dash" id="d">
-        <div class="path">
-          <i class="material-icons">home</i><span>home /</span
-          ><i class="material-icons">dashboard</i><span>Dash Board</span>
-        </div>
-
-        <div class="container_dash">
-          <div class="item-1">1</div>
-          <div class="item-2">2</div>
-          <div class="item-3">3</div>
-          <div class="item-4">4</div>
-        </div>
-      </div>
-
-      <div class="Exhibition" id="e">
-        <div class="path">
-          <i class="material-icons">home</i><span>Home /</span
-          ><i class="material-icons">art_track</i><span>Exhibition</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              
-              <th>Exhibition Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>View Painting</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="Painting" id="p">
-        <div class="path">
-          <i class="material-icons">home</i><span>Home /</span
-          ><i class="material-icons">brush</i><span>Painting</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-             
-              <th>Name</th>
-              <th>Price</th>
-              <th>Genre</th>
-              <th>Availability</th>
-              <th>Year of Creation</th>
-              <th>Buy Now</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="add_person" id="ap">
-        <div class="path">
-          <i class="material-icons">home</i><span>Home /</span
-          ><i class="material-icons">person</i><span>Customer /</span>
-          
-        
-
-      <div class="Purchases" id="pur">
-        <div class="path">
-          <i class="material-icons">home</i><span>home /</span>
-          <i class="material-icons">shopping_cart</i> <span>Purchases</span>
-        </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Customer ID</th>
-              <th>Customer Name</th>
-              <th>Painting Name</th>
-              <th>Price</th>
-              <th>Transaction ID</th>
-              <th>Purchased Date</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
     <script>
-      function toggleDropdown(argument) {
-        document.getElementById(argument).classList.toggle("show");
-      }
+        function toggleVisibility(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "table";
+                setTimeout(() => { element.style.opacity = 1; }, 10); // Smooth transition
+            } else {
+                element.style.opacity = 0;
+                setTimeout(() => { element.style.display = "none"; }, 300); // Smooth transition
+            }
+        }
 
-      function showdash() {
-        document.getElementById("d").style.display = "block";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-      }
-      function showexhi() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("e").style.display = "block";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-      }
+        function showPaintingsTable() {
+            document.getElementById("paintings").style.display = "table";
+            setTimeout(() => { document.getElementById("paintings").style.opacity = 1; }, 10); // Smooth transition
+        }
 
-      function showp() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("p").style.display = "block";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-      }
-      function showap() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("ap").style.display = "block";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("pur").style.display = "none";
-      }
-
-      function showpur() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("pur").style.display = "block";
-      }
-        function pur() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("pur").style.display = "block";
-      }
-      function shopur() {
-        document.getElementById("d").style.display = "none";
-        document.getElementById("ap").style.display = "none";
-        document.getElementById("e").style.display = "none";
-        document.getElementById("p").style.display = "none";
-        document.getElementById("pur").style.display = "block";
-      }
-
+        function showBreadcrumb(section) {
+            const breadcrumbs = document.querySelectorAll('.breadcrumb');
+            breadcrumbs.forEach(crumb => {
+                crumb.style.display = 'none';
+            });
+            document.getElementById(`breadcrumb-${section}`).style.display = 'flex';
+        }
     </script>
-  </body>
+</head>
+<body>
+    <div class="topbar">
+        <h1>Art Gallery Customer Page</h1>
+    </div>
+    <div class="content">
+        <ul id="breadcrumb-exhibitions" class="breadcrumb" style="display: none;">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Art Gallery</a></li>
+            <li>Exhibitions</li>
+        </ul>
+
+        <ul id="breadcrumb-paintings" class="breadcrumb" style="display: none;">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Art Gallery</a></li>
+            <li>Paintings</li>
+        </ul>
+
+        <ul id="breadcrumb-purchases" class="breadcrumb" style="display: none;">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Art Gallery</a></li>
+            <li>Purchases</li>
+        </ul>
+
+        <table id="exhibitions">
+            <thead>
+                <tr>
+                    <th>Exhibition ID</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>View Paintings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2024-06-01</td>
+                    <td>2024-06-30</td>
+                    <td><a href="javascript:void(0);" onclick="showPaintingsTable(); showBreadcrumb('paintings');">View Paintings</a></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <table id="paintings">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Genre</th>
+                    <th>Availability</th>
+                    <th>Year of Creation</th>
+                    <th>Buy Now</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Starry Night</td>
+                    <td>$1,000,000</td>
+                    <td>Post-Impressionism</td>
+                    <td>Available</td>
+                    <td>1889</td>
+                    <td><button class="btn">Buy Now</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <table id="purchases">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Painting Name</th>
+                    <th>Price</th>
+                    <th>Transaction ID</th>
+                    <th>Purchased Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>John Doe</td>
+                    <td>Starry Night</td>
+                    <td>$1,000,000</td>
+                    <td>TX123456</td>
+                    <td>2024-05-10</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <div class="sidebar">
+        <h2 onclick="toggleVisibility('exhibitions'); showBreadcrumb('exhibitions');">
+            <img src="https://via.placeholder.com/30" alt="Exhibitions Logo">
+            Exhibitions
+        </h2>
+        <h2 onclick="toggleVisibility('paintings'); showBreadcrumb('paintings');">
+            <img src="https://via.placeholder.com/30" alt="Paintings Logo">
+            Paintings
+        </h2>
+        <h2 onclick="toggleVisibility('purchases'); showBreadcrumb('purchases');">
+            <img src="https://via.placeholder.com/30" alt="Purchases Logo">
+            Purchases
+        </h2>
+    </div>
+</body>
 </html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/abticon.png">
+    <title>About us</title>
+</head>
+<style>
+    body{
+        background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.8)),url(img/abt.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        width: 100vw; 
+        height: 100vh;
+    }
+    
+    .head{
+        padding-top: 1rem;
+        padding-left: 2px;
+        font-family: 'CUST';
+
+        
+        color: white;
+    }
+    .fullhead{
+        display: flex;
+        flex-direction: row;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 25px rgba(0,0,0,0.5);
+        margin-left: -1rem;
+        margin-top: -1rem;
+    }
+    .logo {
+            width: 50px;
+            height: 50px;
+            margin-top: 30px;
+            margin-left: 20px;
+            
+        }
+    .abt{
+        padding-left: 80%;
+        padding-top: 5px;
+        color: white;
+        font-size: 40pt;
+        font-family: 'design';
+    }
+    .content{
+        color: #ffffff;
+        font-size: 20pt;
+        padding-right: 400px;
+        font-family:'Times New Roman', Times, serif;
+        font-style: italic;
+        margin-left: 20px;
+        font-size: 35pt;
+    }
+    .secpara{
+        color: #ffffff;
+        font-size: 20pt;
+        padding-right: 200px;
+        font-family: 'Times New Roman', Times, serif;
+        margin-top: 15px;
+        margin-left: 20px; 
+        text-align: justify; 
+    }
+    .button{
+            width: 125px;
+            height: 45px;
+            border-radius: 30px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+            background-color: transparent;
+            backdrop-filter: blur(10px);
+            transition: ease-out 0.3s;
+            cursor: pointer;
+            color: white;
+    }
+
+        .button:hover{
+          cursor:pointer;
+          background-color: grey;
+          color:rgb(0, 0, 0);
+        }
+        .wn,.bt,.ac,.bu,.af,.un{
+            color: #ff9800;
+            font-weight: bold;
+        }
+        .content{
+            animation: 4s;
+            animation-name: slidein;
+        }
+        .bttom{
+            display: flex;
+            flex-direction: column;
+            animation: 4s;
+            animation-name: slideup;
+        }
+
+        
+
+</style>
+<body>
+    <header>
+        <div class="fullhead">
+        <img  class="logo"  src="img/logo-removebg-preview.png" alt="">
+        <h1 class="head">ART GALLERY</h1>
+        </div>
+       
+    </header>
+
+    <main>
+        <h1 class="abt">ABOUT US</h1>
+        
+        <p class="content">Discover the <span class="wn">Heart of Art at Creative Hub</span>, where local talent meets boundless imagination!!</p>
+            <div class="bttom">
+            <p class="secpara">At Art Gallery, we are passionate about showcasing the <span class="bt">talents and unique visions,</span> of our community's artists. Whether you're an art connoisseur or a curious newcomer, immerse yourself in <span class="un">captivating</span> local art.
+            
+              We believe art should <span class="ac">inspire, provoke thought,</span> and bring people together. That’s why we curate <span class="af">dynamic exhibitions,</span> from contemporary masterpieces to traditional crafts, ensuring something for everyone to <span class="bu"> enjoy.</span> </p>
+            <button class="button" onclick="window.location.href = 'home.html'">Back</button>
+            </div>
+    </main>
+    
+    
+</body>
+
+</html>
