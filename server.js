@@ -13,13 +13,13 @@ app.use(express.static("ArtGallery"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/login.html");
 });
 
 
 app.get("/dash", (req, res) => {
-  res.sendFile(__dirname + "/dash.html");
+  res.sendFile(__dirname + "/dashcopy.html");
 });
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;

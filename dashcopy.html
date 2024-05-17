@@ -13,7 +13,7 @@
         display: flex;
         flex-direction: column;
         min-width: 200px;
-        height: 700px;
+        height: 665px;
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
         margin-left: -1rem;
         background-color: #184e77;
@@ -37,15 +37,13 @@
         background-color: #f1f1f1;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
+        z-index: 2;
       }
 
       .dropdown-content button,
       .material-icons {
         margin-right: 7px;
-        /* Adjust the spacing between the icon and text */
         vertical-align: middle;
-        /* Align the icon vertically with the text */
       }
 
       .dropdown-content button {
@@ -59,6 +57,7 @@
         background-color: #184e77;
         color: white;
         cursor: pointer;
+        position: relative;
       }
 
       .show {
@@ -79,7 +78,7 @@
 
       .button {
         width: 100%;
-        height: 65px;
+        height: 60px;
         background-color: #184e77;
         color: #ffffff;
         border: 1px solid #ffffff;
@@ -93,7 +92,6 @@
 
       .main {
         overflow: hidden;
-        background-color: white;
       }
 
       .content {
@@ -121,7 +119,9 @@
       .Manage_artist,
       .add_emp,
       .manage_emp,
-      .add_ex_p {
+      .add_ex_p,
+      .cust,
+      .add_exhibition {
         display: none;
       }
 
@@ -225,10 +225,21 @@
         width: 600px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
-
-      .whole_details {
+      .exhi_details {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 350px;
+        width: 600px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      #submit {
+        width: 100px;
+        height: 25px;
+        margin-left: 10rem;
+        margin-top: 1rem;
       }
 
       .sub {
@@ -258,7 +269,7 @@
         display: none;
         position: absolute;
         top: 90px;
-        /* Adjust position as needed */
+
         right: 20px;
         background-color: white;
         border: 1px solid #ccc;
@@ -273,7 +284,14 @@
 
       .logout-option a:hover {
         color: #f00;
-        /* Change color on hover as needed */
+      }
+
+      #s1,
+      #s2 {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+        margin: 10px;
       }
     </style>
   </head>
@@ -283,19 +301,33 @@
       <h1 class="title">Art Gallery | Admin</h1>
       <img src="img/prof.png" alt="" class="prof" id="profileImage" />
       <div class="logout-option" id="logoutOption">
-        <a href="home.html" id="logoutLink">Logout</a>
+        <a href="/login" id="logoutLink">Logout</a>
       </div>
     </header>
     <div class="content">
       <div class="dropdown">
-        <button class="button" onclick="showdash(),toggleleft('s')">
-          <i class="material-icons">dashboard</i> <span>Dash Board </span>
-          <span id="s1">></span>
-        </button>
-        <button class="button" onclick="showexhi()">
-          <i class="material-icons">art_track</i> <span>Exhibition</span>
-          <span id="s2">></span>
-        </button>
+        <div class="item">
+          <button class="button" onclick="showdash()">
+            <i class="material-icons">dashboard</i> <span>Dash Board </span>
+            <span id="s1">></span>
+          </button>
+        </div>
+        <div class="item">
+          <button class="button" onclick="toggleDropdown('exhi','s2')">
+            <i class="material-icons">art_track</i> <span>Exhibition</span>
+            <span id="s2">></span>
+          </button>
+          <div id="exhi" class="dropdown-content">
+            <button class="button1" onclick="showaddex()">
+              <i class="material-icons">add_circle</i>
+              <span>Add Exhibition</span>
+            </button>
+            <button class="button1" onclick="showexhi()">
+              <i class="material-icons">art_track</i>
+              <span>View Exhibition</span>
+            </button>
+          </div>
+        </div>
         <button
           onclick="toggleDropdown('artist','artistSymbol1')"
           class="button"
@@ -304,10 +336,10 @@
           <span id="artistSymbol1">></span>
         </button>
         <div id="artist" class="dropdown-content">
-          <button class="button" onclick="showap()">
+          <button class="button1" onclick="showap()">
             <i class="material-icons">person_add</i> <span>Add Artist</span>
           </button>
-          <button class="button" onclick="showma()">
+          <button class="button1" onclick="showma()">
             <i class="material-icons">people</i> <span>Manage Artist</span>
           </button>
         </div>
@@ -320,11 +352,11 @@
           ><span id="artistSymbol3">></span>
         </button>
         <div id="Painting" class="dropdown-content">
-          <button class="button" onclick="showapt()">
+          <button class="button1" onclick="showapt()">
             <i class="material-icons">add_photo_alternate</i>
             <span>Add Painting</span>
           </button>
-          <button class="button" onclick="showp()">
+          <button class="button1" onclick="showp()">
             <i class="material-icons">art_track</i> <span>Manage Painting</span>
           </button>
         </div>
@@ -340,13 +372,17 @@
           ><span id="artistSymbol2">></span>
         </button>
         <div id="Employee" class="dropdown-content">
-          <button class="button" onclick="showae()">
+          <button class="button1" onclick="showae()">
             <i class="material-icons">person_add</i> <span>Add Employee</span>
           </button>
-          <button class="button" onclick="showme()">
+          <button class="button1" onclick="showme()">
             <i class="material-icons">people</i> <span>Manage Employee</span>
           </button>
         </div>
+        <button class="button" onclick="showcst()">
+          <i class="material-icons">account_circle</i> <span>Customer</span
+          ><span id="artistSymbol">></span>
+        </button>
       </div>
 
       <!-- DASh -->
@@ -666,6 +702,57 @@
           </form>
         </div>
       </div>
+
+      <!-- Customer -->
+      <div class="cust" id="cst">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">account_circle</i><span>Customer</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Date Of Birth</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- ADD Exhibition -->
+      <div class="add_exhibition" id="add_ex">
+        <div class="path">
+          <i class="material-icons">home</i><span>home/</span
+          ><i class="material-icons">art_track</i><span>Exhibition/</span>
+          <i class="material-icons">add_circle</i><span> Add Exhibition</span>
+        </div>
+        <div class="exhi_details">
+          <form class="form1">
+            <h3>Exhibition_Details</h3>
+            <div>
+              <label for="name">Exhibition_Name:</label>
+              <input type="text" id="name" name="name" />
+            </div>
+            <div>
+              <label for="sd">Start Date</label>
+              <input type="date" id="sd" name="sd" />
+            </div>
+            <div>
+              <label for="ed">End Date</label>
+              <input type="date" id="ed" name="ed" />
+            </div>
+
+            <div>
+              <input type="submit" value="Submit" id="submit" />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -717,6 +804,8 @@
         document.getElementById("me").style.display = "none";
         document.getElementById("ae").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
       }
       function showexhi() {
         document.getElementById("d").style.display = "none";
@@ -728,6 +817,8 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
         fetch("/exhi")
           .then((response) => response.json())
           .then((data) => {
@@ -767,6 +858,8 @@
         document.getElementById("ma").style.display = "none";
         document.getElementById("ma").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
         fetch("/paint")
           .then((response) => response.json())
           .then((data) => {
@@ -801,6 +894,8 @@
         document.getElementById("ma").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
       }
 
       function showpur() {
@@ -812,7 +907,9 @@
         document.getElementById("ma").style.display = "none";
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
+        document.getElementById("cst").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
       }
       function showae() {
         document.getElementById("d").style.display = "none";
@@ -824,6 +921,8 @@
         document.getElementById("ae").style.display = "block";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
       }
       function showme() {
         document.getElementById("d").style.display = "none";
@@ -834,13 +933,18 @@
         document.getElementById("ma").style.display = "none";
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "block";
+        document.getElementById("cst").style.display = "none";
         document.getElementById("apt").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
         fetch("/empdata")
           .then((response) => response.json())
           .then((data) => {
             const artistTableBody = document.getElementById("empdata");
             artistTableBody.innerHTML = "";
             data.forEach((employee) => {
+              const formattedjoinDate = new Date(
+                employee.joinDate
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
               const row = `<tr>
                       <td>${employee.employeeID}</td>
                       <td>${employee.name}</td>
@@ -848,7 +952,7 @@
                       <td>${employee.phone}</td>
                       <td>${employee.address}</td>
                       <td>${employee.position}</td>
-                      <td>${employee.joinDate}</td>
+                      <td>${formattedjoinDate}</td>
                       <td>${employee.managerID}</td>
                       <td>
                         <button onclick="deleteEmployee('${employee.employeeID}')" >Delete</button>
@@ -871,6 +975,8 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "block";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
         fetch("/data")
           .then((response) => response.json())
           .then((data) => {
@@ -900,6 +1006,33 @@
             console.error("Error fetching artist details:", error)
           );
       }
+      function showcst() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "block";
+        document.getElementById("add_ex").style.display = "none";
+      }
+      function showaddex() {
+        document.getElementById("d").style.display = "none";
+        document.getElementById("ap").style.display = "none";
+        document.getElementById("e").style.display = "none";
+        document.getElementById("p").style.display = "none";
+        document.getElementById("pur").style.display = "none";
+        document.getElementById("ma").style.display = "none";
+        document.getElementById("ae").style.display = "none";
+        document.getElementById("me").style.display = "none";
+        document.getElementById("apt").style.display = "none";
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "block";
+
+      }
       function showma() {
         document.getElementById("d").style.display = "none";
         document.getElementById("ap").style.display = "none";
@@ -910,7 +1043,8 @@
         document.getElementById("ae").style.display = "none";
         document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
-
+        document.getElementById("cst").style.display = "none";
+        document.getElementById("add_ex").style.display = "none";
         fetch("/data")
           .then((response) => response.json())
           .then((data) => {
@@ -959,6 +1093,7 @@
           })
           .catch((error) => console.error("Error deleting artist:", error));
       }
+      
       function deleteEmployee(id) {
         fetch(`/employee/${id}`, {
           method: "DELETE",
