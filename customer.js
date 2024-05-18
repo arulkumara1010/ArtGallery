@@ -18,10 +18,14 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/home.html");
 });
 
+app.get("/base", (req, res) => {
+  res.sendFile(__dirname + "/base.html");
+});
+
 async function generateId(username, password) {
   try {
     const [rows] = await pool.query(
-      "SELECT * FROM art.person, art.customer, art.phonenumber WHERE username = ? AND password = ?",
+      "SELECT * FROM art.person inner join art.customer on art.person.id = art.customer.customerID inner join art.phonenumber on art.person.id = art.phonenumber.id WHERE username = ? AND password = ?",
       [username, password]
     );
     if (rows.length > 0) {
@@ -29,7 +33,7 @@ async function generateId(username, password) {
     }
 
     const [countRows] = await pool.query(
-      "SELECT COUNT(*) as count FROM art.person, art.customer, art.phonenumber"
+      "SELECT COUNT(*) as count FROM art.customer"
     );
     const count = countRows[0].count;
     const id = "C" + ("000" + (count + 1)).slice(-3);
@@ -41,7 +45,29 @@ async function generateId(username, password) {
 }
 
 app.get("/cust-details", (req, res) => {
-    res.sendFile(__dirname + "/Customerdetails.html");
+  res.sendFile(__dirname + "/Customerdetails.html");
+});
+
+app.post("/cus", async (req, res) => {
+  const { name, email, phone, dob, address } = req.body;
+  try {
+    const [idRows] = await pool.query(
+      "SELECT id FROM art.person where id like 'C%' ORDER BY id DESC LIMIT 1"
+    );
+    const id = idRows[0].id;
+    await pool.query(
+      "UPDATE art.person SET name = ?, dob = ?, address = ?, email = ? WHERE id = ?",
+      [name, dob, address, email, id]
+    );
+    await pool.query("UPDATE art.phonenumber SET phone = ? WHERE id = ?", [
+      phone,
+      id,
+    ]);
+    res.redirect("/base");
+  } catch (error) {
+    console.error("Error in POST /cus:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
 });
 
 app.post("/cust", async (req, res) => {
@@ -61,7 +87,7 @@ app.post("/cust", async (req, res) => {
         "INSERT into art.phonenumber (id, phone) VALUES (?, null)",
         [id]
       );
-      res.redirect("/cust-details");
+      res.redirect("/base");
     } else {
       res.status(400).send("Customer already exists!");
     }
@@ -70,7 +96,34 @@ app.post("/cust", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+app.post("/login2", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const [results] = await pool.query(
+      "SELECT * FROM art.customer WHERE username = ? AND password = ?",
+      [username, password]
+    );
 
+    if (results.length > 0) {
+      res.redirect("/base");
+    } else {
+      res.send("Incorrect Username or Password!");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred during login");
+  }
+});
+
+app.get("/exhibit", async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query("SELECT * FROM art.exhibition");
+    res.send(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
 app.listen(8888, () => {
   console.log("Server is running on port 8888");
   console.log("Server link: http://localhost:8888/");

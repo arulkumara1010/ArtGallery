@@ -413,7 +413,6 @@
               <th>Name</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>View Paintings</th>
             </tr>
           </thead>
           <tbody id="exhibit"></tbody>
@@ -720,7 +719,7 @@
               <th>Address</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id = "customer"></tbody>
         </table>
       </div>
 
@@ -838,7 +837,6 @@
                       <td>${exhibition.name}</td>
                       <td>${formattedStartDate}</td>
                       <td>${formattedEndDate}</td>
-                      <td><button onclick="viewPaintings('${exhibition.exhibitionID}')" >View Paintings</button></td>
                     </tr>`;
               exhibitionTableBody.innerHTML += row;
             });
@@ -1018,6 +1016,29 @@
         document.getElementById("apt").style.display = "none";
         document.getElementById("cst").style.display = "block";
         document.getElementById("add_ex").style.display = "none";
+        fetch("/customer")
+          .then((response) => response.json())
+          .then((data) => {
+            const artistTableBody = document.getElementById("customer");
+            artistTableBody.innerHTML = "";
+            data.forEach((employee) => {
+              const formattedStartDate = new Date(
+                employee.dob
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+              const row = `<tr>
+                      <td>${employee.customerID}</td>
+                      <td>${employee.name}</td>
+                      <td>${employee.email}</td>
+                      <td>${employee.phone}</td>
+                      <td>${formattedStartDate}</td>
+                      <td>${employee.address}</td>
+                    </tr>`;
+              artistTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching customer details:", error)
+          );
       }
       function showaddex() {
         document.getElementById("d").style.display = "none";

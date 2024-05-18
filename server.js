@@ -27,7 +27,6 @@ app.get("/dash", (req, res) => {
 });
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body);
   try {
     const [results] = await pool.query(
       "SELECT * FROM art.gallery WHERE username = ? AND password = ?",
@@ -272,6 +271,16 @@ app.get("/exhi", async (req, res) => {
   }
 });
 
+app.get("/customer", async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query("SELECT * FROM art.person inner join art.customer on art.person.id = art.customer.customerID inner join art.phonenumber on art.person.id = art.phonenumber.id");
+    res.send(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
 app.get("/paint", async (req, res) => {
   try {
     const [rows, fields] = await pool.query("SELECT * FROM art.painting");
@@ -287,7 +296,6 @@ app.post("/emp", async (req, res) => {
 
   try {
     const id = await gen_eid(name, email, phone, dob, address, position, join);
-
     if (id != -1) {
       let managerID = null; // Initialize managerID to null
       if (position !== "Manager") {
@@ -347,7 +355,7 @@ app.delete("/employee/:id", async (req, res) => {
     }
     await pool.query("DELETE FROM art.phonenumber WHERE id = ?", [id]);
     await pool.query("DELETE FROM art.employee WHERE employeeID = ?", [id]);
-    await pool.query("DELETE FROM art.person WHERE id = ?", [id]);
+    await pool.query("DELET E FROM art.person WHERE id = ?", [id]);
 
     res.status(200).send("Artist deleted successfully");
   } catch (error) {
@@ -359,6 +367,9 @@ app.delete("/employee/:id", async (req, res) => {
 app.post("/exhibit1", async (req, res) => {
   const { name, sd, ed } = req.body;
   const id = await gen_exid(name, sd, ed);
+  if (ed < sd) {
+    return res.status(400).send("End date cannot be before start date");
+  }
   try {
     await pool.query(
       "INSERT into art.exhibition (exhibitionID, name, startDate, endDate, galleryID) VALUES (?, ?, ?, ?, 'G001')",
