@@ -377,7 +377,6 @@
               <th>Name</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>View Paintings</th>
             </tr>
           </thead>
           <tbody id="exhibit"></tbody>
@@ -747,7 +746,6 @@
                       <td>${exhibition.name}</td>
                       <td>${formattedStartDate}</td>
                       <td>${formattedEndDate}</td>
-                      <td><button onclick="viewPaintings('${exhibition.exhibitionID}')" >View Paintings</button></td>
                     </tr>`;
               exhibitionTableBody.innerHTML += row;
             });
