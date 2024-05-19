@@ -189,7 +189,7 @@
             <th>Buy Now</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id = "paint"></tbody>
       </table>
 
       <table id="purchases">
@@ -248,7 +248,7 @@
                         <td>${exhibition.name}</td>
                         <td>${formattedStartDate}</td>
                         <td>${formattedEndDate}</td>
-                        <td><button class="btn" onclick="toggleVisibility('paintings'); showBreadcrumb('paintings');">View Paintings</button></td>
+                        <td><button class="btn" onclick="showpaintings(${exhibition.exhibitionID});toggleVisibility('paintings'); showBreadcrumb('paintings');">View Paintings</button></td>
                       </tr>`;
             exhibitionTableBody.innerHTML += row;
           });
@@ -256,6 +256,29 @@
         .catch((error) =>
           console.error("Error fetching exhibition details:", error)
         );
+        showpaintings(exhibitionID)
+        {
+          fetch(`/paintings/${exhibitionID}`)
+          .then((response) => response.json())
+          .then((data) => {
+            const paintingTableBody = document.getElementById("paint");
+            paintingTableBody.innerHTML = "";
+            data.forEach((painting) => {
+              const row = `<tr>
+                            <td>${painting.name}</td>
+                            <td>${painting.price}</td>
+                            <td>${painting.genre}</td>
+                            <td>${painting.availability}</td>
+                            <td>${painting.yearOfCreation}</td>
+                            <td><button class="btn">Buy Now</button></td>
+                          </tr>`;
+              paintingTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching painting details:", error)
+          );
+        }
     </script>
   </body>
 </html>
