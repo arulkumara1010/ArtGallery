@@ -273,7 +273,9 @@ app.get("/exhi", async (req, res) => {
 
 app.get("/customer", async (req, res) => {
   try {
-    const [rows, fields] = await pool.query("SELECT * FROM art.person inner join art.customer on art.person.id = art.customer.customerID inner join art.phonenumber on art.person.id = art.phonenumber.id");
+    const [rows, fields] = await pool.query(
+      "SELECT * FROM art.person inner join art.customer on art.person.id = art.customer.customerID inner join art.phonenumber on art.person.id = art.phonenumber.id"
+    );
     res.send(rows);
   } catch (error) {
     console.error("Error:", error);
@@ -297,7 +299,7 @@ app.post("/emp", async (req, res) => {
   try {
     const id = await gen_eid(name, email, phone, dob, address, position, join);
     if (id != -1) {
-      let managerID = null; 
+      let managerID = null;
       if (position !== "Manager") {
         const [rows, fields] = await pool.query(
           "SELECT employeeID FROM art.employee WHERE position = 'Manager' LIMIT 1"
@@ -354,7 +356,7 @@ app.delete("/employee/:id", async (req, res) => {
     }
     await pool.query("DELETE FROM art.phonenumber WHERE id = ?", [id]);
     await pool.query("DELETE FROM art.employee WHERE employeeID = ?", [id]);
-    await pool.query("DELET E FROM art.person WHERE id = ?", [id]);
+    await pool.query("DELETE FROM art.person WHERE id = ?", [id]);
 
     res.status(200).send("Artist deleted successfully");
   } catch (error) {
@@ -380,7 +382,17 @@ app.post("/exhibit1", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
-
+app.get("/purchase", async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT customerID, painting.paintingID, painting.artistID, exhibition.name as ename, painting.name as pname, p.name as cname, price, transactionID, date FROM purchases inner join painting on painting.paintingID = purchases.paintingID  inner join exhibition on exhibition.exhibitionID = painting.exhibitionID inner join person p on p.id = purchases.customerID inner join person on person.id = painting.artistID"
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
 app.listen(7777, () => {
   console.log("Server is running on port 7777");
   console.log("Server link: http://localhost:7777/");
