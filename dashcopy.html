@@ -9,14 +9,21 @@
       rel="stylesheet"
     />
     <style>
-      .dropdown {
+      .dropdown { 
         display: flex;
         flex-direction: column;
         min-width: 200px;
         height: 665px;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        background-color: transparent;
+        backdrop-filter: blur(20px);
         margin-left: -1rem;
-        background-color: #184e77;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        
+      }
+      body{
+ 
+        background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('img/bgmith.jpg');
+        background-size: cover;
       }
 
       .head {
@@ -26,7 +33,7 @@
         margin-left: -1rem;
         margin-right: -1rem;
         margin-top: -1rem;
-        background-color: #184e77;
+        background-color: inherit;
         color: #ffffff;
         box-shadow: 0px 0px 10px rgb(0, 0, 0.5);
       }
@@ -34,7 +41,8 @@
       .dropdown-content {
         display: none;
         position: relative;
-        background-color: #f1f1f1;
+        margin-left: 50px;
+        background-color: transparent;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 2;
@@ -53,9 +61,11 @@
         width: 100%;
         text-align: left;
         padding: 12px 16px;
-        border: 1px solid #ffffff;
-        background-color: #184e77;
+      
+        background-color: transparent;
         color: white;
+        border-color: transparent;
+      
         cursor: pointer;
         position: relative;
       }
@@ -76,13 +86,15 @@
         padding-left: 1rem;
       }
 
+
       .button {
         width: 100%;
         height: 60px;
-        background-color: #184e77;
-        color: #ffffff;
-        border: 1px solid #ffffff;
         display: flex;
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      
         align-items: center;
         justify-content: flex-start;
         padding-left: 20px;
@@ -106,9 +118,9 @@
         min-width: 1000px;
         font-size: larger;
         box-shadow: 0px 0px 5px rgb(0, 0, 0.5);
-        margin-top: 3rem;
+        margin-top: 1.5rem;
         border-radius: 10px;
-        background-color: transparent;
+        background-color:#ccc;
         margin-left: 2rem;
       }
 
@@ -144,7 +156,7 @@
       .item-2 {
         grid-row: span 2;
         grid-column: span 3;
-        background-color: #d9ed92;
+        background-color: #88a51d;
         border-radius: 10px;
       }
 
@@ -192,7 +204,9 @@
         padding-top: 1px;
         display: grid;
         grid-template-columns: 550px;
+        backdrop-filter: blur(20px);
         grid-gap: 10px;
+        color: white;
       }
 
       .form3 {
@@ -200,58 +214,87 @@
         padding-top: 1px;
         display: grid;
         grid-template-columns: 700px;
+        backdrop-filter: blur(20px);
+        color: white;
         grid-gap: 10px;
+        
       }
 
       label {
         text-align: right;
         padding-right: 10px;
+        color: white;
       }
 
       input,
       textarea,
       select {
-        width: 100%;
-        box-sizing: border-box;
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.8);
+            
       }
 
       .artist_details,
       .add_paintings {
         display: flex;
         flex-direction: column;
-        margin-top: 3rem;
+        margin-top: 1.5rem;
         margin-left: 2rem;
-        height: 450px;
+        height: 550px;
         width: 600px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
       }
       .exhi_details {
         display: flex;
         flex-direction: column;
-        margin-top: 3rem;
+        color: white;
+        margin-top: 1.5rem;
         margin-left: 2rem;
         height: 350px;
         width: 600px;
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
+     
+
 
       #submit {
         width: 100px;
         height: 25px;
-        margin-left: 10rem;
-        margin-top: 1rem;
+        margin-left: 40%;
+        
       }
 
       .sub {
         padding-top: 20px;
       }
 
-      .emp_details,
+   
       .get_p {
-        margin-top: 3rem;
+        margin-top: 1.5rem;
         margin-left: 2rem;
-        height: 475px;
+        height: 560px;
         width: 750px;
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        
+      }
+      .emp_details{
+        margin-top: 1.5rem;
+        margin-left: 2rem;
+        height: 580px;
+        width: 750px;
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       }
 
@@ -293,13 +336,33 @@
         right: 0;
         margin: 10px;
       }
+
+      .item-1,
+      .item-2,
+      .item-3,.item-4{
+        display:flex ;
+        flex-direction: column;
+      }
+      #cont{
+        padding-left: 15px;
+        font-size: xx-large;
+        color: white;
+      }
+      #cont1{
+        padding-left: 40px;
+        padding-top: -10px;
+        font-size: xx-large;
+        color: white;
+      }
+
+
     </style>
   </head>
 
   <body class="main">
     <header class="head">
       <h1 class="title">Art Gallery | Admin</h1>
-      <img src="img/prof.png" alt="" class="prof" id="profileImage" />
+      <img src="img/acc1.png " alt="" class="prof" id="profileImage" />
       <div class="logout-option" id="logoutOption">
         <a href="/login" id="logoutLink">Logout</a>
       </div>
@@ -394,11 +457,12 @@
         </div>
 
         <div class="container_dash">
-          <div class="item-1">1</div>
-          <div class="item-2">2</div>
-          <div class="item-3">3</div>
-          <div class="item-4">4</div>
+          <div class="item-1"><h3 id = "cont">No of Employees</h3><h4 id = "cont1">4</p></div>
+          <div class="item-2"><h3 id = "cont">No of Paintings</h3><h4 id = "cont1">4</p></div>
+          <div class="item-3"><h3 id = "cont">No of Artists</h3><h4 id = "cont1">4</p></div>
+          <div class="item-4"><h3 id=  "cont">Total Sales</h3><h4 id = "cont1">4</p></div>
         </div>
+     
       </div>
 
       <div class="Exhibition" id="e">
@@ -502,7 +566,7 @@
                 </select>
               </div>
               <div class="sub">
-                <input type="submit" value="Submit" />
+                <input type="submit" id ="submit" value="Submit" />
               </div>
             </form>
           </div>
@@ -606,7 +670,7 @@
             </div>
 
             <div class="sub">
-              <input type="submit" value="Submit" />
+              <input type="submit" id = "submit" value="Submit" />
             </div>
           </form>
         </div>
@@ -696,7 +760,7 @@
               </select>
             </div>
             <div class="sub">
-              <input type="submit" value="Submit" />
+              <input type="submit" id = "submit" value="Submit" />
             </div>
           </form>
         </div>
