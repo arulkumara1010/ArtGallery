@@ -393,6 +393,46 @@ app.get("/purchase", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+app.get("/count-employees", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT COUNT(*) as count FROM employee");
+    res.json({ count: rows[0].count });
+  } catch (error) {
+    console.error("Error fetching employee count:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+app.get("/count-paintings", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT COUNT(*) as count FROM painting");
+    res.json({ count: rows[0].count });
+  } catch (error) {
+    console.error("Error fetching paintings count:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+app.get("/count-artists", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT COUNT(*) as count FROM artist");
+    res.json({ count: rows[0].count });
+  } catch (error) {
+    console.error("Error fetching artists count:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+app.get("/total-sales", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT SUM(price) as total FROM purchases inner join painting on painting.paintingID = purchases.paintingID");
+    res.json({ total: rows[0].total });
+  } catch (error) {
+    console.error("Error fetching total sales:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
 app.listen(7777, () => {
   console.log("Server is running on port 7777");
   console.log("Server link: http://localhost:7777/");
