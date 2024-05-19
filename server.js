@@ -25,6 +25,7 @@ app.get("/login", (req, res) => {
 app.get("/dash", (req, res) => {
   res.sendFile(__dirname + "/dashcopy.html");
 });
+
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
