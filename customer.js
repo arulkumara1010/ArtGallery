@@ -114,7 +114,18 @@ app.post("/login2", async (req, res) => {
     res.status(500).send("An error occurred during login");
   }
 });
-
+app.get('/exhibit/:exhibitionID/paintings', (req, res) => {
+  const exhibitionID = req.params.exhibitionID;
+  const query = 'SELECT * FROM paintings WHERE exhibitionID = ?';
+  connection.query(query, [exhibitionID], (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching paintings:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+    res.json(results);
+  });
+});
 app.get("/exhibit", async (req, res) => {
   try {
     const [rows, fields] = await pool.query("SELECT * FROM art.exhibition");

@@ -1,246 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Art Gallery Customer Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            height: 100vh;
-        }
-        .topbar {
-            width: 100%;
-            height: 65px;
-            background-color:#184e77;
-            color: white;
-            padding: 20px 0;
-            text-align:center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar {
-            width: 100%;
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-around;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-        }
-        .sidebar h2 {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 10px;
-            flex: 1;
-            justify-content: center;
-            text-align: center;
-        }
-        .sidebar img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-        .content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            transition: 0.3s;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            display: none;
-            transition: opacity 0.3s ease-in-out;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-      background-color: #4caf50;
-      color: white;
-    }
-        .btn {
-            padding: 10px 15px;
-            background-color: #fe8c00;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #d82c2c;
-        }
-        .breadcrumb {
-            list-style: none;
-            display: flex;
-            padding: 0;
-            margin-bottom: 20px;
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .breadcrumb li {
-            margin-right: 10px;
-        }
-        .breadcrumb li a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .breadcrumb li::after {
-            content: ">";
-            margin-left: 10px;
-        }
-        .breadcrumb li:last-child::after {
-            content: "";
-        }
-
-
-
-
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        height: 100vh;
+      }
+      .topbar {
+        width: 100%;
+        height: 65px;
+        background-color: #184e77;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar {
+        width: 100%;
+        background-color: #f8f9fa;
+        padding: 10px 0;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+      }
+      .sidebar h2 {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 10px;
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+      }
+      .sidebar img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+      .content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        transition: 0.3s;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        display: none;
+        transition: opacity 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      .btn {
+        padding: 10px 15px;
+        background-color: #fe8c00;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #d82c2c;
+      }
+      .breadcrumb {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .breadcrumb li {
+        margin-right: 10px;
+      }
+      .breadcrumb li a {
+        text-decoration: none;
+        color: #007bff;
+      }
+      .breadcrumb li::after {
+        content: ">";
+        margin-left: 10px;
+      }
+      .breadcrumb li:last-child::after {
+        content: "";
+      }
     </style>
     <script>
-        function toggleVisibility(elementId) {
-            const tables = document.querySelectorAll('table');
-            tables.forEach(table => {
-                if (table.id === elementId) {
-                    table.style.display = "table";
-                    setTimeout(() => { table.style.opacity = 1; }, 10); // Smooth transition
-                } else {
-                    table.style.opacity = 0;
-                    setTimeout(() => { table.style.display = "none"; }, 300); // Smooth transition
-                }
-            });
-        }
+      function toggleVisibility(elementId) {
+        const tables = document.querySelectorAll("table");
+        tables.forEach((table) => {
+          if (table.id === elementId) {
+            table.style.display = "table";
+            setTimeout(() => {
+              table.style.opacity = 1;
+            }, 10); // Smooth transition
+          } else {
+            table.style.opacity = 0;
+            setTimeout(() => {
+              table.style.display = "none";
+            }, 300); // Smooth transition
+          }
+        });
+      }
 
-        function showBreadcrumb(section) {
-            const breadcrumbs = document.querySelectorAll('.breadcrumb');
-            breadcrumbs.forEach(crumb => {
-                crumb.style.display = 'none';
-            });
-            document.getElementById(`breadcrumb-${section}`).style.display = 'flex';
-        }
+      function showBreadcrumb(section) {
+        const breadcrumbs = document.querySelectorAll(".breadcrumb");
+        breadcrumbs.forEach((crumb) => {
+          crumb.style.display = "none";
+        });
+        document.getElementById(`breadcrumb-${section}`).style.display = "flex";
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="topbar">
-        <h1>Art Gallery Customer Page</h1>
-  
-
+      <h1>Art Gallery Customer Page</h1>
     </div>
     <div class="content">
-        <ul id="breadcrumb-exhibitions" class="breadcrumb" style="display: none;">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Art Gallery</a></li>
-            <li>Exhibitions</li>
-        </ul>
+      <ul id="breadcrumb-exhibitions" class="breadcrumb" style="display: none">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Art Gallery</a></li>
+        <li>Exhibitions</li>
+      </ul>
 
-        <ul id="breadcrumb-paintings" class="breadcrumb" style="display: none;">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Art Gallery</a></li>
-            <li>Paintings</li>
-        </ul>
+      <ul id="breadcrumb-paintings" class="breadcrumb" style="display: none">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Art Gallery</a></li>
+        <li>Paintings</li>
+      </ul>
 
-        <ul id="breadcrumb-purchases" class="breadcrumb" style="display: none;">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Art Gallery</a></li>
-            <li>Purchases</li>
-        </ul>
+      <ul id="breadcrumb-purchases" class="breadcrumb" style="display: none">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Art Gallery</a></li>
+        <li>Purchases</li>
+      </ul>
 
-        <table id="exhibitions">
-            <thead>
-                <tr>
-                    <th>Exhibition ID</th>
-                    <th>Exhibition Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>View Paintings</th>
-                </tr>
-            </thead>
-            <tbody id="/exhibit">
-                <tr>
-                    <td>1</td>
-                    <td>Art Wala</td>
-                    <td>2024-06-01</td>
-                    <td>2024-06-30</td>
-                    <td><button class="btn" onclick="toggleVisibility('paintings'); showBreadcrumb('paintings');">View Painting</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+      <table id="exhibitions">
+        <thead>
+          <tr>
+            <th>Exhibition ID</th>
+            <th>Exhibition Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>View Paintings</th>
+          </tr>
+        </thead>
+        <tbody id="exhibit"></tbody>
+      </table>
 
-        <table id="paintings">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Genre</th>
-                    <th>Availability</th>
-                    <th>Year of Creation</th>
-                    <th>Buy Now</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Starry Night</td>
-                    <td>$1,000,000</td>
-                    <td>Post-Impressionism</td>
-                    <td>Available</td>
-                    <td>1889</td>
-                    <td><button class="btn">Buy Now</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+      <table id="paintings">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Genre</th>
+            <th>Availability</th>
+            <th>Year of Creation</th>
+            <th>Buy Now</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
 
-        <table id="purchases">
-            <thead>
-                <tr>
-                    
-                    <th>Exhibition Name</th>
-                    <th>Painting Name</th>
-                    <th>Price</th>
-                    <th>Transaction ID</th>
-                    <th>Purchased Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    
-                    <td>Art Wala</td>
-                    <td>Starry Night</td>
-                    <td>$1,000,000</td>
-                    <td>TX123456</td>
-                    <td>2024-05-10</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+      <table id="purchases">
+        <thead>
+          <tr>
+            <th>Exhibition Name</th>
+            <th>Painting Name</th>
+            <th>Price</th>
+            <th>Transaction ID</th>
+            <th>Purchased Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Art Wala</td>
+            <td>Starry Night</td>
+            <td>$1,000,000</td>
+            <td>TX123456</td>
+            <td>2024-05-10</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
     </div>
     <div class="sidebar">
-        <h2 onclick="toggleVisibility('exhibitions'); showBreadcrumb('exhibitions');">
-            <i class="material-icons">account_circle</i>
-            Exhibitions
-        </h2>
+      <h2
+        onclick="toggleVisibility('exhibitions'); showBreadcrumb('exhibitions');"
+      >
+        <i class="material-icons">account_circle</i>
+        Exhibitions
+      </h2>
 
-        <h2 onclick="toggleVisibility('purchases'); showBreadcrumb('purchases');">
-            <i class="material-icons">shopping_cart</i>
-            Purchases
-        </h2>
+      <h2 onclick="toggleVisibility('purchases'); showBreadcrumb('purchases');">
+        <i class="material-icons">shopping_cart</i>
+        Purchases
+      </h2>
     </div>
-</body>
+
+    <script>
+      fetch("/exhibit")
+        .then((response) => response.json())
+        .then((data) => {
+          const exhibitionTableBody = document.getElementById("exhibit");
+          exhibitionTableBody.innerHTML = "";
+
+          data.forEach((exhibition) => {
+            const formattedStartDate = new Date(
+              exhibition.startDate
+            ).toLocaleDateString("en-US", { timeZone: "IST" });
+            const formattedEndDate = new Date(
+              exhibition.endDate
+            ).toLocaleDateString("en-US", { timeZone: "IST" });
+
+            const row = `<tr>
+                        <td>${exhibition.exhibitionID}</td>
+                        <td>${exhibition.name}</td>
+                        <td>${formattedStartDate}</td>
+                        <td>${formattedEndDate}</td>
+                        <td><button class="btn" onclick="toggleVisibility('paintings'); showBreadcrumb('paintings');">View Paintings</button></td>
+                      </tr>`;
+            exhibitionTableBody.innerHTML += row;
+          });
+        })
+        .catch((error) =>
+          console.error("Error fetching exhibition details:", error)
+        );
+    </script>
+  </body>
 </html>

@@ -719,7 +719,7 @@
               <th>Address</th>
             </tr>
           </thead>
-          <tbody id = "customer"></tbody>
+          <tbody id="customer"></tbody>
         </table>
       </div>
 
@@ -1052,7 +1052,6 @@
         document.getElementById("apt").style.display = "none";
         document.getElementById("cst").style.display = "none";
         document.getElementById("add_ex").style.display = "block";
-
       }
       function showma() {
         document.getElementById("d").style.display = "none";
@@ -1114,7 +1113,7 @@
           })
           .catch((error) => console.error("Error deleting artist:", error));
       }
-      
+
       function deleteEmployee(id) {
         fetch(`/employee/${id}`, {
           method: "DELETE",

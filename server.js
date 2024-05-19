@@ -297,9 +297,8 @@ app.post("/emp", async (req, res) => {
   try {
     const id = await gen_eid(name, email, phone, dob, address, position, join);
     if (id != -1) {
-      let managerID = null; // Initialize managerID to null
+      let managerID = null; 
       if (position !== "Manager") {
-        // Fetch managerID based on your criteria
         const [rows, fields] = await pool.query(
           "SELECT employeeID FROM art.employee WHERE position = 'Manager' LIMIT 1"
         );
