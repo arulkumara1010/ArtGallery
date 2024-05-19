@@ -585,6 +585,7 @@
           <thead>
             <tr>
               <th>Painting ID</th>
+              <th>Artist ID</th>
               <th>Painting Name</th>
               <th>Price</th>
               <th>Customer ID</th>
@@ -593,7 +594,7 @@
               <th>Purchased Date</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id = "purchase"></tbody>
         </table>
       </div>
 
@@ -918,7 +919,7 @@
         document.getElementById("pur").style.display = "none";
         document.getElementById("ae").style.display = "none";
         document.getElementById("ma").style.display = "none";
-        document.getElementById("ma").style.display = "none";
+        document.getElementById("me").style.display = "none";
         document.getElementById("apt").style.display = "none";
         document.getElementById("cst").style.display = "none";
         document.getElementById("add_ex").style.display = "none";
@@ -972,6 +973,31 @@
         document.getElementById("cst").style.display = "none";
         document.getElementById("apt").style.display = "none";
         document.getElementById("add_ex").style.display = "none";
+        fetch("/purchase")
+          .then((response) => response.json())
+          .then((data) => {
+            const purchaseTableBody = document.getElementById("purchase");
+            purchaseTableBody.innerHTML = "";
+            data.forEach((purchase) => {
+              const formattedPurchaseDate = new Date(
+                purchase.date
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+              const row = `<tr>
+                      <td>${purchase.paintingID}</td>
+                      <td>${purchase.artistID}</td>
+                      <td>${purchase.pname}</td>
+                      <td>${purchase.price}</td>
+                      <td>${purchase.customerID}</td>
+                      <td>${purchase.cname}</td>
+                      <td>${purchase.transactionID}</td>
+                      <td>${formattedPurchaseDate}</td>
+                    </tr>`;
+              purchaseTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching purchase details:", error)
+          );
       }
       function showae() {
         document.getElementById("d").style.display = "none";
