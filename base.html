@@ -116,30 +116,58 @@
       }
     </style>
     <script>
-      function toggleVisibility(elementId) {
-        const tables = document.querySelectorAll("table");
+      function showExhibitions() {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById('exhibitions').style.display = 'table';
+        document.getElementById('breadcrumb-exhibitions').style.display = 'flex';
+      }
+
+      function showPaintings() {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById('paintings').style.display = 'table';
+        document.getElementById('breadcrumb-paintings').style.display = 'flex';
+      }
+
+      function showPurchases() {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById('purchases').style.display = 'table';
+        document.getElementById('breadcrumb-purchases').style.display = 'flex';
+      }
+
+      function hideAllTablesAndBreadcrumbs() {
+        const tables = document.querySelectorAll('table');
+        const breadcrumbs = document.querySelectorAll('.breadcrumb');
+
         tables.forEach((table) => {
-          if (table.id === elementId) {
-            table.style.display = "table";
-            setTimeout(() => {
-              table.style.opacity = 1;
-            }, 10); // Smooth transition
-          } else {
-            table.style.opacity = 0;
-            setTimeout(() => {
-              table.style.display = "none";
-            }, 300); // Smooth transition
-          }
+          table.style.display = 'none';
+        });
+
+        breadcrumbs.forEach((breadcrumb) => {
+          breadcrumb.style.display = 'none';
         });
       }
 
-      function showBreadcrumb(section) {
-        const breadcrumbs = document.querySelectorAll(".breadcrumb");
-        breadcrumbs.forEach((crumb) => {
-          crumb.style.display = "none";
-        });
-        document.getElementById(`breadcrumb-${section}`).style.display = "flex";
-      }
+      fetch('/exhibit')
+        .then((response) => response.json())
+        .then((data) => {
+          const exhibitionTableBody = document.getElementById('exhibit');
+          exhibitionTableBody.innerHTML = '';
+
+          data.forEach((exhibition) => {
+            const formattedStartDate = new Date(exhibition.startDate).toLocaleDateString('en-US', { timeZone: 'IST' });
+            const formattedEndDate = new Date(exhibition.endDate).toLocaleDateString('en-US', { timeZone: 'IST' });
+
+            const row = `<tr>
+                        <td>${exhibition.exhibitionID}</td>
+                        <td>${exhibition.name}</td>
+                        <td>${formattedStartDate}</td>
+                        <td>${formattedEndDate}</td>
+                        <td><button class="btn" onclick="showPaintings();">View Paintings</button></td>
+                      </tr>`;
+            exhibitionTableBody.innerHTML += row;
+          });
+        })
+        .catch((error) => console.error('Error fetching exhibition details:', error));
     </script>
   </head>
   <body>
@@ -215,47 +243,15 @@
       </table>
     </div>
     <div class="sidebar">
-      <h2
-        onclick="toggleVisibility('exhibitions'); showBreadcrumb('exhibitions');"
-      >
+      <h2 onclick="showExhibitions();">
         <i class="material-icons">account_circle</i>
         Exhibitions
       </h2>
 
-      <h2 onclick="toggleVisibility('purchases'); showBreadcrumb('purchases');">
+      <h2 onclick="showPurchases();">
         <i class="material-icons">shopping_cart</i>
         Purchases
       </h2>
     </div>
-
-    <script>
-      fetch("/exhibit")
-        .then((response) => response.json())
-        .then((data) => {
-          const exhibitionTableBody = document.getElementById("exhibit");
-          exhibitionTableBody.innerHTML = "";
-
-          data.forEach((exhibition) => {
-            const formattedStartDate = new Date(
-              exhibition.startDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-            const formattedEndDate = new Date(
-              exhibition.endDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-
-            const row = `<tr>
-                        <td>${exhibition.exhibitionID}</td>
-                        <td>${exhibition.name}</td>
-                        <td>${formattedStartDate}</td>
-                        <td>${formattedEndDate}</td>
-                        <td><button class="btn" onclick="toggleVisibility('paintings'); showBreadcrumb('paintings');">View Paintings</button></td>
-                      </tr>`;
-            exhibitionTableBody.innerHTML += row;
-          });
-        })
-        .catch((error) =>
-          console.error("Error fetching exhibition details:", error)
-        );
-    </script>
   </body>
 </html>
