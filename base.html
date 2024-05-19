@@ -116,30 +116,122 @@
       }
     </style>
     <script>
-      function toggleVisibility(elementId) {
-        const tables = document.querySelectorAll("table");
-        tables.forEach((table) => {
-          if (table.id === elementId) {
-            table.style.display = "table";
-            setTimeout(() => {
-              table.style.opacity = 1;
-            }, 10); // Smooth transition
-          } else {
-            table.style.opacity = 0;
-            setTimeout(() => {
-              table.style.display = "none";
-            }, 300); // Smooth transition
-          }
-        });
+      function showExhibitions() {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById("exhibitions").style.display = "table";
+        document.getElementById("breadcrumb-exhibitions").style.display =
+          "flex";
+      }
+      function buy(paintingID) {
+        fetch(`/buy/${paintingID}`, {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Painting purchased successfully!");
+            } else {
+              alert("Failed to purchase painting. Please try again later.");
+            }
+          })
+          .catch((error) => console.error("Error purchasing painting:", error));
+      }
+      function showPaintings(exhibitionID) {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById("paintings").style.display = "table";
+        document.getElementById("breadcrumb-paintings").style.display = "flex";
+        fetch(`/exhibit/${exhibitionID}`)
+          .then((response) => response.json())
+          .then((data) => {
+            const paintingsTableBody = document.getElementById("paint");
+            paintingsTableBody.innerHTML = "";
+
+            data.forEach((data) => {
+              const row = `<tr>
+                          <td>${data.pname}</td>
+                          <td>${data.aname}</td>
+                          <td>${data.price}</td>
+                          <td>${data.genre}</td>
+                          <td>${data.availability}</td>
+                          <td>${data.creationYear}</td>
+                          <td><button class="btn" onclick="buy('${data.paintingID}')">Buy Now</button></td>
+                        </tr>`;
+              paintingsTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) => console.error("Error fetching paintings:", error));
+      }
+      function showPurchases() {
+        hideAllTablesAndBreadcrumbs();
+        document.getElementById("purchases").style.display = "table";
+        document.getElementById("breadcrumb-purchases").style.display = "flex";
       }
 
-      function showBreadcrumb(section) {
+      function hideAllTablesAndBreadcrumbs() {
+        const tables = document.querySelectorAll("table");
         const breadcrumbs = document.querySelectorAll(".breadcrumb");
-        breadcrumbs.forEach((crumb) => {
-          crumb.style.display = "none";
+
+        tables.forEach((table) => {
+          table.style.display = "none";
         });
-        document.getElementById(`breadcrumb-${section}`).style.display = "flex";
+
+        breadcrumbs.forEach((breadcrumb) => {
+          breadcrumb.style.display = "none";
+        });
       }
+      fetch("/purchase")
+        .then((response) => response.json())
+        .then((data) => {
+          const purchaseTableBody = document.getElementById("purchase");
+          purchaseTableBody.innerHTML = "";
+
+          data.forEach((purchase) => {
+            const formattedPurchasedDate = new Date(
+              purchase.date
+            ).toLocaleDateString("en-US", { timeZone: "IST" });
+
+            const row = `<tr>
+                        <td>${purchase.ename}</td>
+                        <td>${purchase.pname}</td>
+                        <td>${purchase.aname}</td>
+                        <td>${purchase.price}</td>
+                        <td>${purchase.transactionID}</td>
+                        <td>${formattedPurchasedDate}</td>
+                      </tr>`;
+            purchaseTableBody.innerHTML += row;
+          });
+        })
+        .catch((error) =>
+          console.error("Error fetching purchase details:", error)
+        );
+
+      fetch("/exhibit")
+        .then((response) => response.json())
+        .then((data) => {
+          const exhibitionTableBody = document.getElementById("exhibit");
+          exhibitionTableBody.innerHTML = "";
+
+          data.forEach((exhibition) => {
+            const formattedStartDate = new Date(
+              exhibition.startDate
+            ).toLocaleDateString("en-US", { timeZone: "IST" });
+            const formattedEndDate = new Date(
+              exhibition.endDate
+            ).toLocaleDateString("en-US", { timeZone: "IST" });
+
+            const row = `<tr>
+                        <td>${exhibition.exhibitionID}</td>
+                        <td>${exhibition.name}</td>
+                        <td>${formattedStartDate}</td>
+                        <td>${formattedEndDate}</td>
+                        <td><button class="btn" onclick="showPaintings('${exhibition.exhibitionID}');">View Paintings</button></td>
+                      </tr>`;
+            exhibitionTableBody.innerHTML += row;
+          });
+        })
+        .catch((error) =>
+          console.error("Error fetching exhibition details:", error)
+        );
     </script>
   </head>
   <body>
@@ -182,6 +274,7 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Artist</th>
             <th>Price</th>
             <th>Genre</th>
             <th>Availability</th>
@@ -189,96 +282,33 @@
             <th>Buy Now</th>
           </tr>
         </thead>
-        <tbody id = "paint"></tbody>
+        <tbody id="paint"></tbody>
       </table>
 
       <table id="purchases">
         <thead>
           <tr>
-            <th>Exhibition Name</th>
-            <th>Painting Name</th>
+            <th>Exhibition</th>
+            <th>Painting</th>
+            <th>Artist</th>
             <th>Price</th>
             <th>Transaction ID</th>
             <th>Purchased Date</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Art Wala</td>
-            <td>Starry Night</td>
-            <td>$1,000,000</td>
-            <td>TX123456</td>
-            <td>2024-05-10</td>
-          </tr>
-          <!-- Add more rows as needed -->
-        </tbody>
+        <tbody id="purchase"></tbody>
       </table>
     </div>
     <div class="sidebar">
-      <h2
-        onclick="toggleVisibility('exhibitions'); showBreadcrumb('exhibitions');"
-      >
+      <h2 onclick="showExhibitions();">
         <i class="material-icons">account_circle</i>
         Exhibitions
       </h2>
 
-      <h2 onclick="toggleVisibility('purchases'); showBreadcrumb('purchases');">
+      <h2 onclick="showPurchases();">
         <i class="material-icons">shopping_cart</i>
         Purchases
       </h2>
     </div>
-
-    <script>
-      fetch("/exhibit")
-        .then((response) => response.json())
-        .then((data) => {
-          const exhibitionTableBody = document.getElementById("exhibit");
-          exhibitionTableBody.innerHTML = "";
-
-          data.forEach((exhibition) => {
-            const formattedStartDate = new Date(
-              exhibition.startDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-            const formattedEndDate = new Date(
-              exhibition.endDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-
-            const row = `<tr>
-                        <td>${exhibition.exhibitionID}</td>
-                        <td>${exhibition.name}</td>
-                        <td>${formattedStartDate}</td>
-                        <td>${formattedEndDate}</td>
-                        <td><button class="btn" onclick="showpaintings(${exhibition.exhibitionID});toggleVisibility('paintings'); showBreadcrumb('paintings');">View Paintings</button></td>
-                      </tr>`;
-            exhibitionTableBody.innerHTML += row;
-          });
-        })
-        .catch((error) =>
-          console.error("Error fetching exhibition details:", error)
-        );
-        showpaintings(exhibitionID)
-        {
-          fetch(`/paintings/${exhibitionID}`)
-          .then((response) => response.json())
-          .then((data) => {
-            const paintingTableBody = document.getElementById("paint");
-            paintingTableBody.innerHTML = "";
-            data.forEach((painting) => {
-              const row = `<tr>
-                            <td>${painting.name}</td>
-                            <td>${painting.price}</td>
-                            <td>${painting.genre}</td>
-                            <td>${painting.availability}</td>
-                            <td>${painting.yearOfCreation}</td>
-                            <td><button class="btn">Buy Now</button></td>
-                          </tr>`;
-              paintingTableBody.innerHTML += row;
-            });
-          })
-          .catch((error) =>
-            console.error("Error fetching painting details:", error)
-          );
-        }
-    </script>
   </body>
 </html>
