@@ -275,6 +275,9 @@
         color: #f00;
         /* Change color on hover as needed */
       }
+
+      
+
     </style>
   </head>
 
@@ -358,10 +361,10 @@
         </div>
 
         <div class="container_dash">
-          <div class="item-1">1</div>
-          <div class="item-2">2</div>
-          <div class="item-3">3</div>
-          <div class="item-4">4</div>
+          <div class="item-1"><h3 id = "cont">No of Employees</h3><p id = "cont1">4</p></div>
+          <div class="item-2"><h3 id = "cont">No of Paintings</h3><p id = "cont1">4</p></div>
+          <div class="item-3"><h3 id = "cont">No of Artists</h3><p id = "cont1">4</p></div>
+          <div class="item-4"><h3 id=  "cont">Total Sales</h3><p id = "cont1">4</p></div>
         </div>
       </div>
 
@@ -377,6 +380,7 @@
               <th>Name</th>
               <th>Start Date</th>
               <th>End Date</th>
+              <th>View Paintings</th>
             </tr>
           </thead>
           <tbody id="exhibit"></tbody>
@@ -746,6 +750,7 @@
                       <td>${exhibition.name}</td>
                       <td>${formattedStartDate}</td>
                       <td>${formattedEndDate}</td>
+                      <td><button onclick="viewPaintings('${exhibition.exhibitionID}')" >View Paintings</button></td>
                     </tr>`;
               exhibitionTableBody.innerHTML += row;
             });
