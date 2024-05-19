@@ -9,6 +9,8 @@ const pool = mysql.createPool({
   database: "art",
 });
 
+var customerID = "";
+
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,10 +42,24 @@ async function generateId(username, password) {
     return id;
   } catch (error) {
     console.error("Error in generateId:", error);
-    throw error; // Throw the error to be caught in the caller function
+    throw error;
   }
 }
 
+async function gen_tid(paintingID) {
+  try {
+    const [countRows] = await pool.query(
+      "SELECT COUNT(*) as count FROM art.purchases where paintingID = ?",
+      [paintingID]
+    );
+    const count = countRows[0].count;
+    const id = "T" + ("000" + (count + 1)).slice(-3);
+    return id;
+  } catch (error) {
+    console.error("Error in gen_tid:", error);
+    throw error;
+  }
+}
 app.get("/cust-details", (req, res) => {
   res.sendFile(__dirname + "/Customerdetails.html");
 });
@@ -96,6 +112,7 @@ app.post("/cust", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+
 app.post("/login2", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -103,7 +120,7 @@ app.post("/login2", async (req, res) => {
       "SELECT * FROM art.customer WHERE username = ? AND password = ?",
       [username, password]
     );
-
+    customerID = results[0].customerID;
     if (results.length > 0) {
       res.redirect("/base");
     } else {
@@ -114,18 +131,7 @@ app.post("/login2", async (req, res) => {
     res.status(500).send("An error occurred during login");
   }
 });
-app.get('/exhibit/:exhibitionID/paintings', (req, res) => {
-  const exhibitionID = req.params.exhibitionID;
-  const query = 'SELECT * FROM paintings WHERE exhibitionID = ?';
-  connection.query(query, [exhibitionID], (error, results, fields) => {
-    if (error) {
-      console.error('Error fetching paintings:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
-    }
-    res.json(results);
-  });
-});
+
 app.get("/exhibit", async (req, res) => {
   try {
     const [rows, fields] = await pool.query("SELECT * FROM art.exhibition");
@@ -135,6 +141,54 @@ app.get("/exhibit", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+
+app.get("/exhibit/:id", async (req, res) => {
+  const exhibitionID = req.params.id;
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT painting.name as pname, person.name as aname, price, genre, availability, creationYear, paintingID FROM painting inner join person on person.id = painting.artistID WHERE exhibitionID = ? and availability = 'Yes' ",
+      [exhibitionID]
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+app.post("/buy/:id", async (req, res) => {
+  const paintingID = req.params.id;
+  const currentDate = new Date().toISOString().split("T")[0];
+  const id = await gen_tid(paintingID);
+  try {
+    await pool.query(
+      "UPDATE painting SET availability = 'No' WHERE paintingID = ?",
+      [paintingID]
+    );
+
+    await pool.query(
+      "INSERT into art.purchases (transactionID, customerID, paintingID, date) VALUES (?, ?, ?, ?)",
+      [id, customerID, paintingID, currentDate]
+    );
+    res.redirect("/base");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+app.get("/purchase", async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT customerID, exhibition.name as ename, painting.name as pname, person.name as aname, price, transactionID, date FROM purchases inner join painting on painting.paintingID = purchases.paintingID  inner join exhibition on exhibition.exhibitionID = painting.exhibitionID inner join person on person.id = painting.artistID  WHERE customerID = ?",
+      [customerID]
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
 app.listen(8888, () => {
   console.log("Server is running on port 8888");
   console.log("Server link: http://localhost:8888/");
