@@ -17,12 +17,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure session middleware
-app.use(session({
-  secret: 'your-secret-key', // Change this to a strong secret key
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Set to true if using HTTPS
-}));
+app.use(
+  session({
+    secret: "your-secret-key", // Change this to a strong secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using HTTPS
+  })
+);
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/home.html");
@@ -42,7 +44,9 @@ async function generateId(username, password) {
       return -1;
     }
 
-    const [countRows] = await pool.query("SELECT COUNT(*) as count FROM art.customer");
+    const [countRows] = await pool.query(
+      "SELECT COUNT(*) as count FROM art.customer"
+    );
     const count = countRows[0].count;
     const id = "C" + ("000" + (count + 1)).slice(-3);
     return id;
@@ -54,7 +58,14 @@ async function generateId(username, password) {
 
 async function gen_tid(paintingID) {
   try {
-    const [countRows] = await pool.query("SELECT COUNT(*) as count FROM art.purchases WHERE paintingID = ?", [paintingID]);
+
+    const [rows] = await pool.query("SELECT * FROM art.purchases WHERE paintingID = ?", [paintingID]);
+    if (rows.length > 0) {
+      return -1;
+    }
+    const [countRows] = await pool.query(
+      "SELECT COUNT(*) as count FROM art.purchases",
+    );
     const count = countRows[0].count;
     const id = "T" + ("000" + (count + 1)).slice(-3);
     return id;
@@ -79,7 +90,10 @@ app.post("/cus", async (req, res) => {
       "UPDATE art.person SET name = ?, dob = ?, address = ?, email = ? WHERE id = ?",
       [name, dob, address, email, id]
     );
-    await pool.query("UPDATE art.phonenumber SET phone = ? WHERE id = ?", [phone, id]);
+    await pool.query("UPDATE art.phonenumber SET phone = ? WHERE id = ?", [
+      phone,
+      id,
+    ]);
     res.redirect("/");
   } catch (error) {
     console.error("Error in POST /cus:", error);
@@ -122,7 +136,7 @@ app.post("/login2", async (req, res) => {
       [username, password]
     );
     if (results.length > 0) {
-      req.session.customerID = results[0].customerID; 
+      req.session.customerID = results[0].customerID;
       res.redirect("/base");
     } else {
       res.send("Incorrect Username or Password!");
@@ -156,7 +170,6 @@ app.get("/exhibit/:id", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
-
 app.post("/buy/:id", async (req, res) => {
   const paintingID = req.params.id;
   const currentDate = new Date().toISOString().split("T")[0];
@@ -164,7 +177,7 @@ app.post("/buy/:id", async (req, res) => {
   const customerID = req.session.customerID; // Retrieve customerID from session
 
   if (!customerID) {
-    return res.status(400).send("Invalid session");
+    return res.status(400).json({ success: false, message: "Invalid session" });
   }
 
   try {
@@ -176,10 +189,15 @@ app.post("/buy/:id", async (req, res) => {
       "INSERT INTO art.purchases (transactionID, customerID, paintingID, date) VALUES (?, ?, ?, ?)",
       [id, customerID, paintingID, currentDate]
     );
-    res.redirect("/base");
+    res.json({ success: true, message: "Painting purchased successfully!" });
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).send("An error occurred while processing your request.");
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "An error occurred while processing your request.",
+      });
   }
 });
 

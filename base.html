@@ -170,12 +170,14 @@
           .then((data) => {
             if (data.success) {
               alert("Painting purchased successfully!");
+              window.location.href = "/base";
             } else {
-              alert("Failed to purchase painting. Please try again later.");
+              alert("Failed to purchase painting: " + data.message);
             }
           })
           .catch((error) => console.error("Error purchasing painting:", error));
       }
+
       function showPaintings(exhibitionID) {
         hideAllTablesAndBreadcrumbs();
         document.getElementById("paintings").style.display = "table";
@@ -205,6 +207,31 @@
         hideAllTablesAndBreadcrumbs();
         document.getElementById("purchases").style.display = "table";
         document.getElementById("breadcrumb-purchases").style.display = "flex";
+        fetch("/purchase")
+          .then((response) => response.json())
+          .then((data) => {
+            const purchaseTableBody = document.getElementById("purchase");
+            purchaseTableBody.innerHTML = "";
+
+            data.forEach((purchase) => {
+              const formattedPurchasedDate = new Date(
+                purchase.date
+              ).toLocaleDateString("en-US", { timeZone: "IST" });
+
+              const row = `<tr>
+                        <td>${purchase.ename}</td>
+                        <td>${purchase.pname}</td>
+                        <td>${purchase.aname}</td>
+                        <td>${purchase.price}</td>
+                        <td>${purchase.transactionID}</td>
+                        <td>${formattedPurchasedDate}</td>
+                      </tr>`;
+              purchaseTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching purchase details:", error)
+          );
       }
 
       function hideAllTablesAndBreadcrumbs() {
@@ -219,31 +246,6 @@
           breadcrumb.style.display = "none";
         });
       }
-      fetch("/purchase")
-        .then((response) => response.json())
-        .then((data) => {
-          const purchaseTableBody = document.getElementById("purchase");
-          purchaseTableBody.innerHTML = "";
-
-          data.forEach((purchase) => {
-            const formattedPurchasedDate = new Date(
-              purchase.date
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-
-            const row = `<tr>
-                        <td>${purchase.ename}</td>
-                        <td>${purchase.pname}</td>
-                        <td>${purchase.aname}</td>
-                        <td>${purchase.price}</td>
-                        <td>${purchase.transactionID}</td>
-                        <td>${formattedPurchasedDate}</td>
-                      </tr>`;
-            purchaseTableBody.innerHTML += row;
-          });
-        })
-        .catch((error) =>
-          console.error("Error fetching purchase details:", error)
-        );
     </script>
   </head>
   <body>

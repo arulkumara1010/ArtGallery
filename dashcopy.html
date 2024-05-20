@@ -375,6 +375,256 @@
         color: white;
       }
     </style>
+    <script>
+      function validateForm3(form) {
+        const name = form.querySelector('input[name="name"]').value.trim();
+        const email = form.querySelector('input[name="email"]').value.trim();
+        const phone = form.querySelector('input[name="phone"]').value.trim();
+        const dob = form.querySelector('input[name="dob"]').value.trim();
+        const address = form
+          .querySelector('textarea[name="address"]')
+          .value.trim();
+        const position = form.querySelector('select[name="position"]').value;
+        const join = form.querySelector('input[name="join"]').value.trim();
+
+        if (!name) {
+          alert("Name field cannot be empty.");
+          return false;
+        }
+
+        if (!/^[A-Za-z\s]+$/.test(name)) {
+          alert("Name should contain only alphabets.");
+          return false;
+        }
+
+        if (!email) {
+          alert("Email field cannot be empty.");
+          return false;
+        }
+
+        const validEmailDomains = [
+          "gmail.com",
+          "yahoo.com",
+          "outlook.com",
+          "hotmail.com",
+          "icloud.com",
+          "aol.com",
+          "live.com",
+          "protonmail.com",
+        ];
+        const emailDomain = email.substring(email.lastIndexOf("@") + 1);
+        if (!validEmailDomains.includes(emailDomain)) {
+          alert("Enter a valid email address with supported domains.");
+          return false;
+        }
+
+        if (!phone) {
+          alert("Phone field cannot be empty.");
+          return false;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+          alert("Enter a valid 10 digit phone number.");
+          return false;
+        }
+
+        if (!dob) {
+          alert("Date of Birth field cannot be empty.");
+          return false;
+        }
+
+        const dobDate = new Date(dob);
+        const today = new Date();
+        const age = today.getFullYear() - dobDate.getFullYear();
+        const monthDiff = today.getMonth() - dobDate.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dobDate.getDate())
+        ) {
+          age--;
+        }
+        if (age < 18) {
+          alert("Employee must be at least 18 years old.");
+          return false;
+        }
+
+        if (!address) {
+          alert("Address field cannot be empty.");
+          return false;
+        }
+        if (!position) {
+          alert("Position field cannot be empty.");
+          return false;
+        }
+
+        if (!join) {
+          alert("Date of Joining field cannot be empty.");
+          return false;
+        }
+        const joinDate = new Date(join);
+        const eighteenYearsAgo = new Date(dobDate);
+        eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() + 18);
+        if (joinDate < eighteenYearsAgo) {
+          alert("Date of Joining must be after the employee turns 18.");
+          return false;
+        }
+        return true;
+      }
+      function validateForm2(form) {
+        const exhibitionId = form.querySelector(
+          'select[name="exhibition_id"]'
+        ).value;
+        const artistId = form.querySelector('select[name="artist_id"]').value;
+        const paintingName = form.querySelector(
+          'input[name="painting_name"]'
+        ).value;
+        const price = form.querySelector('input[name="price"]').value;
+        const yearOfCreation = form.querySelector(
+          'input[name="year_of_creation"]'
+        ).value;
+        const receivedYear = form.querySelector(
+          'input[name="received_year"]'
+        ).value;
+        const genre = form.querySelector('select[name="genre"]').value;
+
+        if (!exhibitionId) {
+          alert("Exhibition ID is required.");
+          return false;
+        }
+        if (!artistId) {
+          alert("Artist ID is required.");
+          return false;
+        }
+        if (!paintingName) {
+          alert("Painting Name is required.");
+          return false;
+        }
+
+        const namePattern = /^[A-Za-z\s]+$/;
+        if (!namePattern.test(paintingName)) {
+          alert("Painting Name should contain only alphabets.");
+          return false;
+        }
+
+        if (!price || price <= 0) {
+          alert("Price must be a positive number.");
+          return false;
+        }
+
+        const currentYear = new Date().getFullYear();
+        if (
+          !yearOfCreation ||
+          yearOfCreation < 1000 ||
+          yearOfCreation > currentYear
+        ) {
+          alert("Year of Creation must be a valid year.");
+          return false;
+        }
+        if (
+          !receivedYear ||
+          receivedYear < 1000 ||
+          receivedYear < yearOfCreation ||
+          receivedYear > currentYear
+        ) {
+          alert(
+            "Received Year must be a valid year and not before the Year of Creation and not greater than the current year."
+          );
+          return false;
+        }
+        if (!genre) {
+          alert("Genre is required.");
+          return false;
+        }
+
+        return true;
+      }
+      function validateForm1(form) {
+        var name = form.querySelector('input[name="name"]').value;
+        const namePattern = /^[a-zA-Z\s]+$/;
+        if (!namePattern.test(name)) {
+          alert("Name should contain only alphabets.");
+          return false;
+        }
+
+        var email = form.querySelector('input[name="email"]').value;
+        var validEmailDomains = [
+          "gmail.com",
+          "yahoo.com",
+          "outlook.com",
+          "hotmail.com",
+          "icloud.com",
+          "aol.com",
+          "live.com",
+          "protonmail.com",
+        ];
+        var emailDomain = email.substring(email.lastIndexOf("@") + 1);
+        if (!validEmailDomains.includes(emailDomain)) {
+          alert("Enter a valid email address.");
+          return false;
+        }
+
+        var phone = form.querySelector('input[name="phone"]').value;
+        if (!/^\d{10}$/.test(phone)) {
+          alert("Enter a valid 10 digit phone number.");
+          return false;
+        }
+
+        var dob = new Date(form.querySelector('input[name="dob"]').value);
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dob.getDate())
+        ) {
+          age--;
+        }
+        if (age < 18) {
+          alert("You must be at least 18 years old.");
+          return false;
+        }
+
+        var address = form.querySelector('textarea[name="address"]').value;
+        if (!address) {
+          alert("Address is required.");
+          return false;
+        }
+
+        var style = form.querySelector('select[name="style"]').value;
+        if (!style) {
+          alert("Style is required.");
+          return false;
+        }
+
+        return true;
+      }
+      function validateForm(form) {
+        const name = form.querySelector('input[name="ename"]').value;
+        const startDate = form.querySelector('input[name="sd"]').value;
+        const endDate = form.querySelector('input[name="ed"]').value;
+
+        if (!name) {
+          alert("Exhibition Name is required.");
+          return false;
+        }
+
+        if (!startDate) {
+          alert("Start Date is required.");
+          return false;
+        }
+
+        if (!endDate) {
+          alert("End Date is required.");
+          return false;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+          alert("End Date should be after the Start Date.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
   </head>
 
   <body class="main">
@@ -547,7 +797,12 @@
         </div>
         <div class="whole_details">
           <div class="artist_details">
-            <form class="form1" method="POST" action="/form1">
+            <form
+              class="form1"
+              method="POST"
+              action="/form1"
+              onsubmit="return validateForm1(this)"
+            >
               <h3>Artist Details</h3>
               <div>
                 <label for="name">Name:</label>
@@ -661,7 +916,12 @@
           ><span>Add Employee</span>
         </div>
         <div class="emp_details">
-          <form class="form3" method="post" action="/emp">
+          <form
+            class="form3"
+            method="post"
+            action="/emp"
+            onsubmit="return validateForm3(this)"
+          >
             <h3>Employee Details</h3>
             <div>
               <label for="name">Name:</label>
@@ -744,7 +1004,12 @@
         </div>
 
         <div class="get_p">
-          <form class="form3" method="post" action="/form2">
+          <form
+            class="form3"
+            method="post"
+            action="/form2"
+            onsubmit="return validateForm2(this)"
+          >
             <h3>Painting Details</h3>
             <div>
               <label for="exhibition_id">Exhibition ID:</label>
@@ -760,7 +1025,7 @@
             </div>
             <div>
               <label for="price">Price:</label>
-              <input type="number" id="price" name="price" step="0.01" />
+              <input type="number" id="price" name="price" step="1" />
             </div>
             <div>
               <label for="year_of_creation">Year of Creation:</label>
@@ -825,11 +1090,16 @@
           <i class="material-icons">add_circle</i><span> Add Exhibition</span>
         </div>
         <div class="exhi_details">
-          <form class="form1" method="post" action="/exhibit1">
+          <form
+            class="form1"
+            method="post"
+            action="/exhibit1"
+            onsubmit="return validateForm(this)"
+          >
             <h3>Exhibition Details</h3>
             <div>
               <label for="name">Exhibition Name:</label>
-              <input type="text" id="name" name="name" />
+              <input type="text" id="name" name="ename" />
             </div>
             <div>
               <label for="sd">Start Date</label>

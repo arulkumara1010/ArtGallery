@@ -366,15 +366,12 @@ app.delete("/employee/:id", async (req, res) => {
 });
 
 app.post("/exhibit1", async (req, res) => {
-  const { name, sd, ed } = req.body;
-  const id = await gen_exid(name, sd, ed);
-  if (ed < sd) {
-    return res.status(400).send("End date cannot be before start date");
-  }
+  const { ename, sd, ed } = req.body;
+  const id = await gen_exid(ename, sd, ed);
   try {
     await pool.query(
       "INSERT into art.exhibition (exhibitionID, name, startDate, endDate, galleryID) VALUES (?, ?, ?, ?, 'G001')",
-      [id, name, sd, ed]
+      [id, ename, sd, ed]
     );
     res.status(201).send("Exhibition added successfully");
   } catch (error) {

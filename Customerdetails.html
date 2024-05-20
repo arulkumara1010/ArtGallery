@@ -79,11 +79,11 @@
       
       function validateForm() {
         var name = document.getElementById("name").value;
-        if (/\d/.test(name)) {
-          alert("Name should not contain numbers.");
+        const namePattern = /^[a-zA-Z\s]+$/;
+        if (!namePattern.test(name)) {
+          alert("Name should contain only alphabets.");
           return false;
         }
-
         var email = document.getElementById("email").value;
         var validEmailDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com", "protonmail.com"];
       var emailDomain = email.substring(email.lastIndexOf("@") + 1);
