@@ -126,7 +126,7 @@ button{
 <body>
    <div class="tot_pg">
     <div class="log_f">
-        <form method="post" action="/login2">
+        <form id = "loginForm">
             <h3>Login Here</h3>
     
             <label for="username">Username</label>
@@ -146,5 +146,28 @@ button{
         <img src="img/log - bg.jpg" alt="Background image">
        </div>
    </div>
+   <script>
+     document.getElementById('loginForm').addEventListener('submit', async function(event) {
+         event.preventDefault();
+         const username = document.getElementById('username').value;
+         const password = document.getElementById('password').value;
+
+         const response = await fetch('/login2', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({ username, password })
+         });
+
+         if (response.redirected) {
+             window.location.href = response.url;
+         } else {
+             const message = await response.text();
+             alert(message);
+         }
+     });
+   </script>
+   </script>
 </body>
 </html>

@@ -121,7 +121,47 @@
         document.getElementById("exhibitions").style.display = "table";
         document.getElementById("breadcrumb-exhibitions").style.display =
           "flex";
+
+        const currentDate = new Date(); // Get the current date
+
+        fetch("/exhibit")
+          .then((response) => response.json())
+          .then((data) => {
+            const exhibitionTableBody = document.getElementById("exhibit");
+            exhibitionTableBody.innerHTML = "";
+
+            data.forEach((exhibition) => {
+              const startDate = new Date(exhibition.startDate);
+              const endDate = new Date(exhibition.endDate);
+
+              // Check if the current date is within the range of start and end dates
+              if (currentDate >= startDate && currentDate <= endDate) {
+                const formattedStartDate = startDate.toLocaleDateString(
+                  "en-US",
+                  {
+                    timeZone: "IST",
+                  }
+                );
+                const formattedEndDate = endDate.toLocaleDateString("en-US", {
+                  timeZone: "IST",
+                });
+
+                const row = `<tr>
+                        <td>${exhibition.exhibitionID}</td>
+                        <td>${exhibition.name}</td>
+                        <td>${formattedStartDate}</td>
+                        <td>${formattedEndDate}</td>
+                        <td><button class="btn" onclick="showPaintings('${exhibition.exhibitionID}');">View Paintings</button></td>
+                      </tr>`;
+                exhibitionTableBody.innerHTML += row;
+              }
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching exhibition details:", error)
+          );
       }
+
       function buy(paintingID) {
         fetch(`/buy/${paintingID}`, {
           method: "POST",
@@ -203,34 +243,6 @@
         })
         .catch((error) =>
           console.error("Error fetching purchase details:", error)
-        );
-
-      fetch("/exhibit")
-        .then((response) => response.json())
-        .then((data) => {
-          const exhibitionTableBody = document.getElementById("exhibit");
-          exhibitionTableBody.innerHTML = "";
-
-          data.forEach((exhibition) => {
-            const formattedStartDate = new Date(
-              exhibition.startDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-            const formattedEndDate = new Date(
-              exhibition.endDate
-            ).toLocaleDateString("en-US", { timeZone: "IST" });
-
-            const row = `<tr>
-                        <td>${exhibition.exhibitionID}</td>
-                        <td>${exhibition.name}</td>
-                        <td>${formattedStartDate}</td>
-                        <td>${formattedEndDate}</td>
-                        <td><button class="btn" onclick="showPaintings('${exhibition.exhibitionID}');">View Paintings</button></td>
-                      </tr>`;
-            exhibitionTableBody.innerHTML += row;
-          });
-        })
-        .catch((error) =>
-          console.error("Error fetching exhibition details:", error)
         );
     </script>
   </head>
