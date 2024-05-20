@@ -1,112 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer details</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f1f1f1;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer details</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f1f1f1;
+      }
 
-    .header {
-      font-size: larger;
-      font-weight: bolder;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 38px;
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+      .header {
+        font-size: larger;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 38px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-    table {
-      width: 400px;
-      background-color: #ffffff;
-      border-collapse: collapse;
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-      margin-top: 50px; /* Adjust this value as needed */
-    }
+      table {
+        width: 400px;
+        background-color: #ffffff;
+        border-collapse: collapse;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        margin-top: 50px; /* Adjust this value as needed */
+      }
 
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #dddddd;
-    }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+      }
 
-    th {
-      background-color: #184e77;
-      color: #ffffff;
-    }
+      th {
+        background-color: #184e77;
+        color: #ffffff;
+      }
 
-    input[type="tel"],
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    textarea,
-    input[type="submit"] {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-    }
+      input[type="tel"],
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      textarea,
+      input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
 
-    input[type="submit"] {
-      background-color: #184e77;
-      color: #ffffff;
-      border: none;
-      cursor: pointer;
-    }
+      input[type="submit"] {
+        background-color: #184e77;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+      }
 
-    input[type="submit"]:hover {
-      background-color: #0d3559;
-    }
+      input[type="submit"]:hover {
+        background-color: #0d3559;
+      }
 
-    textarea {
-      resize: none;
-    }
-  </style>
-</head>
-<body>
-  <form action="/cus" method="post">
-    <h1 class="header">Customer Details</h1>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Enroll Customer Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><label for="name">Name:</label></td>
-          <td><input type="text" id="name" name="name" required /></td>
-        </tr>
-        <tr>
-          <td><label for="email">Email:</label></td>
-          <td><input type="email" id="email" name="email" required /></td>
-        </tr>
-        <tr>
-          <td><label for="phone">Phone:</label></td>
-          <td><input type="tel" id="phone" name="phone" required /></td>
-        </tr>
-        <tr>
-          <td><label for="dob">Date of Birth:</label></td>
-          <td><input type="date" id="dob" name="dob" required /></td>
-        </tr>
-        <tr>
-          <td><label for="address">Address:</label></td>
-          <td><textarea id="address" name="address" required></textarea></td>
-        </tr>
-        <tr>
-          <td colspan="2"><input type="submit" value="Submit" /></td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-</body>
+      textarea {
+        resize: none;
+      }
+    </style>
+    <script>
+      
+      function validateForm() {
+        var name = document.getElementById("name").value;
+        if (/\d/.test(name)) {
+          alert("Name should not contain numbers.");
+          return false;
+        }
+
+        var email = document.getElementById("email").value;
+        var validEmailDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com", "protonmail.com"];
+      var emailDomain = email.substring(email.lastIndexOf("@") + 1);
+        if (!validEmailDomains.includes(emailDomain)) {
+          alert(
+            "Enter a valid email address."
+          );
+          return false;
+        }
+
+        var phone = document.getElementById("phone").value;
+        if (!/^\d{10}$/.test(phone)) {
+          alert("Enter a valid 10 digit phone number.");
+          return false;
+        }
+        
+        var dob = new Date(document.getElementById("dob").value);
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dob.getDate())
+        ) {
+          age--;
+        }
+        if (age < 18) {
+          alert("You must be at least 18 years old.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <form action="/cus" method="post" onsubmit="return validateForm()">
+      <h1 class="header">Customer Details</h1>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Enroll Customer Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" id="name" name="name" required /></td>
+          </tr>
+          <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="email" id="email" name="email" required /></td>
+          </tr>
+          <tr>
+            <td><label for="phone">Phone:</label></td>
+            <td><input type="tel" id="phone" name="phone" required /></td>
+          </tr>
+          <tr>
+            <td><label for="dob">Date of Birth:</label></td>
+            <td><input type="date" id="dob" name="dob" required /></td>
+          </tr>
+          <tr>
+            <td><label for="address">Address:</label></td>
+            <td><textarea id="address" name="address" required></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="submit" value="Submit" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </body>
 </html>
