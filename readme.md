@@ -21,9 +21,3 @@ To get started with the Art Gallery Management System, simply follow these steps
 4. Begin adding artworks to your catalog, providing all relevant details.
 5. Use the system's features to manage inventory, plan exhibitions, and track sales.
 6. Generate reports and analyze data to optimize gallery operations.
-
-## Support
-
-If you have any questions or need assistance with the Art Gallery Management System, please don't hesitate to contact our support team at support@examplegallery.com. We're here to help!
-
-Enjoy using the Art Gallery Management System and make your gallery management a breeze!
